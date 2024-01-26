@@ -1,15 +1,14 @@
-import { useSigner } from '@/context/useSigner'
+import { useSigner }   from '@/hooks/useSigner'
 import { Box, Button } from '@mantine/core'
 
 interface Props {
-  pass : string
+  pass   : string
+  pubkey : string
 }
 
-export default function UnlockView({ pass } : Props) {
+export default function UnlockView({ pass, pubkey } : Props) {
 
-  const { store } = useSigner()
-
-  const submit = () => store.load(pass)
+  const { session } = useSigner()
 
   return (
     <Box>
@@ -17,7 +16,7 @@ export default function UnlockView({ pass } : Props) {
         fullWidth
         mt      = {15}
         bg      = 'green'
-        onClick = {submit}
+        onClick = {() => session.load(pass, pubkey)}
         radius  = {0}
       >
         Unlock

@@ -1,5 +1,5 @@
 import { useState }          from 'react'
-import { useStore }          from '@/context/useStore'
+import { useStore }          from '@/hooks/useProposal'
 import { useForm }           from '@mantine/form'
 import { validate_proposal } from '@scrow/core/validate'
 import { ProposalData }      from '@scrow/core'

@@ -1,13 +1,13 @@
 import { Box, Text }       from '@mantine/core'
-import { useContractList } from '@/hooks/useContract'
+import { useContractList } from '@scrow/hooks/contract'
 
 import {
   ContractData,
-  Signer
+  EscrowSigner
 } from '@scrow/core'
 
 interface Props {
-  signer : Signer
+  signer : EscrowSigner
 }
 
 interface ItemProps {

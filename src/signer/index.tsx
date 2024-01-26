@@ -1,6 +1,8 @@
-import React         from 'react'
-import { Buff }      from '@cmdcode/buff'
-import { initStore } from './store.js'
+import { Buff }         from '@cmdcode/buff'
+import { ClientConfig } from '@scrow/core'
+import { initSigner }   from './signer.js'
+import { initStore }    from './store.js'
+import { SignerStore }  from './types.js'
 
 import {
   createContext,
@@ -8,13 +10,10 @@ import {
   useContext
 } from 'react'
 
-import { initSigner }  from './signer.js'
-import { SignerStore } from './types.js'
-
 type Props = { children : ReactElement }
 type Store = ReturnType<typeof initSigner>
 
-const STORE_NAME = process.env.STORE_NAME ?? 'signers'
+const STORE_NAME = 'signers'
 
 // Setup the default values for your store.
 const defaults : SignerStore = {
@@ -23,7 +22,7 @@ const defaults : SignerStore = {
   store_id : Buff.random(32).hex,
 }
 
-export function createSigner () {
+export function createSignerStore (config : ClientConfig) {
   // Create our provider context.
   const context = createContext<Store | null>(null)
 
@@ -33,7 +32,7 @@ export function createSigner () {
     // Returns the Provider that wraps our app and
     // passes down the context object.
     const store = initStore(defaults, STORE_NAME)
-    const ctx   = initSigner(store)
+    const ctx   = initSigner(config, store)
 
     return (
       <context.Provider value={ctx}>

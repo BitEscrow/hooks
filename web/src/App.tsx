@@ -2,6 +2,7 @@
 import { useState } from 'react'
 
 import { useDisclosure } from '@mantine/hooks'
+
 import { AppShell, Box, NavLink, Text } from '@mantine/core'
 
 import ProposalView from '@/components/proposal'

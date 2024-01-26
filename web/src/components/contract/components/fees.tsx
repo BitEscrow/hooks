@@ -14,9 +14,9 @@ interface Props {
 }
 
 export default function ContractFeesList ({ data } : Props) {
-  const { fees } = data
+  const [ amount, address ] = data.agent_fee
   
-  const rows = fees.map(([ amount, address ]) => (
+  const rows = [
     <Fragment key={random()}>
       <Table.Tr>
         <Table.Td className={styles.label}>Address</Table.Td>
@@ -27,7 +27,7 @@ export default function ContractFeesList ({ data } : Props) {
         <Table.Td className={styles.value}>{amount}</Table.Td>
       </Table.Tr>
     </Fragment>
-  ))
+  ]
 
   return (
     <Table>

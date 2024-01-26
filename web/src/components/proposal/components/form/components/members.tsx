@@ -1,7 +1,7 @@
 import { UseFormReturnType } from '@mantine/form'
 import { IconTrash }         from '@tabler/icons-react'
 import { ProposalData }      from '@scrow/core'
-import { useSigner }         from '@/context/useSigner'
+import { useSigner }         from '@/hooks/useSigner'
 
 import {
   TextInput,
@@ -75,7 +75,7 @@ export default function ProposalMemberList({ form } : Props) {
         { signer !== null &&
           <Button
           bg='green'
-          onClick={() => insert(signer.id, signer.pubkey)}
+          onClick={() => insert(signer.pubkey, signer.pubkey)}
         >
           Join
         </Button>

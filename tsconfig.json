@@ -8,6 +8,10 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*" : [ "src/*" ]
+    },
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,

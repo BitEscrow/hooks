@@ -11,7 +11,7 @@ interface Props {
 export default function ContractInfoView ({ data } : Props) {
 
   const { cid, terms }     = data
-  const { title, details } = terms
+  const { title, content } = terms
 
   return (
     <Table>
@@ -26,8 +26,8 @@ export default function ContractInfoView ({ data } : Props) {
           <Table.Td className={styles.value}>{title}</Table.Td>
         </Table.Tr>
         <Table.Tr>
-          <Table.Td className={styles.label}>Details</Table.Td>
-          <Table.Td className={styles.value}>{details}</Table.Td>
+          <Table.Td className={styles.label}>Content</Table.Td>
+          <Table.Td className={styles.value}>{content}</Table.Td>
         </Table.Tr>
         <Table.Tr>
           <Table.Td className={styles.label}>CID</Table.Td>

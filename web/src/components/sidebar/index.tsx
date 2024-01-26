@@ -1,4 +1,4 @@
-import { useSigner } from '@/context/useSigner'
+import { useSigner } from '@/hooks/useSigner'
 
 import { Box } from '@mantine/core'
 

@@ -1,11 +1,5 @@
 import { UseFormReturnType } from '@mantine/form'
-import { DateTimePicker }    from '@mantine/dates'
 import { ProposalData }      from '@scrow/core'
-
-import {
-  convert_timer,
-  parse_reltime
-} from '@/lib/date'
 
 import ProposalTotalView from './totals'
 

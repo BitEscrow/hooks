@@ -10,7 +10,7 @@ interface Props {
 
 export default function ContractAgentView ({ data } : Props) {
 
-  const { agent_id, agent_key, record_pn } = data
+  const { agent_id, agent_pk, agent_pn } = data
 
   return (
     <Table>
@@ -26,11 +26,11 @@ export default function ContractAgentView ({ data } : Props) {
         </Table.Tr>
         <Table.Tr>
           <Table.Td className={styles.label}>Pubkey</Table.Td>
-          <Table.Td className={styles.value}>{shorten_str(agent_key)}</Table.Td>
+          <Table.Td className={styles.value}>{shorten_str(agent_pk)}</Table.Td>
         </Table.Tr>
         <Table.Tr>
           <Table.Td className={styles.label}>Root</Table.Td>
-          <Table.Td className={styles.value}>{shorten_str(record_pn)}</Table.Td>
+          <Table.Td className={styles.value}>{shorten_str(agent_pn)}</Table.Td>
         </Table.Tr>
       </Table.Tbody>
     </Table>

@@ -1,9 +1,9 @@
 import { Box, Button, Group, Text } from '@mantine/core'
 
-import { useSigner } from "@/context/useSigner"
+import { useSigner } from "@/hooks/useSigner"
 
 export default function SignerView () {
-  const { signer, store } = useSigner()
+  const { signer, session } = useSigner()
 
   return (
     <Box>
@@ -24,7 +24,7 @@ export default function SignerView () {
               h  = {50}
               ta = 'left'
             >
-              {'...' + signer.id.slice(-16)}
+              {'...' + signer.pubkey.slice(-16)}
             </Text>
           </Group>
           <Group gap={0}>
@@ -49,7 +49,7 @@ export default function SignerView () {
             fullWidth
             radius  = {0}
             bg      = 'maroon'
-            onClick = {store.close}
+            onClick = {session.close}
           >
             Close
           </Button>

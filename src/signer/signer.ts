@@ -1,13 +1,19 @@
-import { useState }     from 'react'
-import { Seed }         from '@cmdcode/signer'
-import { EscrowSigner } from '@scrow/core'
+import { useState }    from 'react'
+import { Seed }        from '@cmdcode/signer'
+import { initStore }   from './store.js'
+import { SignerStore } from './types.js'
 
-import { initStore }    from './store.js'
-import { SignerStore }  from './types.js'
+import {
+  ClientConfig,
+  EscrowSigner
+} from '@scrow/core'
 
 type StoreAPI  = ReturnType<typeof initStore<SignerStore>>
 
-export function initSigner (reducer : StoreAPI) {
+export function initSigner (
+  config  : ClientConfig,
+  reducer : StoreAPI
+) {
   const { store, update, reset } = reducer
   const [ signer, setSigner  ] = useState<EscrowSigner | null>(null)
 
@@ -32,8 +38,11 @@ export function initSigner (reducer : StoreAPI) {
 
   const create_session = async (
     password : string,
-    signer   : EscrowSigner
+    seed     : string,
+    xpub    ?: string
   ) => {
+    // Create Escrow Signer.
+    const signer = EscrowSigner.create(config, seed, xpub)
     // Get signer pubkey.
     const pub = signer.pubkey
     // Check if a session already exists for pubkey.
@@ -54,13 +63,13 @@ export function initSigner (reducer : StoreAPI) {
     password : string,
     pubkey   : string
   ) => {
-    if (has_session(pubkey)) {
+    if (!has_session(pubkey)) {
       throw new Error('session does not exist: ' + pubkey)
     }
     // Get session from store.
     const payload = get_session(pubkey)
     // Load signer from encrypted payload.
-    const signer = EscrowSigner.load(password, payload)
+    const signer = EscrowSigner.load(config, password, payload)
     // Set new signer as current session.
     setSigner(signer)
     // Return new signer.

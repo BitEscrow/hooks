@@ -1,4 +1,5 @@
 import { useState } from 'react'
+
 import ProposalForm from './components/form'
 import ProposalJson from './components/json'
 

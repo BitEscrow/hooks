@@ -1,5 +1,8 @@
 
-import { useSigner } from '@/context/useSigner'
+import { useSigner } from '@/hooks/useSigner'
+import { Buff } from '@cmdcode/buff'
+import { Seed } from '@cmdcode/signer'
+
 import { Box, Button, Center, Checkbox, Flex, Group } from '@mantine/core'
 
 import { useState } from 'react'
@@ -10,7 +13,7 @@ interface Props {
 
 export default function SeedView ({ pass } : Props) {
 
-  const { gen_words, store } = useSigner()
+  const { gen_words, session } = useSigner()
 
   const [ agree, setAgree ] = useState(false)
   const [ words, setWords ] = useState(gen_words())
@@ -18,7 +21,8 @@ export default function SeedView ({ pass } : Props) {
   const regen  = () => setWords(gen_words())
 
   const submit = () => {
-    store.import(pass).from_bip39(words)
+    const seed = Buff.raw(Seed.import.from_words(words))
+    session.create(pass, seed.hex)
   }
 
   return (

@@ -1,6 +1,10 @@
-import { useSigner } from '@/context/useSigner'
+import { Seed } from '@cmdcode/signer'
+import { useSigner } from '@/hooks/useSigner'
+
 import { Box, Button, Center, SegmentedControl, TagsInput, TextInput } from '@mantine/core'
+
 import { useState } from 'react'
+import { Buff } from '@cmdcode/buff'
 
 // Need to pass in password as prop.
 // have input field change based on selection.
@@ -13,7 +17,7 @@ interface Props {
 
 export default function ImportView ({ pass } : Props) {
 
-  const { store } = useSigner()
+  const { session } = useSigner()
 
   const [ view, setView ] = useState('seed')
   const [ word, setWord ] = useState<string[]>([])
@@ -21,13 +25,16 @@ export default function ImportView ({ pass } : Props) {
   const [ xprv, setXprv ] = useState('')
 
   const submit = () => {
+    let secret : Buff | undefined
     if (view === 'bip39') {
-      store.import(pass).from_bip39(word)
+      secret = Buff.raw(Seed.import.from_words(word))
     } else if (view === 'seed') {
-      store.import(pass).from_seed(seed)
+      secret = Buff.hex(seed)
     } else if (view === 'xprv') {
-      store.import(pass).from_xprv(xprv)
+      throw new Error('not implemented')
     }
+    if (secret === undefined) throw new Error('no seed set')
+    session.create(pass, secret.hex)
   }
 
   return (

@@ -1,4 +1,4 @@
-import { useSigner } from '@/context/useSigner'
+import { useSigner } from '@/hooks/useSigner'
 
 import { ActionIcon, Button, ColorSwatch, Group } from '@mantine/core'
 
@@ -32,7 +32,7 @@ export default function Header(props : Props) {
         BitEscrow
       </Button>
       <Group gap={0}>
-        { signer !== null && <IdSwatch id={signer.id} /> }
+        { signer !== null && <IdSwatch id={signer.pubkey} /> }
         <ActionIcon 
           radius     = {0}
           variant    = "filled" 

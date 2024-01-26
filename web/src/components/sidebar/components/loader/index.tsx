@@ -1,8 +1,7 @@
-// import { useSigner } from '@/context/useSigner'
+import { useSigner } from '@/hooks/useSigner'
 
-import { Box, Center, PasswordInput, Text } from '@mantine/core'
+import { Box, Center, PasswordInput } from '@mantine/core'
 
-// import { IconBraces, IconForms }  from '@tabler/icons-react'
 import { useState } from 'react'
 
 import ImportView from './import'
@@ -10,23 +9,32 @@ import SeedView   from './seeds'
 import ControlView from './controls'
 import UnlockView from './unlock'
 
-// Show password box.
-// Import, unlock, generate
+// const iconStyle = { width: rem(16), height: rem(16) }
 
 export default function LoaderView () {
 
-  // const { gen_words, signer, store } = useSigner()
+  const { session } = useSigner()
+
+  const [ selected, setSelected ] = useState<string | null>(null)
 
   const [ view,  setView  ] = useState('unlock')
   const [ pass,  setPass  ] = useState('')
-
-  // const iconStyle = { width: rem(16), height: rem(16) }
   
   return (
     <Box bg='blue'>
       <ControlView view={view} setView={setView} />
+
+
       <Center mih={100} mt={25}>
-        <Text c='white' fs="italic">No signing device loaded.</Text>
+        <ul>
+          {session.list.map(([ pubkey ]) => (
+            <li key={pubkey}>
+              <span>{pubkey.slice(0, 16)}</span>
+              <button onClick={() => setSelected(pubkey) }>[o]</button>
+              <button onClick={() => session.remove(pubkey) }>[x]</button>
+            </li>
+          ))}
+        </ul>
       </Center>
       <PasswordInput
         c           = 'white'
@@ -39,7 +47,7 @@ export default function LoaderView () {
       <Box>
           { view === 'create' && <SeedView   pass={pass} />}
           { view === 'import' && <ImportView pass={pass} />}
-          { view === 'unlock' && <UnlockView pass={pass} />}
+          { view === 'unlock' && selected && <UnlockView pubkey={selected} pass={pass} />}
       </Box>
     </Box>
   )
