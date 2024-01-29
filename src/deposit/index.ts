@@ -33,7 +33,7 @@ export function useDepositList (
 ) {
   const client = signer.client
   const pub    = signer.pubkey
-  const url    = `${client.host}/api/deposit/list?pubkey=${pub}`
+  const url    = `${client.host}/api/deposit/list?pk=${pub}`
 
   const fetcher = async () => {
     const pub   = signer.pubkey

@@ -39,15 +39,13 @@ export function useContractList (
 ) {
   const client = signer.client
   const pub    = signer.pubkey
-  const url    = `${client.host}/api/contract/list?pubkey=${pub}`
-
-  console.log('url:', url)
+  const url    = `${client.host}/api/contract/list?pk=${pub}`
 
   const fetcher = async () => {
-    const res   = await fetch(url)
-    if (!res.ok) throw new Error(res.status + res.statusText)
-    const data = await res.json()
-    return data
+    const token = signer.request.contracts()
+    const res   = await client.contract.list(pub, token)
+    if (!res.ok) throw new Error(res.error)
+    return res.data
   }
 
   const res = useSWR<ContractListResponse>(url, fetcher)

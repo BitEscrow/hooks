@@ -39,9 +39,9 @@
   },
   "dependencies": {
     "@cmdcode/buff": "^2.2.4",
-    "@cmdcode/signer": "^1.3.11",
+    "@cmdcode/signer": "^1.4.0",
     "@cmdcode/use-store": "^1.0.7",
-    "@scrow/core": "^0.5.13",
+    "@scrow/core": "^0.6.10",
     "dayjs": "^1.11.10",
     "swr": "^2.2.4"
   },
@@ -49,12 +49,12 @@
     "react": "^18.2.0"
   },
   "devDependencies": {
-    "@mantine/core": "^7.4.2",
-    "@mantine/dates": "^7.4.2",
-    "@mantine/form": "^7.4.2",
-    "@mantine/hooks": "^7.4.2",
+    "@mantine/core": "^7.5.0",
+    "@mantine/dates": "^7.5.0",
+    "@mantine/form": "^7.5.0",
+    "@mantine/hooks": "^7.5.0",
     "@tabler/icons-react": "^2.46.0",
-    "@types/node": "^20.9.0",
+    "@types/node": "^20.11.10",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.15",
     "@vitejs/plugin-react-swc": "^3.3.2",
