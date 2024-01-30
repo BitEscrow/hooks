@@ -1,4 +1,3 @@
-import { Buff }         from '@cmdcode/buff'
 import { ClientConfig } from '@scrow/core'
 import { initSigner }   from './signer.js'
 import { initStore }    from './store.js'
@@ -18,8 +17,7 @@ const STORE_NAME = 'signers'
 // Setup the default values for your store.
 const defaults : SignerStore = {
   sessions : [],
-  signer   : null,
-  store_id : Buff.random(32).hex,
+  signer   : null
 }
 
 export function createSignerStore (config : ClientConfig) {
