@@ -56,14 +56,14 @@ export default function ProposalTaskList({ form } : Props) {
           </Text>
         </Group>
       ) : (
-        <Text c="dimmed" ta="center">
+        <Text c="dimmed" ta="center" pt={'10px'}>
           No tasks created...
         </Text>
       )}
 
       {fields}
 
-      <Group justify="center" mt="md">
+      <Group justify="center">
         <Button
           onClick={() =>
             form.insertListItem('schedule', [ 0, 'close', '' ])

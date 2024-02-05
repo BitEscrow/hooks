@@ -8,7 +8,7 @@ import { AppShell, Box, NavLink, Text } from '@mantine/core'
 import ProposalView from '@/components/proposal'
 import ContractView from '@/components/contract'
 import Header       from '@/components/header'
-import SideBar      from '@/components/sidebar'
+import SideBar      from '@/components/drawer'
 
 export default function AppDemo() {
 
@@ -56,7 +56,6 @@ export default function AppDemo() {
         <NavLink label="proposal" active={ view === 'proposal' } onClick={ () => setView('proposal') }/>
         <NavLink label="contract" active={ view === 'contract' }onClick={ () => setView('contract') }/>
         <NavLink label="deposits" active={ view === 'deposits' }onClick={ () => setView('deposits') }/>
-        <NavLink label="vm"       active={ view === 'vm' }onClick={ () => setView('vm')       }/>
       </AppShell.Navbar>
 
       <AppShell.Aside>
@@ -67,7 +66,6 @@ export default function AppDemo() {
         { view === 'proposal' && <ProposalView /> }
         { view === 'contract' && <ContractView /> }
         { view === 'deposits' && <p>Deposit demo goes here.</p> }
-        { view === 'vm'       && <p>CVM demo goes here.</p>     }
       </AppShell.Main>
 
       <AppShell.Footer>

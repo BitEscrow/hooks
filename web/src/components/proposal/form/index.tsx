@@ -8,19 +8,19 @@ import {
   Alert,
   Box,
   Button,
+  Divider,
   Group,
   Space,
   Text,
-  rem
 } from '@mantine/core'
 
 import {
   IconInfoCircle,
 } from '@tabler/icons-react'
 
-import ProposalTaskList    from './tasks'
 import ProposalDetailView  from './details'
 import ProposalMemberList  from './members'
+import ProposalPaymentList from './payments'
 
 export default function ProposalForm() {
   const { store, update }   = useStore()
@@ -28,7 +28,6 @@ export default function ProposalForm() {
 
   const proposal = store.proposal
 
-  const iconStyle = { width: rem(16), height: rem(16) };
 
   const form = useForm ({
     initialValues: proposal,
@@ -64,15 +63,19 @@ export default function ProposalForm() {
           </Alert>
         || <Space />
       }
-      <Text>
-        Details
-      </Text>
-      <ProposalDetailView form={ form } />
-      <ProposalMemberList form={ form } />
-      <ProposalTaskList   form={ form } />
+      <Divider mt='30' mb='30'/>
+      <Text fw={700} size='xl'>Details</Text>
+      <ProposalDetailView form={form} />
+      <Divider mt='30' mb='30'/>
+      <Text fw={700} size='xl'>Members</Text>
+      <ProposalMemberList form={form} />
+      <Divider mt='30' mb='30'/>
+      <Text fw={700} size='xl'>Payments</Text>
+      {/* <ProposalTaskList form={form} /> */}
+      <ProposalPaymentList form={form} />
 
-      <Group mt="md">
-        <Button onClick={() => submit(form.values)}>Submit</Button>
+      <Group mt="40px">
+        <Button w='200px' onClick={() => submit(form.values)}>Submit</Button>
       </Group>
     </Box>
   )

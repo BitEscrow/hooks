@@ -31,20 +31,22 @@ export default function ProposalMemberList({ form } : Props) {
     const id  = `members.${index}.0`
     const pub = `members.${index}.1`
     return (
-      <Group key={index} mb={15}>
+      <Group key={index}>
         <TextInput
-          maw={100}
+          placeholder='Member ID'
+          maw={200}
           label='id'
           style={{ flex: 1 }}
           {...form.getInputProps(id)}
         />
         <TextInput
+          placeholder='Member PubKey'
           maw={250}
           label='pubkey'
           style={{ flex: 1 }}
           {...form.getInputProps(pub)}
         />
-        <ActionIcon color="red" onClick={() => form.removeListItem('members', index)}>
+        <ActionIcon color="red" onClick={() => form.removeListItem('members', index)} mt='23px'>
           <IconTrash size="1rem" />
         </ActionIcon>
       </Group>
@@ -56,23 +58,24 @@ export default function ProposalMemberList({ form } : Props) {
       {fields && fields.length > 0 ? (
        null
       ) : (
-        <Text c="dimmed" ta="center">
+        <Text c="dimmed" ta="center" pt={'10px'}>
           No members are defined...
         </Text>
       )}
-
       {fields}
 
-      <Group justify="center" mt="md">
-        <Button
-            onClick={() => insert('new_member_id', 'new_member_key')}
+      <Group justify="center">
+        <Button 
+          variant='subtle'
+          mt='10px'
+          onClick={() => insert('', '')}
         >
           Add Member
         </Button>
         { signer !== null &&
           <Button
-          bg='green'
-          onClick={() => insert(signer.pubkey, signer.pubkey)}
+            bg='green'
+            onClick={() => insert(signer.pubkey, signer.pubkey)}
         >
           Join
         </Button>

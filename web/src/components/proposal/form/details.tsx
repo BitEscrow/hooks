@@ -10,7 +10,7 @@ import {
 import {
   Box,
   NativeSelect,
-  NumberInput,
+  // NumberInput,
   Textarea,
   TextInput
 } from '@mantine/core'
@@ -34,23 +34,25 @@ export default function ProposalDetailView({ form } : Props) {
       />
 
       <DateTimePicker
-        label='Expires at'
+        withAsterisk
+        label='Expiration'
         value={convert_timer(form.values.expires)}
         onChange={(e) => form.setValues({ expires : parse_reltime(e) })}
       />
 
       <NativeSelect
+        withAsterisk
         label="Network"
         {...form.getInputProps('network')}
         data={[ 'main', 'testnet', 'mutiny' ]}
       />
 
-      <NumberInput
+      {/* <NumberInput
         label="Version"
         {...form.getInputProps('version')}
         min={1}
         max={1}
-      />
+      /> */}
     </Box>
   )
 }
