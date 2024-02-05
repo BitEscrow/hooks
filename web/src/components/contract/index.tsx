@@ -1,5 +1,5 @@
 import { useSigner }     from '@/hooks/useSigner'
-import ContractListView  from './components/list'
+import ContractListView  from './list'
 
 import { Box } from '@mantine/core'
 

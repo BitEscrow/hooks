@@ -63,7 +63,7 @@ export default function AppDemo() {
         <SideBar />
       </AppShell.Aside>
 
-      <AppShell.Main>
+      <AppShell.Main style={{ width: '100%', maxWidth: '100%' }}>
         { view === 'proposal' && <ProposalView /> }
         { view === 'contract' && <ContractView /> }
         { view === 'deposits' && <p>Deposit demo goes here.</p> }

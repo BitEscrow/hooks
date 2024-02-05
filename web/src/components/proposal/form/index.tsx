@@ -11,7 +11,6 @@ import {
   Group,
   Space,
   Tabs,
-  Text,
   rem
 } from '@mantine/core'
 
@@ -24,13 +23,13 @@ import {
   IconUser
 } from '@tabler/icons-react'
 
-import ProposalInfoView    from './components/info'
-import ProposalPathList    from './components/paths'
-import ProposalPaymentList from './components/payments'
-import ProposalProgramList from './components/programs'
-import ProposalTaskList    from './components/tasks'
-import ProposalDetailView  from './components/details'
-import ProposalMemberList  from './components/members'
+import ProposalInfoView    from './info'
+import ProposalPathList    from './paths'
+import ProposalPaymentList from './payments'
+import ProposalProgramList from './programs'
+import ProposalTaskList    from './tasks'
+import ProposalDetailView  from './details'
+import ProposalMemberList  from './members'
 
 export default function ProposalForm() {
   const { store, update }   = useStore()
@@ -59,7 +58,6 @@ export default function ProposalForm() {
 
   return (
     <Box maw={700}>
-      <Text mt={15} mb={5}>Form introduction goes here.</Text>
       { toast
         &&
           <Alert

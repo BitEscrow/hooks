@@ -1,11 +1,11 @@
 import { ContractData } from '@scrow/core'
 import { Box, Tabs }    from '@mantine/core'
 
-import ContractDateView  from './components/date'
-import ContractAgentView from './components/agent'
-import ContractFeesList  from './components/fees'
-import ContractTotalView from './components/values'
-import ContractInfoView  from './components/info'
+import ContractDateView  from './date'
+import ContractAgentView from './agent'
+import ContractFeesList  from './fees'
+import ContractTotalView from './values'
+import ContractInfoView  from './info'
 
 interface Props {
   data : ContractData

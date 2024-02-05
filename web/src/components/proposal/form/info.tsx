@@ -5,7 +5,6 @@ import ProposalTotalView from './totals'
 
 import {
   Box,
-  Group,
   Title
 } from '@mantine/core'
 
@@ -16,13 +15,13 @@ interface Props {
 export default function ProposalInfoView({ form } : Props) {
 
   return (
-    <Box maw={500}>
-      <Group gap={0}>
+    <Box style={{backgroundColor: '#f2f2f2', padding: '10px', maxWidth: '200px', borderRadius: '10px'}}>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
         <Title order={4}>{form.values.title}</Title>
         <Box>
-          <ProposalTotalView form={ form } />
+          <ProposalTotalView form={form} />
         </Box>
-      </Group>
-    </Box>
-  )
+      </div>
+  </Box>
+    )
 }

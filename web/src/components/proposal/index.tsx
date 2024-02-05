@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-import ProposalForm from './components/form'
-import ProposalJson from './components/json'
+import ProposalForm from './form'
+import ProposalJson from './json'
 
 import {
   Box,
@@ -24,25 +24,29 @@ export default function ProposalView () {
   const [ view, setView ] = useState('form')
 
   return (
-    <Card maw={700}>
-      <Group>
-        <Title order={2} mb={15}>Proposal</Title>
-        <SegmentedControl
-          ml='auto'
-          value={view}
-          onChange={setView}
-          data={[
-            { label: <FormLabel />, value: 'form' },
-            { label: <JsonLabel />, value: 'json' },
-          ]}
+    <Card style={{ padding: '20px', display: 'flex', flexDirection: 'column' }}>
+    <Group style={{ width: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+      <Title order={2} mb={15}>Proposal</Title>
+      <Text color="dimmed" style={{ marginBottom: '20px' }}>
+        The proposal is the template used to create a contract. It defines all the paths and terms.
+      </Text>
+          <SegmentedControl
+            w={'200px'}
+            value={view}
+            onChange={setView}
+            data={[
+              { label: <FormLabel />, value: 'form' },
+              { label: <JsonLabel />, value: 'json' },
+            ]}
+            style={{ marginBottom: '20px' }}
         />
-      </Group>
-      <Text>The proposal is the template used to create a contract. It defines all the paths and terms.</Text>
+      </div>
+    </Group>
 
-      { view === 'form' && <ProposalForm /> }
-      { view === 'json' && <ProposalJson /> }
-      
-    </Card>
+    {view === 'form' && <ProposalForm />}
+    {view === 'json' && <ProposalJson />}
+  </Card>
   )
 }
 

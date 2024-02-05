@@ -42,7 +42,7 @@ export default function Header(props : Props) {
       >
         <IconMenu2/>
       </Button>
-      <Image src={'/logo.png'} w={120} fit="auto" alt="BitEscrow Logo" />
+      <Image src={'/logo.png'} w={120}  alt="BitEscrow Logo" />
       <Group gap={0}>
         { signer !== null && <IdSwatch id={signer.pubkey} /> }
         <ActionIcon 
