@@ -10,23 +10,14 @@ import {
   Button,
   Group,
   Space,
-  Tabs,
+  Text,
   rem
 } from '@mantine/core'
 
 import {
   IconInfoCircle,
-  IconRouteAltLeft,
-  IconCurrencyBitcoin,
-  IconCpu2,
-  IconClockCode,
-  IconUser
 } from '@tabler/icons-react'
 
-import ProposalInfoView    from './info'
-import ProposalPathList    from './paths'
-import ProposalPaymentList from './payments'
-import ProposalProgramList from './programs'
 import ProposalTaskList    from './tasks'
 import ProposalDetailView  from './details'
 import ProposalMemberList  from './members'
@@ -73,51 +64,15 @@ export default function ProposalForm() {
           </Alert>
         || <Space />
       }
-      <ProposalInfoView form={ form } />
-      <Tabs defaultValue="details">
-        <Tabs.List mb={15} m={0}>
-          <Tabs.Tab value="details" leftSection={<IconInfoCircle style={iconStyle} />}>
-            Details
-          </Tabs.Tab>
-          <Tabs.Tab value="members" leftSection={<IconUser style={iconStyle} />}>
-            Members
-          </Tabs.Tab>
-          <Tabs.Tab value="paths" leftSection={<IconRouteAltLeft style={iconStyle} />}>
-            Paths
-          </Tabs.Tab>
-          <Tabs.Tab value="payments" leftSection={<IconCurrencyBitcoin style={iconStyle} />}>
-            Payments
-          </Tabs.Tab>
-          <Tabs.Tab value="programs" leftSection={<IconCpu2 style={iconStyle} />}>
-            Programs
-          </Tabs.Tab>
-          <Tabs.Tab value="schedule" leftSection={<IconClockCode style={iconStyle} />}>
-            Schedule
-          </Tabs.Tab>
-        </Tabs.List>
+      <Text>
+        Details
+      </Text>
+      <ProposalDetailView form={ form } />
+      <ProposalMemberList form={ form } />
+      <ProposalTaskList   form={ form } />
 
-        <Tabs.Panel value="details">
-          <ProposalDetailView form={ form } />
-        </Tabs.Panel>
-        <Tabs.Panel value="members">
-          <ProposalMemberList form={ form } />
-        </Tabs.Panel>
-        <Tabs.Panel value="paths">
-          <ProposalPathList form={ form } />
-        </Tabs.Panel>
-        <Tabs.Panel value="payments">
-          <ProposalPaymentList form={ form } />
-        </Tabs.Panel>
-        <Tabs.Panel value="programs">
-          <ProposalProgramList form={ form } />
-        </Tabs.Panel>
-        <Tabs.Panel value="schedule">
-          <ProposalTaskList    form={ form } />
-        </Tabs.Panel>
-      </Tabs>
       <Group mt="md">
-        <Button onClick={() => submit(form.values)}>Save</Button>
-        <Button onClick={() => submit(form.values)}>Reset</Button>
+        <Button onClick={() => submit(form.values)}>Submit</Button>
       </Group>
     </Box>
   )

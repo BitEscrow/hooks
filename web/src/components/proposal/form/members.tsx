@@ -32,11 +32,15 @@ export default function ProposalMemberList({ form } : Props) {
     const pub = `members.${index}.1`
     return (
       <Group key={index} mb={15}>
-        <TextInput maw={100}
+        <TextInput
+          maw={100}
+          label='id'
           style={{ flex: 1 }}
           {...form.getInputProps(id)}
         />
-        <TextInput maw={250}
+        <TextInput
+          maw={250}
+          label='pubkey'
           style={{ flex: 1 }}
           {...form.getInputProps(pub)}
         />
@@ -50,14 +54,7 @@ export default function ProposalMemberList({ form } : Props) {
   return (
     <Box maw={500}>
       {fields && fields.length > 0 ? (
-        <Group mb="xs">
-          <Text fw={500} size="sm" style={{ flex: 1 }}>
-            Id
-          </Text>
-          <Text fw={500} size="sm" pr={70}>
-            Pubkey
-          </Text>
-        </Group>
+       null
       ) : (
         <Text c="dimmed" ta="center">
           No members are defined...
@@ -68,7 +65,7 @@ export default function ProposalMemberList({ form } : Props) {
 
       <Group justify="center" mt="md">
         <Button
-          onClick={() => {}}
+            onClick={() => insert('new_member_id', 'new_member_key')}
         >
           Add Member
         </Button>
