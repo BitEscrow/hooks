@@ -1,4 +1,4 @@
-import { Box, Burger, Button } from '@mantine/core'
+import { Box, Burger, Button }  from '@mantine/core'
 
 interface Props {
   navi_opened : boolean

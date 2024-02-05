@@ -1,8 +1,17 @@
 import { useSigner } from '@/hooks/useSigner'
 
-import { ActionIcon, Button, ColorSwatch, Group } from '@mantine/core'
+import {
+  ActionIcon,
+  Button,
+  ColorSwatch,
+  Group,
+  Image
+} from '@mantine/core'
 
-import { IconKey } from '@tabler/icons-react'
+import {
+  IconKey, 
+  IconMenu2
+} from '@tabler/icons-react'
 
 interface Props {
   navi_opened : boolean
@@ -24,13 +33,16 @@ export default function Header(props : Props) {
   }
 
   return (
-    <Group p={10} justify='space-between'>
+    <Group p={10} justify='space-between' style={{ alignItems: 'center' }}>
       <Button
-        onClick    = { navi_toggle }
-        aria-label = "Toggle navbar"
+        onClick     = { navi_toggle }
+        aria-label  ="Toggle navbar"
+        color       ='black'
+        variant     ='transparent'
       >
-        BitEscrow
+        <IconMenu2/>
       </Button>
+      <Image src={'/logo.png'} w={120} fit="auto" alt="BitEscrow Logo" />
       <Group gap={0}>
         { signer !== null && <IdSwatch id={signer.pubkey} /> }
         <ActionIcon 
