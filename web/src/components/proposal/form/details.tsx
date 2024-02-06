@@ -1,18 +1,12 @@
 import { UseFormReturnType } from '@mantine/form'
-import { DateTimePicker }    from '@mantine/dates'
 import { ProposalData }      from '@scrow/core'
-
-import {
-  convert_timer,
-  parse_reltime
-} from '@/lib/date'
 
 import {
   Box,
   NativeSelect,
-  // NumberInput,
+  NumberInput,
   Textarea,
-  TextInput
+  TextInput,
 } from '@mantine/core'
 
 interface Props {
@@ -28,31 +22,82 @@ export default function ProposalDetailView({ form } : Props) {
         label="Title"
         {...form.getInputProps('title')}
       />
-      <Textarea
-        label="Description"
-        {...form.getInputProps('details')}
-      />
-
-      <DateTimePicker
-        withAsterisk
-        label='Expiration'
-        value={convert_timer(form.values.expires)}
-        onChange={(e) => form.setValues({ expires : parse_reltime(e) })}
-      />
 
       <NativeSelect
         withAsterisk
         label="Network"
         {...form.getInputProps('network')}
-        data={[ 'main', 'testnet', 'mutiny' ]}
+        data={['main', 'testnet', 'mutiny']}
       />
 
-      {/* <NumberInput
+      <NumberInput
+        withAsterisk
+        label="Value"
+        {...form.getInputProps('value')}
+        defaultValue={0}
+        precision={2}
+      />
+
+      <NumberInput
+        withAsterisk
+        label="Duration (days)"
+        {...form.getInputProps('duration')}
+        defaultValue={0}
+        min={1}
+        max={365} // Adjusted to a more realistic max duration
+        step={1}
+      />
+
+      <DatePicker
+        withAsterisk
+        label="Effective Date"
+        {...form.getInputProps('effective')}
+      />
+
+      <DatePicker
+        withAsterisk
+        label="Deadline"
+        {...form.getInputProps('deadline')}
+      />
+
+      <NumberInput
+        withAsterisk
+        label="Fee Rate"
+        {...form.getInputProps('feerate')}
+        defaultValue={0}
+        precision={2}
+      />
+
+      <NumberInput
         label="Version"
         {...form.getInputProps('version')}
+        defaultValue={1}
         min={1}
-        max={1}
-      /> */}
+      />
+
+      {/* Assuming schedule is a time-specific field, using TimeInput; adjust if different */}
+      <TimeInput
+        withAsterisk
+        label="Schedule"
+        {...form.getInputProps('schedule')}
+      />
+
+      <Textarea
+        label="Content"
+        {...form.getInputProps('content')}
+      />
     </Box>
   )
 }
+
+// title
+// network
+// value
+// duration
+// effective
+// deadline
+// feerate
+// version
+// schedule
+// content
+

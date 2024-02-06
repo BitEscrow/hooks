@@ -54,9 +54,6 @@ export default function ProposalMemberList({ form } : Props) {
           style={{ flex: 1 }}
           // {...form.getInputProps(role)} ??
         />
-        <ActionIcon color="red" onClick={() => form.removeListItem('members', index)} mt='23px'>
-          <IconTrash size="1rem" />
-        </ActionIcon>
       </Group>
     )
   })
@@ -73,13 +70,6 @@ export default function ProposalMemberList({ form } : Props) {
       {fields}
 
       <Group justify="center">
-        <Button 
-          variant='subtle'
-          mt='10px'
-          onClick={() => insert('', '')}
-        >
-          Add Member
-        </Button>
         { signer !== null &&
           <Button
             bg='green'
