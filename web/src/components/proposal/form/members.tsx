@@ -9,6 +9,7 @@ import {
   ActionIcon,
   Box,
   Text,
+  NativeSelect,
   Button
 } from '@mantine/core'
 
@@ -35,16 +36,23 @@ export default function ProposalMemberList({ form } : Props) {
         <TextInput
           placeholder='Member ID'
           maw={200}
-          label='id'
+          label='ID'
           style={{ flex: 1 }}
           {...form.getInputProps(id)}
         />
         <TextInput
           placeholder='Member PubKey'
           maw={250}
-          label='pubkey'
+          label='Pubkey'
           style={{ flex: 1 }}
           {...form.getInputProps(pub)}
+        />
+        <NativeSelect
+          data={['Buyer', 'Seller', 'Agent']}
+          maw={250}
+          label='Role'
+          style={{ flex: 1 }}
+          // {...form.getInputProps(role)} ??
         />
         <ActionIcon color="red" onClick={() => form.removeListItem('members', index)} mt='23px'>
           <IconTrash size="1rem" />

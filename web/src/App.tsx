@@ -1,9 +1,11 @@
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { useDisclosure } from '@mantine/hooks'
 
 import { AppShell, Box, NavLink, Text } from '@mantine/core'
+
+import Plausible from 'plausible-tracker'
 
 import ProposalView from '@/components/proposal'
 import ContractView from '@/components/contract'
@@ -11,13 +13,22 @@ import Header       from '@/components/header'
 import SideBar      from '@/components/drawer'
 
 export default function AppDemo() {
-
   const [ navi_desk_open, { toggle : toggle_navi_desk } ] = useDisclosure(true)
   const [ navi_mobi_open, { toggle : toggle_navi_mobi } ] = useDisclosure()
   const [ side_desk_open, { toggle : toggle_side_desk } ] = useDisclosure()
   const [ side_mobi_open, { toggle : toggle_side_mobi } ] = useDisclosure()
-
+  
   const [ view, setView ] = useState('proposal')
+  
+  // Link to our analytics: https://plausible.io/mvp.bitescrow.app
+  useEffect(() => {
+    const { trackPageview } = Plausible({
+      domain: 'mvp.bitescrow.app',
+      trackLocalhost: true
+    });
+
+    trackPageview();
+  }, []); 
 
   return (
     <AppShell

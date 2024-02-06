@@ -43,6 +43,7 @@
     "@cmdcode/use-store": "^1.0.7",
     "@scrow/core": "^0.6.10",
     "dayjs": "^1.11.10",
+    "plausible-tracker": "^0.3.8",
     "swr": "^2.2.4"
   },
   "peerDependencies": {
