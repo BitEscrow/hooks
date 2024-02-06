@@ -9,6 +9,9 @@ import {
   TextInput,
 } from '@mantine/core'
 
+import { DateTimePicker }    from '@mantine/dates'
+
+
 interface Props {
   form : UseFormReturnType<ProposalData>
 }
@@ -23,6 +26,11 @@ export default function ProposalDetailView({ form } : Props) {
         {...form.getInputProps('title')}
       />
 
+      <Textarea
+        label="Description"
+        {...form.getInputProps('description')}
+      />
+
       <NativeSelect
         withAsterisk
         label="Network"
@@ -32,29 +40,29 @@ export default function ProposalDetailView({ form } : Props) {
 
       <NumberInput
         withAsterisk
-        label="Value"
+        label="Value (in Sats)"
         {...form.getInputProps('value')}
         defaultValue={0}
-        precision={2}
+        // precision={2}
       />
 
       <NumberInput
         withAsterisk
-        label="Duration (days)"
+        label="Duration (in seconds)"
         {...form.getInputProps('duration')}
         defaultValue={0}
-        min={1}
-        max={365} // Adjusted to a more realistic max duration
+        min={120} // 2 mins minimum
+        max={1209600} // 2 weeks max in seconds
         step={1}
       />
 
-      <DatePicker
+      <DateTimePicker
         withAsterisk
         label="Effective Date"
         {...form.getInputProps('effective')}
       />
 
-      <DatePicker
+      <DateTimePicker
         withAsterisk
         label="Deadline"
         {...form.getInputProps('deadline')}
@@ -65,7 +73,7 @@ export default function ProposalDetailView({ form } : Props) {
         label="Fee Rate"
         {...form.getInputProps('feerate')}
         defaultValue={0}
-        precision={2}
+        // precision={2}
       />
 
       <NumberInput
@@ -75,29 +83,8 @@ export default function ProposalDetailView({ form } : Props) {
         min={1}
       />
 
-      {/* Assuming schedule is a time-specific field, using TimeInput; adjust if different */}
-      <TimeInput
-        withAsterisk
-        label="Schedule"
-        {...form.getInputProps('schedule')}
-      />
-
-      <Textarea
-        label="Content"
-        {...form.getInputProps('content')}
-      />
     </Box>
   )
 }
 
-// title
-// network
-// value
-// duration
-// effective
-// deadline
-// feerate
-// version
-// schedule
-// content
 
