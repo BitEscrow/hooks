@@ -46,6 +46,7 @@ export default function ProposalPathList({ form } : Props) {
 
   return (
     <Box maw={500}>
+      <Text pt={'10px'} color='dimmed' mt={40}>PATHS filler text</Text>
       {fields.length > 0 ? (
         <Group mb="xs">
           <Text fw={500} size="sm" style={{ flex: 1 }}>
@@ -59,15 +60,16 @@ export default function ProposalPathList({ form } : Props) {
           </Text>
         </Group>
       ) : (
-        <Text c="dimmed" ta="center">
+        <Text c="dimmed" ta="center" mt={40}>
           No paths created...
         </Text>
       )}
 
       {fields}
 
-      <Group justify="center" mt="md">
+      <Group justify="center" mt="sm">
         <Button
+          variant='subtle'
           onClick={() =>
             form.insertListItem('paths', [ 'payout', 0, undefined ])
           }

@@ -15,7 +15,7 @@ export default function ProposalRolesList({ form } : Props) {
 
   return (
     <Box maw={500}>
-      <Text pt={'10px'}>Assign roles to members:</Text>
+      <Text pt={'10px'} color='dimmed'>Assign roles to members</Text>
       <NativeSelect
         data={['Buyer', 'Seller', 'Agent']}
         label="Role for Member 1"

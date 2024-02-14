@@ -91,16 +91,18 @@ export default function ProposalProgramList({ form } : Props) {
 
   return (
     <Box maw={500}>
+      <Text pt={'10px'} color='dimmed' mt={40}>PROGRAMS filler text</Text>
       {fields.length === 0 &&
-        <Text c="dimmed" ta="center">
+        <Text c="dimmed" ta="center" mt={40}>
           No programs created...
         </Text>
       }
 
       {fields}
 
-      <Group justify="center" mt="md">
+      <Group justify="center" mt="sm">
         <Button
+          variant='subtle'
           onClick={() =>
             form.insertListItem('programs', [ '', 0, '' ])
           }

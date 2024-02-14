@@ -1,8 +1,17 @@
-import { UseFormReturnType } from '@mantine/form'
-import { IconTrash } from '@tabler/icons-react'
-import { Group, ActionIcon, Box, Text, Button, MultiSelect, NumberInput, Select } from '@mantine/core'
-import { ProposalData } from '@scrow/core'
-import { convert_regex, parse_regex } from '@/lib/util'
+import { UseFormReturnType }  from '@mantine/form'
+import { IconTrash }          from '@tabler/icons-react'
+import {
+  Group,
+  ActionIcon,
+  Box,
+  Text,
+  Button,
+  MultiSelect,
+  NumberInput,
+  Select
+}                             from '@mantine/core'
+import { ProposalData }       from '@scrow/core'
+import { parse_regex }        from '@/lib/util'
 
 interface Props {
   form : UseFormReturnType<ProposalData>
@@ -19,18 +28,22 @@ export default function ProposalTaskList({ form } : Props) {
     const path   = `schedule.${index}.2`
   
     return (
-      <Group key={index} mb={15}>
+      <Group
+        key={index}
+        mb={15}>
         <NumberInput maw={100}
           value={item[0]}
           onChange={(e) => form.setFieldValue(timer, e) }
         />
-        <Select maw={100}
+        <Select
+          maw={123}
           data={actions}
           {...form.getInputProps(action)}
         />
-        <MultiSelect w={200}
+        <MultiSelect
+          w={200}
           data={paths}
-          value={convert_regex(form.values.schedule[index][2], paths)}
+          value={item[2] ? [item[2]] : []}
           defaultValue={[paths[0]]}
           onChange={(e) => form.setFieldValue(path, parse_regex(e, paths)) }
         />
@@ -56,7 +69,7 @@ export default function ProposalTaskList({ form } : Props) {
           </Text>
         </Group>
       ) : (
-        <Text c="dimmed" ta="center" pt={'10px'}>
+        <Text c="dimmed" ta="center" mt={30}>
           No tasks created...
         </Text>
       )}
@@ -65,9 +78,8 @@ export default function ProposalTaskList({ form } : Props) {
 
       <Group justify="center">
         <Button
-          onClick={() =>
-            form.insertListItem('schedule', [ 0, 'close', '' ])
-          }
+          variant='subtle'
+           onClick={() => form.insertListItem('schedule', [0, 'close', ''])}
         >
           Add Task
         </Button>

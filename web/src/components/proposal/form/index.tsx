@@ -19,8 +19,9 @@ import {
 } from '@tabler/icons-react'
 
 import ProposalDetailView  from './details'
-import ProposalMemberList  from './members'
-import ProposalPaymentList from './payments'
+import ProposalPaymentList from './roles/payments'
+import ProposalTaskList    from './tasks'
+import Roles               from './roles'
 
 export default function ProposalForm() {
   const { store, update }   = useStore()
@@ -63,19 +64,31 @@ export default function ProposalForm() {
           </Alert>
         || <Space />
       }
-      <Divider mt='30' mb='30'/>
+      <Divider mt='30' mb='30' />
+      
       <Text fw={700} size='xl'>Details</Text>
       <ProposalDetailView form={form} />
-      <Divider mt='30' mb='30'/>
-      <Text fw={700} size='xl'>Members</Text>
-      <ProposalMemberList form={form} />
-      <Divider mt='30' mb='30'/>
-      <Text fw={700} size='xl'>Payments</Text>
-      {/* <ProposalTaskList form={form} /> */}
+      <Divider mt='30' mb='30' />
+      
+      <Text fw={700} size='xl'>Roles</Text>
+      <Roles form={form} />
+      <Divider mt='30' mb='30' />
+      
+      <Text fw={700} size='xl'>Scheduled Tasks</Text>
+      <ProposalTaskList form={form} />
+      <Divider mt='30' mb='30' />
+
+      {/* <Text fw={700} size='xl'>Payments</Text>
       <ProposalPaymentList form={form} />
+      <Divider mt='30' mb='30' /> */}
 
       <Group mt="40px">
-        <Button w='200px' onClick={() => submit(form.values)}>Submit</Button>
+        <Button
+          w='200px'
+          onClick={() => submit(form.values)}
+        >
+          Submit
+        </Button>
       </Group>
     </Box>
   )

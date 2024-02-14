@@ -1,12 +1,12 @@
 import { UseFormReturnType } from '@mantine/form'
-import { IconTrash }         from '@tabler/icons-react'
+// import { IconTrash }         from '@tabler/icons-react'
 import { ProposalData }      from '@scrow/core'
 import { useSigner }         from '@/hooks/useSigner'
 
 import {
   TextInput,
   Group,
-  ActionIcon,
+  // ActionIcon,
   Box,
   Text,
   NativeSelect,

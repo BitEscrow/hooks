@@ -20,7 +20,9 @@ export default function AppDemo() {
   
   const [ view, setView ] = useState('proposal')
   
-  // Link to our analytics: https://plausible.io/mvp.bitescrow.app
+  // --------------------------------------
+  // https://plausible.io/mvp.bitescrow.app
+  
   useEffect(() => {
     const { trackPageview } = Plausible({
       domain: 'mvp.bitescrow.app',
@@ -29,6 +31,7 @@ export default function AppDemo() {
 
     trackPageview();
   }, []); 
+  // --------------------------------------
 
   return (
     <AppShell
@@ -79,9 +82,9 @@ export default function AppDemo() {
         { view === 'deposits' && <p>Deposit demo goes here.</p> }
       </AppShell.Main>
 
-      <AppShell.Footer>
+      {/* <AppShell.Footer>
         <Text h={100}>Footer goes here.</Text>
-      </AppShell.Footer>
+      </AppShell.Footer> */}
 
     </AppShell>
   )

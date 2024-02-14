@@ -2,7 +2,15 @@ import { UseFormReturnType } from '@mantine/form'
 import { IconTrash }         from '@tabler/icons-react'
 import { ProposalData }      from '@scrow/core'
 
-import { NumberInput, TextInput, Group, ActionIcon, Box, Text, Button } from '@mantine/core'
+import {
+  NumberInput,
+  TextInput,
+  Group,
+  ActionIcon,
+  Box,
+  Text,
+  Button
+} from '@mantine/core'
 
 interface Props {
   form : UseFormReturnType<ProposalData>
@@ -32,17 +40,18 @@ export default function ProposalPaymentList({ form } : Props) {
 
   return (
     <Box maw={500}>
+      <Text pt={'10px'} color='dimmed' mt={40}>PAYMENTS filler text</Text>
       {fields.length > 0 ? (
        null
       ) : (
-        <Text c="dimmed" ta="center">
+        <Text c="dimmed" ta="center" mt={40}>
           No payments created...
         </Text>
       )}
 
       {fields}
 
-      <Group justify="center" mt="md">
+      <Group justify="center" mt="sm">
         <Button
           variant='subtle'
           onClick={() =>
