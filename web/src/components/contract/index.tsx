@@ -1,16 +1,9 @@
-import { useSigner }     from '@/hooks/useSigner'
-import ContractListView  from './list'
+import ContractTable from "./table";
 
-import { Box } from '@mantine/core'
-
-export default function ContractView () {
-  const { signer } = useSigner()
-
+export default function ContractView() {
   return (
-    <Box>
-      <Box>
-        { signer !== null && <ContractListView signer={signer} />}
-      </Box>
-    </Box>
+        <div>
+          <ContractTable/> 
+        </div>
   )
 }

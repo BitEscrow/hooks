@@ -1,17 +1,17 @@
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect }    from 'react'
 
-import { useDisclosure } from '@mantine/hooks'
+import { useDisclosure }          from '@mantine/hooks'
 
-import { AppShell, Box, NavLink, Text } from '@mantine/core'
+import { AppShell, Box, NavLink } from '@mantine/core'
 
-import Plausible from 'plausible-tracker'
+import Plausible                  from 'plausible-tracker'
 
-import ProposalView from '@/components/proposal'
-import ContractView from '@/components/contract'
-import Header       from '@/components/header'
-import SideBar      from '@/components/drawer'
-import FooterComponent from './components/footer'
+import ProposalView     from '@/components/proposal'
+import ContractView     from '@/components/contract'
+import Header           from '@/components/header'
+import SideBar          from '@/components/drawer'
+import FooterComponent  from './components/footer'
 
 export default function AppDemo() {
   const [ navi_desk_open, { toggle : toggle_navi_desk } ] = useDisclosure(true)
@@ -21,8 +21,16 @@ export default function AppDemo() {
   
   const [ view, setView ] = useState('proposal')
   
-  // --------------------------------------
+  // To opt out, simply delete this section
+  // of code. this will not break anything.
+  // See our privacy policy for more info
+  // at BitEscrow.app/privacy
+  // 
+  // -------------Analytics----------------
+  //
   // https://plausible.io/mvp.bitescrow.app
+  // 
+  // --------------------------------------
   
   useEffect(() => {
     const { trackPageview } = Plausible({
@@ -32,6 +40,7 @@ export default function AppDemo() {
 
     trackPageview();
   }, []); 
+  // ------------End Analytics-------------
   // --------------------------------------
 
   return (
@@ -70,8 +79,9 @@ export default function AppDemo() {
 
       <AppShell.Navbar p="md">
         <NavLink label="Proposal" active={ view === 'proposal' } onClick={ () => setView('proposal') }/>
-        <NavLink label="Contract" active={ view === 'contract' }onClick={ () => setView('contract') }/>
-        <NavLink label="Deposits" active={ view === 'deposits' }onClick={ () => setView('deposits') }/>
+        <NavLink label="Contracts" active={ view === 'contract' }onClick={ () => setView('contract') }/>
+        <NavLink label="Deposits" active={view === 'deposits'} onClick={() => setView('deposits')} />
+        
       </AppShell.Navbar>
 
       <AppShell.Aside>

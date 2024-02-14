@@ -45,7 +45,7 @@ const FooterComponent = () => {
                     <IconFileText size={24} color='white'/>
                 </Button>
         </Group>
-        <Text align="center"color='dimmed' size='sm' pt={5}>
+          <Text color='dimmed' size='sm' pt={5} style={{textAlign: 'center'}}>
 &copy; Talaria Software, Inc. {currentYear} | BitEscrow Beta Version 1.0
         </Text>
     </footer>
