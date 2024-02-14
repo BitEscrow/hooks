@@ -11,6 +11,7 @@ import ProposalView from '@/components/proposal'
 import ContractView from '@/components/contract'
 import Header       from '@/components/header'
 import SideBar      from '@/components/drawer'
+import FooterComponent from './components/footer'
 
 export default function AppDemo() {
   const [ navi_desk_open, { toggle : toggle_navi_desk } ] = useDisclosure(true)
@@ -36,6 +37,7 @@ export default function AppDemo() {
   return (
     <AppShell
       header={{ height: 60 }}
+      footer={{ height: 80 }}
       navbar={{
         width: 150,
         breakpoint : 'sm',
@@ -67,9 +69,9 @@ export default function AppDemo() {
       </AppShell.Header>
 
       <AppShell.Navbar p="md">
-        <NavLink label="proposal" active={ view === 'proposal' } onClick={ () => setView('proposal') }/>
-        <NavLink label="contract" active={ view === 'contract' }onClick={ () => setView('contract') }/>
-        <NavLink label="deposits" active={ view === 'deposits' }onClick={ () => setView('deposits') }/>
+        <NavLink label="Proposal" active={ view === 'proposal' } onClick={ () => setView('proposal') }/>
+        <NavLink label="Contract" active={ view === 'contract' }onClick={ () => setView('contract') }/>
+        <NavLink label="Deposits" active={ view === 'deposits' }onClick={ () => setView('deposits') }/>
       </AppShell.Navbar>
 
       <AppShell.Aside>
@@ -82,9 +84,9 @@ export default function AppDemo() {
         { view === 'deposits' && <p>Deposit demo goes here.</p> }
       </AppShell.Main>
 
-      {/* <AppShell.Footer>
-        <Text h={100}>Footer goes here.</Text>
-      </AppShell.Footer> */}
+      <AppShell.Footer>
+        <FooterComponent/>
+      </AppShell.Footer>
 
     </AppShell>
   )
