@@ -3,12 +3,18 @@ import { useState, useEffect }    from 'react'
 
 import { useDisclosure }          from '@mantine/hooks'
 
-import { AppShell, Box, NavLink } from '@mantine/core'
+import {
+  AppShell,
+  Box,
+  NavLink,
+  Button
+}                                 from '@mantine/core'
 
 import Plausible                  from 'plausible-tracker'
 
 import ProposalView     from '@/components/proposal'
 import ContractView     from '@/components/contract'
+import DepositView      from './components/deposits'
 import Header           from '@/components/header'
 import SideBar          from '@/components/drawer'
 import FooterComponent  from './components/footer'
@@ -19,7 +25,7 @@ export default function AppDemo() {
   const [ side_desk_open, { toggle : toggle_side_desk } ] = useDisclosure()
   const [ side_mobi_open, { toggle : toggle_side_mobi } ] = useDisclosure()
   
-  const [ view, setView ] = useState('proposal')
+  const [ view, setView ] = useState('drafts')
   
   // To opt out, simply delete this section
   // of code. this will not break anything.
@@ -78,10 +84,19 @@ export default function AppDemo() {
       </AppShell.Header>
 
       <AppShell.Navbar p="md">
-        <NavLink label="Proposal" active={ view === 'proposal' } onClick={ () => setView('proposal') }/>
+        <NavLink label="Drafts" active={ view === 'drafts' } onClick={ () => setView('drafts') }/>
         <NavLink label="Contracts" active={ view === 'contract' }onClick={ () => setView('contract') }/>
         <NavLink label="Deposits" active={view === 'deposits'} onClick={() => setView('deposits')} />
-        
+        <Button
+          bg='#0068FD'
+          radius={15}
+          size="xs"
+          fullWidth
+          style={{ marginTop: '20px' }} // Add some space between the button and the last NavLink
+          onClick={() => {/* Handle button click */}}
+      >
+        New Proposal
+      </Button>
       </AppShell.Navbar>
 
       <AppShell.Aside>
@@ -89,9 +104,9 @@ export default function AppDemo() {
       </AppShell.Aside>
 
       <AppShell.Main style={{ width: '100%', maxWidth: '100%' }}>
-        { view === 'proposal' && <ProposalView /> }
+        { view === 'drafts' && <ProposalView /> }
         { view === 'contract' && <ContractView /> }
-        { view === 'deposits' && <p>Deposit demo goes here.</p> }
+        { view === 'deposits' && <DepositView  /> }
       </AppShell.Main>
 
       <AppShell.Footer>

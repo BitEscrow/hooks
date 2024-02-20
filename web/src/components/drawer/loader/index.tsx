@@ -23,8 +23,6 @@ export default function LoaderView () {
   return (
     <Box>
       <ControlView view={view} setView={setView} />
-
-
       <Center mih={100} mt={25}>
         <ul>
           {session.list.map(([ pubkey ]) => (

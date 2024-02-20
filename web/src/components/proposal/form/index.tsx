@@ -8,10 +8,9 @@ import {
   Alert,
   Box,
   Button,
-  Divider,
   Group,
   Space,
-  Text,
+  Tabs
 } from '@mantine/core'
 
 import {
@@ -19,7 +18,7 @@ import {
 } from '@tabler/icons-react'
 
 import ProposalDetailView  from './details'
-import ProposalPaymentList from './roles/payments'
+// import ProposalPaymentList from './roles/payments'
 import ProposalTaskList    from './tasks'
 import Roles               from './roles'
 
@@ -64,19 +63,34 @@ export default function ProposalForm() {
           </Alert>
         || <Space />
       }
-      <Divider mt='30' mb='30' />
-      
-      <Text fw={700} size='xl'>Details</Text>
-      <ProposalDetailView form={form} />
-      <Divider mt='30' mb='30' />
-      
-      <Text fw={700} size='xl'>Roles</Text>
-      <Roles form={form} />
-      <Divider mt='30' mb='30' />
-      
-      <Text fw={700} size='xl'>Scheduled Tasks</Text>
-      <ProposalTaskList form={form} />
-      <Divider mt='30' mb='30' />
+      {/* here */}
+      <Tabs defaultValue="details">
+        <Tabs.List grow>
+          <Tabs.Tab value="details">Details</Tabs.Tab>
+          <Tabs.Tab value="roles">Roles</Tabs.Tab>
+          <Tabs.Tab value="tasks">Scheduled Tasks</Tabs.Tab>
+          {/* Uncomment if you want to include Payments as a Tab
+          <Tabs.Tab value="payments">Payments</Tabs.Tab>
+          */}
+        </Tabs.List>
+
+        <Tabs.Panel value="details" pt="xs">
+          <ProposalDetailView form={form} />
+        </Tabs.Panel>
+        <Tabs.Panel value="roles" pt="xs">
+          <Roles form={form} />
+        </Tabs.Panel>
+        <Tabs.Panel value="tasks" pt="xs">
+          <ProposalTaskList form={form} />
+        </Tabs.Panel>
+        {/* 
+        <Tabs.Panel value="payments" pt="xs">
+          <ProposalPaymentList form={form} />
+        </Tabs.Panel>
+        */}
+      </Tabs>
+
+      {/* end here */}
 
       {/* <Text fw={700} size='xl'>Payments</Text>
       <ProposalPaymentList form={form} />
