@@ -7,12 +7,12 @@ import {
   AppShell,
   Box,
   NavLink,
-  Button
 }                                 from '@mantine/core'
 
 import Plausible                  from 'plausible-tracker'
 
 import ProposalView     from '@/components/proposal'
+import DraftView        from './components/drafts'
 import ContractView     from '@/components/contract'
 import DepositView      from './components/deposits'
 import Header           from '@/components/header'
@@ -87,16 +87,21 @@ export default function AppDemo() {
         <NavLink label="Drafts" active={ view === 'drafts' } onClick={ () => setView('drafts') }/>
         <NavLink label="Contracts" active={ view === 'contract' }onClick={ () => setView('contract') }/>
         <NavLink label="Deposits" active={view === 'deposits'} onClick={() => setView('deposits')} />
-        <Button
-          bg='#0068FD'
-          radius={15}
-          size="xs"
-          fullWidth
-          style={{ marginTop: '20px' }} // Add some space between the button and the last NavLink
-          onClick={() => {/* Handle button click */}}
-      >
-        New Proposal
-      </Button>
+        <NavLink label="New Proposal" active={view === 'new'} onClick={() => setView('new')}  component="a"
+          style={{
+            fontWeight: 600,
+            backgroundColor: '#0068FD',
+            borderRadius: '15px',
+            color: 'white',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '32px', 
+            marginTop: '20px',
+            width: '100%', 
+            textDecoration: 'none',
+        }}
+        />
       </AppShell.Navbar>
 
       <AppShell.Aside>
@@ -104,9 +109,10 @@ export default function AppDemo() {
       </AppShell.Aside>
 
       <AppShell.Main style={{ width: '100%', maxWidth: '100%' }}>
-        { view === 'drafts' && <ProposalView /> }
+        { view === 'drafts' && <DraftView /> }
         { view === 'contract' && <ContractView /> }
         { view === 'deposits' && <DepositView  /> }
+        { view === 'new' && <ProposalView  /> }
       </AppShell.Main>
 
       <AppShell.Footer>

@@ -5,7 +5,9 @@ import {
     Paper,
     Modal,
     TextInput,
-    NumberInput
+    NumberInput,
+    Center,
+    Text
 }                       from '@mantine/core'
 import data             from './data';
 import { IconZoomScan } from '@tabler/icons-react'
@@ -44,24 +46,29 @@ export default function ContractTable() {
     
     return (
         <>
-        <ScrollArea>
-            <Paper>
-                <Table style={{ minWidth: '500px', width: '100%' }}>
-                    <thead>
-                        <tr>
-                            <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Title</th>
-                            <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>CID</th>
-                            <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Date</th>
-                            <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Role</th>
-                            <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Value</th>
-                            <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}></th>
-                        </tr>
-                    </thead>
-                    <tbody>{rows}</tbody>
-                </Table>
-            </Paper>
-        </ScrollArea>
-
+        {data.length > 0 ? (
+            <ScrollArea>
+                <Paper>
+                    <Table style={{ minWidth: '500px', width: '100%' }}>
+                        <thead>
+                            <tr>
+                                <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Title</th>
+                                <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>CID</th>
+                                <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Date</th>
+                                <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Role</th>
+                                <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Value</th>
+                                <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}></th>
+                            </tr>
+                        </thead>
+                        <tbody>{rows}</tbody>
+                    </Table>
+                </Paper>
+            </ScrollArea>
+        ) : (
+            <Center mt={50} mb={50} style={{ width: '100%', height: '100%', padding: '20px' }}>
+                <Text c="dimmed">You have no contracts.<br /> To create a new one, submit a proposal.</Text>
+            </Center>
+  )}
         <Modal
             opened={isModalOpen}
             onClose={() => setIsModalOpen(false)}

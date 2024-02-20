@@ -42,7 +42,7 @@ interface DepDataRow {
 	vout         : number
   }
   
-export default function DepositsTable() {
+export default function DraftsTable() {
 
     const [selectedRow, setSelectedRow] = useState<DepDataRow | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -88,7 +88,7 @@ export default function DepositsTable() {
             </ScrollArea>
         ) : (
                 <Center mt={50} mb={50} style={{ width: '100%', height: '100%', padding: '20px' }}>
-                <Text c="dimmed">You have no deposits</Text>
+                <Text c="dimmed">You have no drafts. To create a new one, click "new propsoal" in the sidebar.</Text>
             </Center>
         )}
         <Modal
