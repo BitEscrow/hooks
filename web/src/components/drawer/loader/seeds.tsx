@@ -1,9 +1,9 @@
-
 import { useSigner } from '@/hooks/useSigner'
 import { Buff } from '@cmdcode/buff'
 import { Seed } from '@cmdcode/signer'
+import { useClipboard } from '@mantine/hooks';
 
-import { Box, Button, Center, Checkbox, Flex, Group } from '@mantine/core'
+import { Box, Button, Center, Checkbox, Flex, Group, Text } from '@mantine/core'
 
 import { useState } from 'react'
 
@@ -18,12 +18,24 @@ export default function SeedView ({ pass } : Props) {
   const [ agree, setAgree ] = useState(false)
   const [ words, setWords ] = useState(gen_words())
 
+  const [copyButtonText, setCopyButtonText] = useState('Copy Seed Words');
+
   const regen  = () => setWords(gen_words())
 
   const submit = () => {
     const seed = Buff.raw(Seed.import.from_words(words))
     session.create(pass, seed.hex)
   }
+
+  const copyToClipboard = () => {
+    const textToCopy = words.map((word, index) => `${index + 1}. ${word}`).join('\n');
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      setCopyButtonText('Copied!');
+      setTimeout(() => setCopyButtonText('Copy Seed Words'), 2000);
+    }).catch(err => {
+      console.error('Failed to copy seed words: ', err);
+    });
+  };
 
   return (
     <Box>
@@ -41,7 +53,7 @@ export default function SeedView ({ pass } : Props) {
                 c='white'
                 m={5}
                 p={5}
-                bg='indigo'
+                bg='black'
                 w={85}
                 h={30}
                 ta='center'
@@ -53,21 +65,37 @@ export default function SeedView ({ pass } : Props) {
             )
           })
         }
+
+      <Center m={15}>
+        <Button
+          fullWidth
+          variant="transparent"
+          onClick={copyToClipboard}
+        >
+          {copyButtonText}
+        </Button>
+      </Center>
+
       </Flex>
       <Center m={15}>
+        <Group
+          align="center">
         <Checkbox
-          label    = 'I backed up my seed words.'
-          c        = 'white'
-          size     = "md"
-          checked  = {agree}
-          onChange = {() => setAgree(!agree)}
+          size="sm"
+          checked={agree}
+          onChange={() => setAgree(!agree)}
         />
-      </Center>
+        <Text c="black" size="sm">
+          I backed up my seed words
+        </Text>
+      </Group>
+    </Center>
       <Group gap={0}>
         <Button
           style    = {{ flex : 1 }}
-          bg       = 'purple'
-          radius   = {0}
+          bg='green'
+          m={10}
+          radius   = {15}
           onClick  = {regen}
           disabled = {agree}
         >
@@ -75,8 +103,9 @@ export default function SeedView ({ pass } : Props) {
         </Button>
         <Button
           style    = {{ flex : 1 }}
-          bg       = 'green'
-          radius   = {0}
+          bg       = '#0068FD'
+          m={10}
+          radius   = {15}
           onClick  = {submit}
           disabled = {!agree}
         >

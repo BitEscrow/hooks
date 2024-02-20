@@ -85,6 +85,8 @@ export default function ProposalForm() {
       <Group mt="40px">
         <Button
           w='200px'
+          bg='#0068FD'
+          radius={15}
           onClick={() => submit(form.values)}
         >
           Submit

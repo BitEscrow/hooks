@@ -10,7 +10,7 @@ export default function SideBar () {
   const { signer } = useSigner()
 
   return (
-    <Box bg='gray' h='100%'>
+    <Box bg='white' h='100%'>
       { signer === null
         && <LoaderView />
         || <SignerView />

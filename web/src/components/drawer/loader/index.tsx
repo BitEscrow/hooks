@@ -21,7 +21,7 @@ export default function LoaderView () {
   const [ pass,  setPass  ] = useState('')
   
   return (
-    <Box bg='blue'>
+    <Box>
       <ControlView view={view} setView={setView} />
 
 
@@ -29,7 +29,9 @@ export default function LoaderView () {
         <ul>
           {session.list.map(([ pubkey ]) => (
             <li key={pubkey}>
-              <span>{pubkey.slice(0, 16)}</span>
+              <span style={{marginRight: '10px'}}>
+                {`${pubkey.slice(0, 7)}...${pubkey.slice(-7)}`}
+              </span>
               <button onClick={() => setSelected(pubkey) }>[o]</button>
               <button onClick={() => session.remove(pubkey) }>[x]</button>
             </li>
@@ -37,7 +39,7 @@ export default function LoaderView () {
         </ul>
       </Center>
       <PasswordInput
-        c           = 'white'
+        c           = 'black'
         label       = 'Password'
         placeholder = 'enter password ...'
         p={15}

@@ -107,10 +107,11 @@ export default function ImportView ({ pass } : Props) {
         ]}
       />
       <Button
-        fullWidth
-        bg      = 'green'
-        radius  = {0}
-        onClick = {submit}
+        style    = {{ width: '95%'}}
+        bg      = '#0068FD'
+        onClick={submit}
+        m={10}
+        radius   = {15}
       >
         Import
       </Button>
