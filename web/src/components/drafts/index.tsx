@@ -2,6 +2,7 @@ import {
   Title,
   Text,
   Card,
+  Divider,
 }                     from "@mantine/core";
 import DraftsTable    from "./table";
 
@@ -12,6 +13,7 @@ export default function DraftView() {
       <Text c="dimmed" style={{ marginBottom: '20px' }} maw='500px'>
       This is a list of draft proposals assigned to your pubkey. You can click on any one of them in the table to view the details. 
       </Text>
+      <Divider mb={30} mt={20}/>
       <DraftsTable /> 
     </Card>
   )

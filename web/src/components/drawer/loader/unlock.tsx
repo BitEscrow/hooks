@@ -14,10 +14,10 @@ export default function UnlockView({ pass, pubkey } : Props) {
     <Box>
       <Button
         fullWidth
-        mt      = {15}
-        bg      = 'green'
+        bg      = '#0068FD'
         onClick = {() => session.load(pass, pubkey)}
-        radius  = {0}
+        mt={20}
+        radius  = {15}
       >
         Unlock
       </Button>

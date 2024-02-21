@@ -3,7 +3,8 @@ import {
   Text,
   Card,
   Button,
-  Box
+  Box,
+  Divider
 }                     from "@mantine/core";
 import DepositsTable  from "./table";
 
@@ -14,6 +15,7 @@ export default function DepositView() {
       <Text c="dimmed" style={{ marginBottom: '20px' }} maw='500px'>
       This is a list of deposits assigned to your pubkey. You can click on any one of them in the table to view the details.
       </Text>
+      <Divider mb={30} mt={20} />
       <DepositsTable /> 
       <Box style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}>
         <Button

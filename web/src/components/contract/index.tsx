@@ -1,7 +1,8 @@
 import {
   Text,
   Title,
-  Card
+  Card,
+  Divider
 }                     from "@mantine/core";
 import ContractTable  from "./table";
 
@@ -12,6 +13,7 @@ export default function ContractView() {
       <Text c="dimmed" style={{ marginBottom: '20px' }} maw='500px'>
        This is a list of contracts assigned to your pubkey. You can click on any one of them in the table to view the details.
       </Text>
+      <Divider mb={30} mt={20} />
           <ContractTable/> 
     </Card>
   )

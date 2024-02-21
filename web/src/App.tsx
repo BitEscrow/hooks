@@ -18,6 +18,7 @@ import DepositView      from './components/deposits'
 import Header           from '@/components/header'
 import SideBar          from '@/components/drawer'
 import FooterComponent  from './components/footer'
+import SettingsView from './components/settings'
 
 export default function AppDemo() {
   const [ navi_desk_open, { toggle : toggle_navi_desk } ] = useDisclosure(true)
@@ -46,6 +47,7 @@ export default function AppDemo() {
 
     trackPageview();
   }, []); 
+  
   // ------------End Analytics-------------
   // --------------------------------------
 
@@ -87,6 +89,7 @@ export default function AppDemo() {
         <NavLink label="Drafts" active={ view === 'drafts' } onClick={ () => setView('drafts') }/>
         <NavLink label="Contracts" active={ view === 'contract' }onClick={ () => setView('contract') }/>
         <NavLink label="Deposits" active={view === 'deposits'} onClick={() => setView('deposits')} />
+        <NavLink label="Settings" active={view === 'settings'} onClick={() => setView('settings')} />
         <NavLink label="New Proposal" active={view === 'new'} onClick={() => setView('new')}  component="a"
           style={{
             fontWeight: 600,
@@ -112,6 +115,7 @@ export default function AppDemo() {
         { view === 'drafts' && <DraftView /> }
         { view === 'contract' && <ContractView /> }
         { view === 'deposits' && <DepositView  /> }
+        { view === 'settings' && <SettingsView  /> }
         { view === 'new' && <ProposalView  /> }
       </AppShell.Main>
 
