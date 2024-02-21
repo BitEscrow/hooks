@@ -3,7 +3,7 @@ import { ProposalData }      from '@scrow/core'
 
 import {
   Box,
-  NativeSelect,
+  // NativeSelect,
   NumberInput,
   Textarea,
   TextInput,
@@ -31,12 +31,12 @@ export default function ProposalDetailView({ form } : Props) {
         {...form.getInputProps('description')}
       />
 
-      <NativeSelect
+      {/* <NativeSelect
         withAsterisk
         label="Network"
         {...form.getInputProps('network')}
         data={['main', 'testnet', 'mutiny']}
-      />
+      /> */}
 
       <NumberInput
         withAsterisk

@@ -7,6 +7,7 @@ import {
   Divider
 }                     from "@mantine/core";
 import DepositsTable  from "./table";
+import SearchDpid from "./searchDpid";
 
 export default function DepositView() {
   return (
@@ -21,7 +22,6 @@ export default function DepositView() {
         <Button
           bg='#0068FD'
           radius={15}
-          size="xs"
           style={{ marginTop: '20px' }} // Add some space between the button and the last NavLink
           onClick={() => {/* Handle button click */ }}
           maw={200}
@@ -29,6 +29,8 @@ export default function DepositView() {
           New Deposit
         </Button>
       </Box>
+      <Divider mb={30} mt={20} />
+      <SearchDpid/>
     </Card>
   )
 }

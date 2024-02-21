@@ -28,7 +28,7 @@ export default function ProposalView () {
     <Group style={{ width: '100%' }}>
     <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
       <Title order={2} mb={15}>Proposal</Title>
-      <Text color="dimmed" style={{ marginBottom: '20px' }} maw='500px'>
+      <Text c="dimmed" style={{ marginBottom: '20px' }} maw='500px'>
         The proposal is the template used to create a contract. It defines all the paths and terms. Click "JSON" for a structured look at contract parameters, functions, and data. Ideal for developers.
       </Text>
           <SegmentedControl

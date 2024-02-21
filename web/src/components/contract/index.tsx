@@ -5,6 +5,7 @@ import {
   Divider
 }                     from "@mantine/core";
 import ContractTable  from "./table";
+import SearchCid from "./searchCid";
 
 export default function ContractView() {
   return (
@@ -14,7 +15,9 @@ export default function ContractView() {
        This is a list of contracts assigned to your pubkey. You can click on any one of them in the table to view the details.
       </Text>
       <Divider mb={30} mt={20} />
-          <ContractTable/> 
+      <ContractTable /> 
+      <Divider mb={30} mt={20} />
+      <SearchCid/>
     </Card>
   )
 }

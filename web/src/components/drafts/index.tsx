@@ -5,6 +5,7 @@ import {
   Divider,
 }                     from "@mantine/core";
 import DraftsTable    from "./table";
+import SearchDraft from "./searchDraft";
 
 export default function DraftView() {
   return (
@@ -15,6 +16,8 @@ export default function DraftView() {
       </Text>
       <Divider mb={30} mt={20}/>
       <DraftsTable /> 
+      <Divider mb={30} mt={20}/>
+      <SearchDraft />
     </Card>
   )
 }
