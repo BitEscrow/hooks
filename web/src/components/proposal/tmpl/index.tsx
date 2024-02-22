@@ -13,7 +13,7 @@ import { ProposalData } from '@scrow/core';
 // import { validate_proposal } from '@scrow/core/validate';
 import { useEffect, useState } from 'react';
 
-export default function ProposalJson() {
+export default function () {
   const { store, update } = useStore()
   const [ json, setJson ] = useState(serialize(store.proposal))
 

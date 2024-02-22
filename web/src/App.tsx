@@ -13,9 +13,9 @@ import {
   AppShell,
   Box,
   NavLink,
-}                                 from '@mantine/core'
+} from '@mantine/core'
 
-import Plausible                  from 'plausible-tracker'
+import Plausible from 'plausible-tracker'
 
 import ProposalView           from '@/components/proposal'
 import DraftView              from './components/drafts'
