@@ -17,7 +17,7 @@ import {
 
 import Plausible from 'plausible-tracker'
 
-import ProposalView           from '@/components/proposal'
+import NewDraftView           from '@/components/drafts/new_draft'
 import DraftView              from './components/drafts'
 import ContractView           from '@/components/contract'
 import DepositView            from './components/deposits'
@@ -156,16 +156,16 @@ export default function AppDemo() {
       </AppShell.Aside>
 
       <AppShell.Main style={{ width: '100%', maxWidth: '100%' }}>
-        { view === 'drafts' && <DraftView /> }
+        { view === 'drafts'   && <DraftView /> }
         { view === 'contract' && <ContractView /> }
         { view === 'deposits' && <DepositView  /> }
         { view === 'settings' && <SettingsView  /> }
-        { view === 'new' && <ProposalView  /> }
+        { view === 'new'      && <NewDraftView  /> }
       </AppShell.Main>
 
       <AppShell.Footer>
         <FooterComponent/>
-''      </AppShell.Footer>
+      </AppShell.Footer>
 
       <SignerButton />
 

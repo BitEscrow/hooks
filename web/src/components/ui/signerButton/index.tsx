@@ -1,4 +1,5 @@
-import { useSigner }      from '@/hooks/useSigner'
+import { useSigner } from '@/hooks/useSigner'
+
 import {
   ColorSwatch,
   Group,
@@ -10,15 +11,15 @@ import {
 } from '@tabler/icons-react'
 
 interface Props {
-  side_opened : boolean
-  side_toggle : () => void
+  side_opened ?: boolean
+  side_toggle ?: () => void
 }
 
 interface SwatchProps {
   id : string
 }
 
-export default function SignerButton(props: Props) {
+export default function SignerButton (props: Props) {
   
   const { signer } = useSigner()
   const { side_toggle } = props
