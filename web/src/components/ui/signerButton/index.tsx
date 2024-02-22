@@ -1,21 +1,15 @@
-import { useSigner } from '@/hooks/useSigner'
-
+import { useSigner }      from '@/hooks/useSigner'
 import {
-  ActionIcon,
-  Button,
   ColorSwatch,
   Group,
-  Image
-} from '@mantine/core'
+  ActionIcon
+} from '@mantine/core';
 
 import {
   IconKey, 
-  IconMenu2
 } from '@tabler/icons-react'
 
 interface Props {
-  navi_opened : boolean
-  navi_toggle : () => void
   side_opened : boolean
   side_toggle : () => void
 }
@@ -24,40 +18,30 @@ interface SwatchProps {
   id : string
 }
 
-export default function Header(props : Props) {
+export default function SignerButton(props: Props) {
+  
   const { signer } = useSigner()
-  const { navi_toggle, side_toggle } = props
+  const { side_toggle } = props
 
   const style = {
     borderRadius : signer !== null ? '0px 5px 5px 0px' : '5px 5px 5px 5px'
   }
 
   return (
-    <Group p={10} justify='space-between' style={{ alignItems: 'center' }}>
-      <Button
-        onClick     = { navi_toggle }
-        aria-label  ="Toggle navbar"
-        color       ='black'
-        variant     ='transparent'
+    <Group gap={0}>
+    { signer !== null && <IdSwatch id={signer.pubkey} /> }
+      <ActionIcon 
+        radius     = {0}
+        variant    = "filled" 
+        color      = "blue" 
+        aria-label = "Signer" 
+        onClick    = {side_toggle}
+        style      = {style}
       >
-        <IconMenu2/>
-      </Button>
-        <Image src={'/logo.png'} w={120} alt="BitEscrow Logo" />
-      <Group gap={0}>
-        { signer !== null && <IdSwatch id={signer.pubkey} /> }
-        <ActionIcon 
-          radius     = {0}
-          variant    = "filled" 
-          color      = "blue" 
-          aria-label = "Signer" 
-          onClick    = {side_toggle}
-          style      = {style}
-        >
-          <IconKey style={{ width  : '70%', height : '70%' }} stroke={1.5} />
-        </ActionIcon>
-      </Group>
+        <IconKey style={{ width  : '70%', height : '70%' }} stroke={1.5} />
+      </ActionIcon>
     </Group>
-  )
+  );
 }
 
 function IdSwatch ({ id } : SwatchProps) {

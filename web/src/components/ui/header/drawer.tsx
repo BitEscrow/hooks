@@ -18,11 +18,6 @@ export default function Header(props : Props) {
         >
           BitEscrow
         </Button>
-        <Burger
-          opened={side_opened} 
-          onClick={side_toggle}
-          aria-label="Toggle signer"
-        />
       </Box>
   )
 }

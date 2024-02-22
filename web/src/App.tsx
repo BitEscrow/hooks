@@ -1,7 +1,13 @@
 
-import { useState, useEffect }    from 'react'
+import {
+  useState,
+  useEffect
+} from 'react'
 
-import { useDisclosure }          from '@mantine/hooks'
+import {
+  useDisclosure,
+  useMediaQuery
+} from '@mantine/hooks'
 
 import {
   AppShell,
@@ -11,20 +17,24 @@ import {
 
 import Plausible                  from 'plausible-tracker'
 
-import ProposalView     from '@/components/proposal'
-import DraftView        from './components/drafts'
-import ContractView     from '@/components/contract'
-import DepositView      from './components/deposits'
-import Header           from '@/components/header'
-import SideBar          from '@/components/drawer'
-import FooterComponent  from './components/footer'
-import SettingsView from './components/settings'
+import ProposalView           from '@/components/proposal'
+import DraftView              from './components/drafts'
+import ContractView           from '@/components/contract'
+import DepositView            from './components/deposits'
+import Header                 from '@/components/ui/header'
+import SideBar                from '@/components/ui/drawer'
+import FooterComponent        from './components/ui/footer'
+import SettingsView           from './components/settings'
+import SignerButton           from './components/ui/signerButton'
+import MobileFooterComponent  from './components/ui/mobileFooter'
 
 export default function AppDemo() {
   const [ navi_desk_open, { toggle : toggle_navi_desk } ] = useDisclosure(true)
   const [ navi_mobi_open, { toggle : toggle_navi_mobi } ] = useDisclosure()
   const [ side_desk_open, { toggle : toggle_side_desk } ] = useDisclosure()
   const [ side_mobi_open, { toggle : toggle_side_mobi } ] = useDisclosure()
+
+  const isMobile = useMediaQuery('(max-width: 768px)')
   
   const [ view, setView ] = useState('drafts')
   
@@ -48,6 +58,7 @@ export default function AppDemo() {
     trackPageview();
   }, []); 
   
+  // --------------------------------------
   // ------------End Analytics-------------
   // --------------------------------------
 
@@ -82,15 +93,46 @@ export default function AppDemo() {
             side_opened = { side_mobi_open   }
             side_toggle = { toggle_side_mobi }
           />
+
         </Box>
       </AppShell.Header>
 
-      <AppShell.Navbar p="md">
-        <NavLink label="Drafts" active={ view === 'drafts' } onClick={ () => setView('drafts') }/>
-        <NavLink label="Contracts" active={ view === 'contract' }onClick={ () => setView('contract') }/>
-        <NavLink label="Deposits" active={view === 'deposits'} onClick={() => setView('deposits')} />
-        <NavLink label="Settings" active={view === 'settings'} onClick={() => setView('settings')} />
-        <NavLink label="New Proposal" active={view === 'new'} onClick={() => setView('new')}  component="a"
+      <AppShell.Navbar p="md"style={{ height: '100%' }}>
+        <NavLink label="Drafts" active={view === 'drafts'}
+         onClick={() => { 
+          setView('drafts'); 
+          if (isMobile) toggle_navi_mobi(); 
+          else toggle_navi_desk(); 
+        }}
+        />
+        <NavLink label="Contracts" active={view === 'contract'}
+           onClick={() => { 
+            setView('contract'); 
+            if (isMobile) toggle_navi_mobi();
+            else toggle_navi_desk();
+          }}
+        />
+        <NavLink label="Deposits" active={view === 'deposits'}
+         onClick={() => { 
+          setView('deposits'); 
+          if (isMobile) toggle_navi_mobi();
+          else toggle_navi_desk();
+        }}
+        />
+        <NavLink label="Settings" active={view === 'settings'} 
+         onClick={() => { 
+          setView('settings'); 
+          if (isMobile) toggle_navi_mobi();
+          else toggle_navi_desk();
+        }}
+        />
+        <NavLink label="New Proposal" active={view === 'new'} 
+           onClick={() => { 
+            setView('new'); 
+            if (isMobile) toggle_navi_mobi();
+            else toggle_navi_desk();
+          }}
+          component="a"
           style={{
             fontWeight: 600,
             backgroundColor: '#0068FD',
@@ -103,8 +145,10 @@ export default function AppDemo() {
             marginTop: '20px',
             width: '100%', 
             textDecoration: 'none',
+            maxWidth: '120px'
         }}
         />
+         {isMobile && <MobileFooterComponent/>}
       </AppShell.Navbar>
 
       <AppShell.Aside>
@@ -121,7 +165,9 @@ export default function AppDemo() {
 
       <AppShell.Footer>
         <FooterComponent/>
-      </AppShell.Footer>
+''      </AppShell.Footer>
+
+      <SignerButton />
 
     </AppShell>
   )
