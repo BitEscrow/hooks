@@ -1,0 +1,42 @@
+{
+  "default" : {
+    "proposal": {
+      "title": "Basic two-party contract with third-party arbitration.",
+      "duration": 14400,
+      "network": "mutiny",
+      "schedule": [[7200, "close", "*"]],
+      "value": 10000
+    },
+    "roles": [
+      {
+        "title": "buyer",
+        "paths": [
+          ["heads", 10000],
+          ["draw", 5000]
+        ],
+        "programs": [
+          ["endorse", "close", "*", 2],
+          ["endorse", "dispute", "heads|tails", 1]
+        ]
+      },
+      {
+        "title": "seller",
+        "paths": [
+          ["tails", 10000],
+          ["draw", 5000]
+        ],
+        "programs": [
+          ["endorse", "close", "*", 2],
+          ["endorse", "dispute", "heads|tails", 1]
+        ]
+      },
+      {
+        "title": "agent",
+        "programs": [
+          ["endorse", "resolve", "*", 1]
+        ]
+      }
+    ],
+    "terms": [ "duration", "moderator" ]
+  }
+}

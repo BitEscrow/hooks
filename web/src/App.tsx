@@ -11,7 +11,7 @@ import {
 
 import Plausible from 'plausible-tracker'
 
-import ProposalView     from './components/proposal'
+import ProposalView     from './components/drafts/new_draft'
 import DraftView        from './components/drafts'
 import ContractView     from './components/contract'
 import DepositView      from './components/deposits'
