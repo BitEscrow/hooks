@@ -158,8 +158,10 @@ export default function AppDemo() {
         { view === 'settings' && <SettingsView  /> }
         {view === 'new' && <NewDraftView />}
         <SignerButton
-          side_opened = { side_desk_open   }
-          side_toggle = { toggle_side_desk }
+         side_opened = {isMobile ? side_mobi_open : side_desk_open}
+         side_toggle_desk = {toggle_side_desk}
+         side_toggle_mobi = {toggle_side_mobi}
+       
         />
       </AppShell.Main>
 

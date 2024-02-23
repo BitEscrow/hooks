@@ -55,7 +55,7 @@ export default function SearchDraft() {
         </div>
       </div>
       <TextInput
-        style={{ width: '500px' }}
+        style={{ width: '450px' }}
         placeholder="Enter the address of the Nostr relay"
         leftSection={<IconServer size={15} />}
         value={nostrAddress}
@@ -66,7 +66,7 @@ export default function SearchDraft() {
       />
       <Group>
         <TextInput
-          style={{ width: '500px' }}
+          style={{ width: '450px' }}
           placeholder="Enter the Draft ID of your proposal"
           leftSection={<IconPencil size={15} />}
           value={draftId}

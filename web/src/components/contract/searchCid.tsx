@@ -43,7 +43,7 @@ export default function SearchCid() {
         </div>
         <Group>
         <TextInput
-            style={{ width: '500px' }}
+            style={{ width: '450px' }}
             placeholder="Join a contract by entering the CID"
             leftSection={<IconUserPlus size={15}/>}
             value={inputValue}
