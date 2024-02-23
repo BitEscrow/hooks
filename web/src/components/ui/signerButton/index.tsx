@@ -1,5 +1,4 @@
 import { useSigner } from '@/hooks/useSigner'
-
 import {
   ColorSwatch,
   Group,
@@ -24,22 +23,28 @@ export default function SignerButton (props: Props) {
   const { signer } = useSigner()
   const { side_toggle } = props
 
-  const style = {
-    borderRadius : signer !== null ? '0px 5px 5px 0px' : '5px 5px 5px 5px'
-  }
 
   return (
-    <Group gap={0}>
+    <Group
+      style={{
+        position: 'absolute',
+        bottom: '90px',
+        right: '10px', 
+        zIndex: 1000, 
+    }}>
     { signer !== null && <IdSwatch id={signer.pubkey} /> }
       <ActionIcon 
-        radius     = {0}
+        bg={'#0068FD'}
+        size={35}
         variant    = "filled" 
         color      = "blue" 
         aria-label = "Signer" 
-        onClick    = {side_toggle}
-        style      = {style}
+        onClick={ side_toggle }
+        style={{
+          borderRadius: '10px'
+        }}
       >
-        <IconKey style={{ width  : '70%', height : '70%' }} stroke={1.5} />
+        <IconKey style={{ width  : '70%', height : '70%' }} size={45} />
       </ActionIcon>
     </Group>
   );

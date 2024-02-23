@@ -1,4 +1,4 @@
-import { Box, Burger, Button }  from '@mantine/core'
+import { Box, Button }  from '@mantine/core'
 
 interface Props {
   navi_opened : boolean
@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function Header(props : Props) {
-  const { navi_toggle, side_opened, side_toggle } = props
+  const { navi_toggle } = props
 
   return (
       <Box>

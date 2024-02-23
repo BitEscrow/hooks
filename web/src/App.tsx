@@ -58,6 +58,7 @@ export default function AppDemo() {
     trackPageview();
   }, []); 
   
+  
   // --------------------------------------
   // ------------End Analytics-------------
   // --------------------------------------
@@ -102,35 +103,30 @@ export default function AppDemo() {
          onClick={() => { 
           setView('drafts'); 
           if (isMobile) toggle_navi_mobi(); 
-          else toggle_navi_desk(); 
         }}
         />
         <NavLink label="Contracts" active={view === 'contract'}
            onClick={() => { 
             setView('contract'); 
             if (isMobile) toggle_navi_mobi();
-            else toggle_navi_desk();
           }}
         />
         <NavLink label="Deposits" active={view === 'deposits'}
          onClick={() => { 
           setView('deposits'); 
           if (isMobile) toggle_navi_mobi();
-          else toggle_navi_desk();
         }}
         />
         <NavLink label="Settings" active={view === 'settings'} 
          onClick={() => { 
           setView('settings'); 
           if (isMobile) toggle_navi_mobi();
-          else toggle_navi_desk();
         }}
         />
         <NavLink label="New Proposal" active={view === 'new'} 
            onClick={() => { 
             setView('new'); 
             if (isMobile) toggle_navi_mobi();
-            else toggle_navi_desk();
           }}
           component="a"
           style={{
@@ -160,14 +156,16 @@ export default function AppDemo() {
         { view === 'contract' && <ContractView /> }
         { view === 'deposits' && <DepositView  /> }
         { view === 'settings' && <SettingsView  /> }
-        { view === 'new'      && <NewDraftView  /> }
+        {view === 'new' && <NewDraftView />}
+        <SignerButton
+          side_opened = { side_desk_open   }
+          side_toggle = { toggle_side_desk }
+        />
       </AppShell.Main>
 
       <AppShell.Footer>
         <FooterComponent/>
       </AppShell.Footer>
-
-      <SignerButton />
 
     </AppShell>
   )
