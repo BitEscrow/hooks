@@ -17,7 +17,7 @@ import {
 
 import Plausible from 'plausible-tracker'
 
-import NewDraftView           from '@/components/drafts/new/newDraft'
+import NewDraftView           from '@/components/drafts/new'
 import DraftView              from './components/drafts'
 import ContractView           from '@/components/contract'
 import DepositView            from './components/deposits'
@@ -99,31 +99,32 @@ export default function AppDemo() {
       </AppShell.Header>
 
       <AppShell.Navbar p="md"style={{ height: '100%' }}>
-        <NavLink label="Drafts" active={view === 'drafts'}
+        <NavLink w={'100%'} style={{ borderRadius: '15px'}} label="Drafts" active={view === 'drafts'}
          onClick={() => { 
           setView('drafts'); 
           if (isMobile) toggle_navi_mobi(); 
         }}
         />
-        <NavLink label="Contracts" active={view === 'contract'}
+        <NavLink w={'100%'} style={{ borderRadius: '15px'}} label="Contracts" active={view === 'contract'}
            onClick={() => { 
             setView('contract'); 
             if (isMobile) toggle_navi_mobi();
           }}
         />
-        <NavLink label="Deposits" active={view === 'deposits'}
+        <NavLink w={'100%'} style={{ borderRadius: '15px'}} label="Deposits" active={view === 'deposits'}
          onClick={() => { 
           setView('deposits'); 
           if (isMobile) toggle_navi_mobi();
         }}
         />
-        <NavLink label="Settings" active={view === 'settings'} 
+        <NavLink w={'100%'} style={{ borderRadius: '15px'}} label="Settings" active={view === 'settings'} 
          onClick={() => { 
           setView('settings'); 
           if (isMobile) toggle_navi_mobi();
         }}
         />
-        <NavLink label="New Proposal" active={view === 'new'} 
+       
+       <NavLink w={'100%'} label="New Draft" active={view === 'new'} 
            onClick={() => { 
             setView('new'); 
             if (isMobile) toggle_navi_mobi();
@@ -144,6 +145,27 @@ export default function AppDemo() {
             maxWidth: '120px'
         }}
         />
+
+      <NavLink w={'100%'} label="New Deposit" active={view === 'newDeposit'} 
+           onClick={() => { 
+            setView('new'); 
+            if (isMobile) toggle_navi_mobi();
+          }}
+          component="a"
+          style={{
+            fontWeight: 600,
+            color: '#0068FD',
+            borderRadius: '15px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '32px', 
+            marginTop: '10px',
+            width: '100%', 
+            textDecoration: 'none',
+            maxWidth: '120px'
+        }}
+        />
          {isMobile && <MobileFooterComponent/>}
       </AppShell.Navbar>
 
@@ -157,6 +179,7 @@ export default function AppDemo() {
         { view === 'deposits' && <DepositView  /> }
         { view === 'settings' && <SettingsView  /> }
         {view === 'new' && <NewDraftView />}
+        {/* {view === 'newDeposit' && <div />} */}
         <SignerButton
          side_opened = {isMobile ? side_mobi_open : side_desk_open}
          side_toggle_desk = {toggle_side_desk}

@@ -2,8 +2,8 @@ import {
   Title,
   Text,
   Card,
-  Button,
-  Box,
+  // Button,
+  // Box,
   Divider
 }                     from "@mantine/core";
 import DepositsTable  from "./table";
@@ -18,17 +18,16 @@ export default function DepositView() {
       </Text>
       <Divider mb={30} mt={20} />
       <DepositsTable /> 
-      <Box style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}>
+      {/* <Box style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}>
         <Button
           bg='#0068FD'
           radius={15}
           style={{ marginTop: '20px' }} 
           maw={200}
-          onClick={() => {/* Handle button click */ }}
           >
           New Deposit
         </Button>
-      </Box>
+      </Box> */}
       <Divider mb={30} mt={20} />
       <SearchDpid/>
     </Card>
