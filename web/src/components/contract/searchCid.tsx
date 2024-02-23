@@ -54,7 +54,7 @@ export default function SearchCid() {
         <Button
             style={{
                 backgroundColor: '#0068FD',
-                borderRadius: '15px',
+                borderRadius: '25px',
             }}
             onClick={handleClick}
         >

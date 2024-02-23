@@ -27,6 +27,7 @@ import FooterComponent        from './components/ui/footer'
 import SettingsView           from './components/settings'
 import SignerButton           from './components/ui/signerButton'
 import MobileFooterComponent  from './components/ui/mobileFooter'
+import NewDepositView         from './components/deposits/new'
 
 export default function AppDemo() {
   const [ navi_desk_open, { toggle : toggle_navi_desk } ] = useDisclosure(true)
@@ -99,41 +100,41 @@ export default function AppDemo() {
       </AppShell.Header>
 
       <AppShell.Navbar p="md"style={{ height: '100%' }}>
-        <NavLink w={'100%'} style={{ borderRadius: '15px'}} label="Drafts" active={view === 'drafts'}
+        <NavLink w={'100%'} style={{ borderRadius: '25px'}} label="Drafts" active={view === 'drafts'}
          onClick={() => { 
           setView('drafts'); 
           if (isMobile) toggle_navi_mobi(); 
         }}
         />
-        <NavLink w={'100%'} style={{ borderRadius: '15px'}} label="Contracts" active={view === 'contract'}
+        <NavLink w={'100%'} style={{ borderRadius: '25px'}} label="Contracts" active={view === 'contract'}
            onClick={() => { 
             setView('contract'); 
             if (isMobile) toggle_navi_mobi();
           }}
         />
-        <NavLink w={'100%'} style={{ borderRadius: '15px'}} label="Deposits" active={view === 'deposits'}
+        <NavLink w={'100%'} style={{ borderRadius: '25px'}} label="Deposits" active={view === 'deposits'}
          onClick={() => { 
           setView('deposits'); 
           if (isMobile) toggle_navi_mobi();
         }}
         />
-        <NavLink w={'100%'} style={{ borderRadius: '15px'}} label="Settings" active={view === 'settings'} 
+        <NavLink w={'100%'} style={{ borderRadius: '25px'}} label="Settings" active={view === 'settings'} 
          onClick={() => { 
           setView('settings'); 
           if (isMobile) toggle_navi_mobi();
         }}
         />
        
-       <NavLink w={'100%'} label="New Draft" active={view === 'new'} 
+       <NavLink w={'100%'} label="New Draft" active={view === 'newDraft'} 
            onClick={() => { 
-            setView('new'); 
+            setView('newDraft'); 
             if (isMobile) toggle_navi_mobi();
           }}
           component="a"
           style={{
             fontWeight: 600,
             backgroundColor: '#0068FD',
-            borderRadius: '15px',
+            borderRadius: '25px',
             color: 'white',
             display: 'flex',
             justifyContent: 'center',
@@ -148,14 +149,14 @@ export default function AppDemo() {
 
       <NavLink w={'100%'} label="New Deposit" active={view === 'newDeposit'} 
            onClick={() => { 
-            setView('new'); 
+            setView('newDeposit'); 
             if (isMobile) toggle_navi_mobi();
           }}
           component="a"
           style={{
             fontWeight: 600,
             color: '#0068FD',
-            borderRadius: '15px',
+            borderRadius: '25px',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -174,17 +175,17 @@ export default function AppDemo() {
       </AppShell.Aside>
 
       <AppShell.Main style={{ width: '100%', maxWidth: '100%' }}>
-        { view === 'drafts'   && <DraftView /> }
-        { view === 'contract' && <ContractView /> }
-        { view === 'deposits' && <DepositView  /> }
-        { view === 'settings' && <SettingsView  /> }
-        {view === 'new' && <NewDraftView />}
-        {/* {view === 'newDeposit' && <div />} */}
+        { view === 'drafts'     && <DraftView       />  }
+        { view === 'contract'   && <ContractView    />  }
+        { view === 'deposits'   && <DepositView     />  }
+        { view === 'settings'   && <SettingsView    />  }
+        { view === 'newDraft'   && <NewDraftView    />  }
+        { view === 'newDeposit' && <NewDepositView  />  }
+        
         <SignerButton
          side_opened = {isMobile ? side_mobi_open : side_desk_open}
          side_toggle_desk = {toggle_side_desk}
          side_toggle_mobi = {toggle_side_mobi}
-       
         />
       </AppShell.Main>
 

@@ -56,7 +56,7 @@ export default function CreateDraftView () {
     <Card style={{ padding: '20px', display: 'flex', flexDirection: 'column' }}>
       <Group style={{ width: '100%' }}>
         <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-          <Title order={2} mb={15}>Create a new Draft</Title>
+          <Title order={2} mb={15}>Create a New Draft</Title>
           <Text c="dimmed" style={{ marginBottom: '20px' }} maw='500px'>
             Create a new draft session for others to join by choosing a Pre-built JSON templates to start with and editing the values.
           </Text>
@@ -77,7 +77,7 @@ export default function CreateDraftView () {
             style={{
               transform: 'translateY(12px)',
               backgroundColor: '#0068FD',
-              borderRadius: '15px',
+              borderRadius: '25px',
               maxWidth: '100px' 
           }}
           onClick={() => apply_preset()}
@@ -117,7 +117,7 @@ export default function CreateDraftView () {
           style={{
             transform: 'translateY(22px)',
             backgroundColor: '#0068FD',
-            borderRadius: '15px',
+            borderRadius: '25px',
             maxWidth: '100px' 
           }}
           >
