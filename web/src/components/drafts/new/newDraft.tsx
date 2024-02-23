@@ -9,16 +9,17 @@ import {
   NativeSelect,
   Text,
   TextInput,
+  Divider,
   Title,
 } from '@mantine/core'
+
+import { IconServer } from '@tabler/icons-react'
 
 import presets_json from './presets.json' assert { type: 'json' }
 
 type PresetEnum = keyof typeof presets_json
 
 export default function CreateDraftView () {
-
-
   const [ draft, setDraft   ] = useState({})
   const [ json, setJson     ] = useState('')
   const [ preset, setPreset ] = useState('default')
@@ -57,29 +58,37 @@ export default function CreateDraftView () {
         <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
           <Title order={2} mb={15}>Create a new Draft</Title>
           <Text c="dimmed" style={{ marginBottom: '20px' }} maw='500px'>
-            Create a new draft session for others to join.
+            Create a new draft session for others to join by choosing a Pre-built JSON templates to start with and editing the values.
           </Text>
         </div>
       </Group>
+      <Divider mb={30} mt={20} />
 
-      <NativeSelect
-        label="Example Templates"
-        description="Pre-built JSON templates to start with."
-        value={preset}
-        onChange={(e) => setPreset(e.currentTarget.value)}
-        data={Object.keys(presets_json)}
-      />
+      <Group>
+        <NativeSelect
+          maw={200}
+          label="Choose Template"
+          value={preset}
+          onChange={(e) => setPreset(e.currentTarget.value)}
+          data={Object.keys(presets_json)}
+          style={{ flex: 1 }} // This makes the select take the remaining space
+        />
+        <Button
+            style={{
+              transform: 'translateY(12px)',
+              backgroundColor: '#0068FD',
+              borderRadius: '15px',
+              maxWidth: '100px' 
+          }}
+          onClick={() => apply_preset()}
+        >
+          Apply
+        </Button>
+      </Group>
 
-      <Button
-        variant="filled"
-        onClick={() => apply_preset()}
-      >
-        Apply
-      </Button>
-
-      <Box maw={700}>
+      <Box maw={600} mt={30}>
         <JsonInput
-          label="Draft Template"
+          label="JSON Value"
           description="The JSON template for your draft session."
           placeholder="copy/paste your proposal JSON"
           validationError="Invalid JSON"
@@ -92,20 +101,29 @@ export default function CreateDraftView () {
           styles={{ input : { color : (isValid) ? 'black' : 'red' } }}
         />
       </Box>
+      <Group mt={30}>
+        <TextInput
+          maw={450}
+          placeholder='wss://...'
+          label="Nostr Relay Address" 
+          leftSection={<IconServer size={15} />}
+          description="The address of the relay that you wish to use for negotiation."
+        />
 
-      <TextInput
-        label="Relay Address" 
-        description="The address of the relay that you wish to use for negotiation."
-      />
-
-      <Button
-        variant="filled"
-        onClick={() => create_draft()}
-        disabled={!isValid}
-      >
-        Publish Draft
-      </Button>
-
+        <Button
+          variant="filled"
+          onClick={() => create_draft()}
+          disabled={!isValid}
+          style={{
+            transform: 'translateY(22px)',
+            backgroundColor: '#0068FD',
+            borderRadius: '15px',
+            maxWidth: '100px' 
+          }}
+          >
+          Publish
+        </Button>
+      </Group>
   </Card>
   )
 }

@@ -22,9 +22,9 @@ export default function DepositView() {
         <Button
           bg='#0068FD'
           radius={15}
-          style={{ marginTop: '20px' }} // Add some space between the button and the last NavLink
-          onClick={() => {/* Handle button click */ }}
+          style={{ marginTop: '20px' }} 
           maw={200}
+          onClick={() => {/* Handle button click */ }}
           >
           New Deposit
         </Button>
