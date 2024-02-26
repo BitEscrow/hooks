@@ -17,10 +17,10 @@ import {
   IconInfoCircle,
 } from '@tabler/icons-react'
 
-import ProposalDetailView  from './details'
+import ProposalDetailView  from './components/details'
 // import ProposalPaymentList from './roles/payments'
-import ProposalTaskList    from './tasks'
-import Roles               from './roles'
+import ProposalTaskList    from './components/tasks'
+import Roles               from './components/roles'
 
 export default function ProposalForm() {
   const { store, update }   = useStore()

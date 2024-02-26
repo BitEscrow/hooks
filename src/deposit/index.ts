@@ -37,7 +37,7 @@ export function useDepositList (
 
   const fetcher = async () => {
     const pub   = signer.pubkey
-    const token = signer.request.deposits()
+    const token = signer.request.deposit_list()
     const res   = await client.deposit.list(pub, token)
     if (!res.ok) throw new Error(res.error)
     return res.data
@@ -45,11 +45,11 @@ export function useDepositList (
 
   const res = useSWR<DepositListResponse>(url, fetcher)
 
-  let deposits : DepositData[] = []
+  let data : DepositData[] = []
 
   if (res.data !== undefined) {
-    deposits = res.data.deposits
+    data = res.data.deposits
   }
 
-  return { ...res, deposits }
+  return { ...res, data }
 }

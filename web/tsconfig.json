@@ -9,13 +9,13 @@
     /* Aliases */
     "baseUrl": "..",
     "paths": {
-      "@/*" : [ "web/src/*" ],
-      "public/*" : [ "public/*" ],
-      "@scrow/hooks" : [ "src/index.js" ],
-      "@scrow/hooks/client" : [ "src/client/index.jsx" ],
+      "@/*"                   : [ "web/src/*"             ],
+      "public/*"              : [ "public/*"              ],
+      "@scrow/hooks"          : [ "src/index.js"          ],
+      "@scrow/hooks/client"   : [ "src/client/index.jsx"  ],
       "@scrow/hooks/contract" : [ "src/contract/index.js" ],
-      "@scrow/hooks/deposit" : [ "src/deposit/index.js" ],
-      "@scrow/hooks/signer" : [ "src/signer/index.jsx" ]
+      "@scrow/hooks/deposit"  : [ "src/deposit/index.js"  ],
+      "@scrow/hooks/signer"   : [ "src/signer/index.jsx"  ]
     },
 
     /* Bundler mode */

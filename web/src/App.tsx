@@ -17,16 +17,16 @@ import {
 
 import Plausible from 'plausible-tracker'
 
-import NewDraftView           from '@/components/drafts/new_draft'
-import DraftView              from './components/drafts'
-import ContractView           from '@/components/contract'
-import DepositView            from './components/deposits'
+import DraftCreate            from '@/components/DraftCreate'
+import DraftView              from '@/components/DraftView'
+import ContractView           from '@/components/ContractView'
+import DepositView            from '@/components/DepositView'
 import Header                 from '@/components/ui/header'
 import SideBar                from '@/components/ui/drawer'
-import FooterComponent        from './components/ui/footer'
-import SettingsView           from './components/settings'
-import SignerButton           from './components/ui/signerButton'
-import MobileFooterComponent  from './components/ui/mobileFooter'
+import FooterComponent        from '@/components/ui/footer'
+import SettingsView           from '@/components/settings'
+import SignerButton           from '@/components/ui/signerButton'
+import MobileFooterComponent  from '@/components/ui/mobileFooter'
 
 export default function AppDemo() {
   const [ navi_desk_open, { toggle : toggle_navi_desk } ] = useDisclosure(true)
@@ -100,37 +100,37 @@ export default function AppDemo() {
       <AppShell.Navbar p="md"style={{ height: '100%' }}>
         <NavLink label="Drafts" active={view === 'drafts'}
          onClick={() => { 
-          setView('drafts'); 
-          if (isMobile) toggle_navi_mobi(); 
-          else toggle_navi_desk(); 
+          setView('drafts')
+          if (isMobile) toggle_navi_mobi()
+          else toggle_navi_desk()
         }}
         />
         <NavLink label="Contracts" active={view === 'contract'}
            onClick={() => { 
-            setView('contract'); 
-            if (isMobile) toggle_navi_mobi();
-            else toggle_navi_desk();
+            setView('contract')
+            if (isMobile) toggle_navi_mobi()
+            else toggle_navi_desk()
           }}
         />
         <NavLink label="Deposits" active={view === 'deposits'}
          onClick={() => { 
-          setView('deposits'); 
-          if (isMobile) toggle_navi_mobi();
-          else toggle_navi_desk();
+          setView('deposits')
+          if (isMobile) toggle_navi_mobi()
+          else toggle_navi_desk()
         }}
         />
         <NavLink label="Settings" active={view === 'settings'} 
          onClick={() => { 
-          setView('settings'); 
-          if (isMobile) toggle_navi_mobi();
-          else toggle_navi_desk();
+          setView('settings')
+          if (isMobile) toggle_navi_mobi()
+          else toggle_navi_desk()
         }}
         />
-        <NavLink label="New Proposal" active={view === 'new'} 
+        <NavLink label="New Draft" active={view === 'new_draft'} 
            onClick={() => { 
-            setView('new'); 
-            if (isMobile) toggle_navi_mobi();
-            else toggle_navi_desk();
+            setView('new_draft')
+            if (isMobile) toggle_navi_mobi()
+            else toggle_navi_desk()
           }}
           component="a"
           style={{
@@ -156,11 +156,11 @@ export default function AppDemo() {
       </AppShell.Aside>
 
       <AppShell.Main style={{ width: '100%', maxWidth: '100%' }}>
-        { view === 'drafts'   && <DraftView /> }
-        { view === 'contract' && <ContractView /> }
-        { view === 'deposits' && <DepositView  /> }
-        { view === 'settings' && <SettingsView  /> }
-        { view === 'new'      && <NewDraftView  /> }
+        { view === 'drafts'    && <DraftView    /> }
+        { view === 'contract'  && <ContractView /> }
+        { view === 'deposits'  && <DepositView  /> }
+        { view === 'settings'  && <SettingsView /> }
+        { view === 'new_draft' && <DraftCreate  /> }
       </AppShell.Main>
 
       <AppShell.Footer>

@@ -18,7 +18,6 @@ type PresetEnum = keyof typeof presets_json
 
 export default function CreateDraftView () {
 
-
   const [ draft, setDraft   ] = useState({})
   const [ json, setJson     ] = useState('')
   const [ preset, setPreset ] = useState('default')
@@ -105,7 +104,6 @@ export default function CreateDraftView () {
       >
         Publish Draft
       </Button>
-
   </Card>
   )
 }

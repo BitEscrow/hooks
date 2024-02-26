@@ -7,11 +7,11 @@ export interface ProposalStore {
 }
 
 const defaults : ProposalStore = {
-  proposal : create_proposal({
-    title   : 'Test proposal',
-    expires : 60 * 60 * 2,
-    network : client_config.network,
-    value   : 20_000
+  proposal   : create_proposal({
+    title    : 'Test proposal',
+    duration : 60 * 60 * 2,
+    network  : client_config.network,
+    value    : 20_000
   })
 }
 

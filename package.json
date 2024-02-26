@@ -38,33 +38,33 @@
     "scratch": "yarn load test/scratch.ts"
   },
   "dependencies": {
-    "@cmdcode/buff": "^2.2.4",
-    "@cmdcode/signer": "^1.4.0",
+    "@cmdcode/buff": "^2.2.5",
+    "@cmdcode/signer": "^1.4.1",
     "@cmdcode/use-store": "^1.0.7",
-    "@scrow/core": "^0.6.10",
+    "@scrow/core": "^0.7.12",
     "dayjs": "^1.11.10",
     "plausible-tracker": "^0.3.8",
     "react-toastify": "^10.0.4",
-    "sass": "^1.70.0",
-    "swr": "^2.2.4"
+    "sass": "^1.71.1",
+    "swr": "^2.2.5"
   },
   "peerDependencies": {
     "react": "^18.2.0"
   },
   "devDependencies": {
-    "@mantine/core": "^7.5.0",
-    "@mantine/dates": "^7.5.0",
-    "@mantine/form": "^7.5.0",
-    "@mantine/hooks": "^7.5.0",
-    "@tabler/icons-react": "^2.46.0",
-    "@types/node": "^20.11.10",
-    "@types/react": "^18.2.48",
-    "@types/react-dom": "^18.2.15",
-    "@vitejs/plugin-react-swc": "^3.3.2",
+    "@mantine/core": "^7.5.3",
+    "@mantine/dates": "^7.5.3",
+    "@mantine/form": "^7.5.3",
+    "@mantine/hooks": "^7.5.3",
+    "@tabler/icons-react": "^2.47.0",
+    "@types/node": "^20.11.20",
+    "@types/react": "^18.2.58",
+    "@types/react-dom": "^18.2.19",
+    "@vitejs/plugin-react-swc": "^3.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "typescript": "^5.2.2",
-    "vite": "^5.0.12",
+    "vite": "^5.1.4",
     "vite-tsconfig-paths": "^4.2.1"
   }
 }

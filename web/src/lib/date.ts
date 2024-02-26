@@ -1,4 +1,4 @@
-import { now } from "@scrow/core/util"
+import { now } from '@scrow/core/util'
 
 export function convert_date (stamp : number) {
   const utc = Math.floor(stamp * 1000)
