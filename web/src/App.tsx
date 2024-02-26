@@ -59,6 +59,7 @@ export default function AppDemo() {
     trackPageview();
   }, []); 
   
+  
   // --------------------------------------
   // ------------End Analytics-------------
   // --------------------------------------
@@ -106,28 +107,28 @@ export default function AppDemo() {
       </AppShell.Header>
 
       <AppShell.Navbar p="md"style={{ height: '100%' }}>
-        <NavLink label="Drafts" active={view === 'drafts'}
+        <NavLink w={'100%'} style={{ borderRadius: '25px'}} label="Drafts" active={view === 'drafts'}
          onClick={() => { 
           setView('drafts')
           if (isMobile) toggle_navi_mobi()
           else toggle_navi_desk()
         }}
         />
-        <NavLink label="Contracts" active={view === 'contract'}
+        <NavLink w={'100%'} style={{ borderRadius: '25px'}} label="Contracts" active={view === 'contract'}
            onClick={() => { 
             setView('contract')
             if (isMobile) toggle_navi_mobi()
             else toggle_navi_desk()
           }}
         />
-        <NavLink label="Deposits" active={view === 'deposits'}
+        <NavLink w={'100%'} style={{ borderRadius: '25px'}} label="Deposits" active={view === 'deposits'}
          onClick={() => { 
           setView('deposits')
           if (isMobile) toggle_navi_mobi()
           else toggle_navi_desk()
         }}
         />
-        <NavLink label="Settings" active={view === 'settings'} 
+        <NavLink w={'100%'} style={{ borderRadius: '25px'}} label="Settings" active={view === 'settings'} 
          onClick={() => { 
           setView('settings')
           if (isMobile) toggle_navi_mobi()
@@ -144,13 +145,34 @@ export default function AppDemo() {
           style={{
             fontWeight: 600,
             backgroundColor: '#0068FD',
-            borderRadius: '15px',
+            borderRadius: '25px',
             color: 'white',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
             height: '32px', 
             marginTop: '20px',
+            width: '100%', 
+            textDecoration: 'none',
+            maxWidth: '120px'
+        }}
+        />
+
+      <NavLink w={'100%'} label="New Deposit" active={view === 'newDeposit'} 
+           onClick={() => { 
+            setView('newDeposit'); 
+            if (isMobile) toggle_navi_mobi();
+          }}
+          component="a"
+          style={{
+            fontWeight: 600,
+            color: '#0068FD',
+            borderRadius: '25px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '32px', 
+            marginTop: '10px',
             width: '100%', 
             textDecoration: 'none',
             maxWidth: '120px'
@@ -168,8 +190,8 @@ export default function AppDemo() {
         { view === 'contract'  && <ContractView /> }
         { view === 'deposits'  && <DepositView  /> }
         { view === 'settings'  && <SettingsView /> }
-        { view === 'new_draft' && <DraftCreate  /> }
         { view === 'session'   && <SessionView  /> }
+        { view === 'new_draft' && <DraftCreate  /> }
       </AppShell.Main>
 
       <AppShell.Footer>

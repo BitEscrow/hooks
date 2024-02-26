@@ -1,5 +1,5 @@
 // import { useState }       from 'react'
-import { useSigner }      from '@/hooks/useSigner'
+// import { useSigner }      from '@/hooks/useSigner'
 import { useMediaQuery }  from '@mantine/hooks';
 
 import {
@@ -22,12 +22,12 @@ interface Props {
 }
 
 export default function Header(props : Props) {
-  const { signer } = useSigner()
-  const { navi_toggle, side_toggle } = props
+  // const { signer } = useSigner()
+  const { navi_toggle } = props
 
-  const style = {
-    borderRadius : signer !== null ? '0px 5px 5px 0px' : '5px 5px 5px 5px'
-  }
+  // const style = {
+  //   borderRadius : signer !== null ? '0px 5px 5px 0px' : '5px 5px 5px 5px'
+  // }
 
   // const [isDarkTheme, setIsDarkTheme] = useState(true); // Assuming the default theme is dark
 
