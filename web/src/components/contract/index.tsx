@@ -17,7 +17,7 @@ export default function ContractView() {
       <Divider mb={30} mt={20} />
       <ContractTable /> 
       <Divider mb={30} mt={20} />
-      <SearchCid/>
+      <SearchCid />
     </Card>
   )
 }
