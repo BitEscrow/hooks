@@ -43,7 +43,7 @@ export default function SearchDpid() {
         </div>
         <Group>
         <TextInput
-            style={{ width: '500px' }}
+            style={{ width: '450px' }}
             placeholder="Search for a deposit by DPID"
             leftSection={<IconSearch size={15}/>}
             value={inputValue}
@@ -54,7 +54,7 @@ export default function SearchDpid() {
         <Button
             style={{
                 backgroundColor: '#0068FD',
-                borderRadius: '15px',
+                borderRadius: '25px',
             }}
             onClick={handleClick}
         >
