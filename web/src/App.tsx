@@ -157,27 +157,6 @@ export default function AppDemo() {
             maxWidth: '120px'
         }}
         />
-
-      <NavLink w={'100%'} label="New Deposit" active={view === 'newDeposit'} 
-           onClick={() => { 
-            setView('newDeposit'); 
-            if (isMobile) toggle_navi_mobi();
-          }}
-          component="a"
-          style={{
-            fontWeight: 600,
-            color: '#0068FD',
-            borderRadius: '25px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '32px', 
-            marginTop: '10px',
-            width: '100%', 
-            textDecoration: 'none',
-            maxWidth: '120px'
-        }}
-        />
          {isMobile && <MobileFooterComponent/>}
       </AppShell.Navbar>
 
