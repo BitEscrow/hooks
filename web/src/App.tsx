@@ -27,6 +27,7 @@ import FooterComponent        from '@/components/ui/footer'
 import SettingsView           from '@/components/settings'
 import SignerButton           from '@/components/ui/signerButton'
 import MobileFooterComponent  from '@/components/ui/mobileFooter'
+import SessionView            from '@/components/SessionView'
 
 export default function AppDemo() {
   const [ navi_desk_open, { toggle : toggle_navi_desk } ] = useDisclosure(true)
@@ -61,6 +62,13 @@ export default function AppDemo() {
   // --------------------------------------
   // ------------End Analytics-------------
   // --------------------------------------
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    if (params.has('id') && params.has('relay')) {
+      setView('session')
+    }
+  }, [ view ])
 
   return (
     <AppShell
@@ -161,6 +169,7 @@ export default function AppDemo() {
         { view === 'deposits'  && <DepositView  /> }
         { view === 'settings'  && <SettingsView /> }
         { view === 'new_draft' && <DraftCreate  /> }
+        { view === 'session'   && <SessionView  /> }
       </AppShell.Main>
 
       <AppShell.Footer>

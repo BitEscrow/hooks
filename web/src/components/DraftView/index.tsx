@@ -23,8 +23,6 @@ export default function DraftView () {
   const [ sessions, setSessions ] = useState<DraftItem[]>([])
   const [ init, setInit ]         = useState(false)
 
-  const params = new URLSearchParams(window.location.search)
-
   const update_draft_list = () => {
     if (session === null) {
       throw new Error('Session is not initialized')
