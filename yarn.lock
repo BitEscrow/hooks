@@ -323,10 +323,10 @@
   resolved "https://registry.yarnpkg.com/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.12.0.tgz#9ffdf9ed133a7464f4ae187eb9e1294413fab235"
   integrity sha512-ZYmr5mS2wd4Dew/JjT0Fqi2NPB/ZhZ2VvPp7SmvPZb4Y1CG/LRcS6tcRo2cYU7zLK5A7cdbhWnnWmUjoI4qapg==
 
-"@scrow/core@^0.7.13":
-  version "0.7.13"
-  resolved "https://registry.yarnpkg.com/@scrow/core/-/core-0.7.13.tgz#8a2d7967d0345c0efac1c79fede3cf7e87a7c227"
-  integrity sha512-3AzzSuayFYA38PtWkGcoeb9YAIxhlS18s16HRlWCfdcPeHF6i+yxGBwfB2+/nyfCueegX7ZfQGvcaMj3o6VA3Q==
+"@scrow/core@^0.7.17":
+  version "0.7.17"
+  resolved "https://registry.yarnpkg.com/@scrow/core/-/core-0.7.17.tgz#791fa363a67d505d462ed1aa14b9c8e9b80ec61c"
+  integrity sha512-6HXiBNwedtngoqLlXcUGSV5FCUo7bDIK2PrfFRMdnmUvQqEDfNheSfpOVnd3FhggULVep5hmUTmHeykZJ6ujpg==
   dependencies:
     "@cmdcode/buff" "2.2.5"
     "@cmdcode/crypto-tools" "2.7.6"
