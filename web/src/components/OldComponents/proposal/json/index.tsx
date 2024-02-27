@@ -1,4 +1,4 @@
-import { useStore } from '@/hooks/useProposal'
+import { useStore } from '@/hooks/useConfig'
 
 import {
   Box,

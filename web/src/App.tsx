@@ -22,7 +22,6 @@ import DraftView              from '@/components/DraftView'
 import ContractView           from '@/components/ContractView'
 import DepositView            from '@/components/DepositView'
 import Header                 from '@/components/ui/header'
-import SideBar                from '@/components/ui/drawer'
 import FooterComponent        from '@/components/ui/footer'
 import SettingsView           from '@/components/settings'
 import SignerButton           from '@/components/ui/signerButton'
@@ -36,7 +35,6 @@ export default function AppDemo() {
   const [ side_mobi_open, { toggle : toggle_side_mobi } ] = useDisclosure()
 
   const isMobile = useMediaQuery('(max-width: 768px)')
-  const isOpen   = (side_desk_open || side_mobi_open)
   
   const [ view, setView ] = useState('drafts')
   
@@ -161,10 +159,6 @@ export default function AppDemo() {
          {isMobile && <MobileFooterComponent/>}
       </AppShell.Navbar>
 
-      <AppShell.Aside>
-        <SideBar />
-      </AppShell.Aside>
-
       <AppShell.Main style={{ width: '100%', maxWidth: '100%' }}>
         { view === 'drafts'    && <DraftView    /> }
         { view === 'contract'  && <ContractView /> }
@@ -178,11 +172,7 @@ export default function AppDemo() {
         <FooterComponent/>
       </AppShell.Footer>
 
-      <SignerButton 
-        side_opened={isOpen}
-        side_toggle_desk={toggle_side_desk}
-        side_toggle_mobi={toggle_side_mobi}
-      />
+      <SignerButton />
 
     </AppShell>
   )

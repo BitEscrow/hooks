@@ -7,7 +7,8 @@ import {
   Modal,
   Checkbox,
   Button,
-  Text
+  Text,
+  TextInput
 } from '@mantine/core'
 
 import { useState }   from 'react'
@@ -30,63 +31,78 @@ export default function LoaderView () {
 
   const [ selected, setSelected ] = useState<string | null>(null)
 
-  const [ view,  setView  ] = useState('unlock')
+  const [ view,  setView  ] = useState('login')
   const [ pass,  setPass  ] = useState('')
+  const [ xpub,  setXpub  ] = useState('')
   
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-  const [deleteConfirmed, setDeleteConfirmed] = useState(false);
-  const [pubkeyToDelete, setPubkeyToDelete] = useState<string | null>(null);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false)
+  const [deleteConfirmed, setDeleteConfirmed] = useState(false)
+  const [pubkeyToDelete, setPubkeyToDelete] = useState<string | null>(null)
+
+  const wallet_key = xpub !== '' ? xpub : undefined
 
   const handleDeleteClick = (pubkey: string) => {
-    setPubkeyToDelete(pubkey);
-    setIsConfirmOpen(true);
+    setPubkeyToDelete(pubkey)
+    setIsConfirmOpen(true)
   };
 
   const confirmDelete = () => {
     if (pubkeyToDelete) {
-      session.remove(pubkeyToDelete);
-      setPubkeyToDelete(null); 
+      session.remove(pubkeyToDelete)
+      setPubkeyToDelete(null)
     }
-    setIsConfirmOpen(false); 
-    setDeleteConfirmed(false);
+    setIsConfirmOpen(false)
+    setDeleteConfirmed(false)
   };
 
   return (
     <Box>
       <ControlView view={view} setView={setView} />
-      <Center mih={100} mt={25}>
-        <ul>
-          {session.list.length > 0 && <Text fw={700} mb={10}>Current Sessions:</Text>}  
-          {session.list.map(([pubkey]) => (
-            <div>
-              <li key={pubkey} style={{ listStyleType: 'none' }}>
-                <IconKey size={18} style={{ marginRight: '5px', transform: 'translateY(3px)' }} /> 
-                <span style={{ marginRight: '10px' }}>
-                  {`${pubkey.slice(0, 7)}...${pubkey.slice(-7)}`}
-                </span>
-                <button onClick={() => setSelected(pubkey)} style={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer', transform: 'translateY(2px)' }}>
-                  <IconCheck size={17} color="green" /> {/* Green check icon */}
-                </button>
-                <button onClick={() => handleDeleteClick(pubkey)} style={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer', marginLeft: '8px', transform: 'translateY(2px)' }}>
-                  <IconTrash size={17} color="red" /> {/* Red trashcan icon */}
-                </button>
-              </li>
-            </div>
-          ))}
-        </ul>
-      </Center>
+      { view == 'login' &&
+        <Center mih={100} mt={25}>
+          <ul>
+            {session.list.length > 0 && <Text fw={700} mb={10}>Current Sessions:</Text>}  
+            {session.list.map(([ pubkey ]) => (
+              <div key={ pubkey }>
+                <li style={{ listStyleType: 'none' }}>
+                  <IconKey size={18} style={{ marginRight: '5px', transform: 'translateY(3px)' }} /> 
+                  <span style={{ marginRight: '10px' }}>
+                    {`${pubkey.slice(0, 7)}...${pubkey.slice(-7)}`}
+                  </span>
+                  <button onClick={() => setSelected(pubkey)} style={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer', transform: 'translateY(2px)' }}>
+                    <IconCheck size={17} color="green" /> {/* Green check icon */}
+                  </button>
+                  <button onClick={() => handleDeleteClick(pubkey)} style={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer', marginLeft: '8px', transform: 'translateY(2px)' }}>
+                    <IconTrash size={17} color="red" /> {/* Red trashcan icon */}
+                  </button>
+                </li>
+              </div>
+            ))}
+          </ul>
+        </Center>
+      }
       <PasswordInput
         c           = 'black'
-        label       = 'Password'
+        label       = { view === 'login' ? 'Password' : 'New Password' }
         placeholder = 'enter password ...'
         p={15}
         value       = {pass}
         onChange    = {(e) => setPass(e.target.value)}
       />
+      { view !== 'login' &&
+        <TextInput
+          c           = 'black'
+          label       = 'Wallet Key'
+          placeholder = 'enter xpub ...'
+          p={15}
+          value       = {xpub}
+          onChange    = {(e) => setXpub(e.target.value)}
+        />
+      }
       <Box>
-          { view === 'create' && <SeedView   pass={pass} />}
-          { view === 'import' && <ImportView pass={pass} />}
-          { view === 'unlock' && selected && <UnlockView pubkey={selected} pass={pass} />}
+          { view === 'create' && <SeedView   pass={pass} xpub={wallet_key} />}
+          { view === 'import' && <ImportView pass={pass} xpub={wallet_key} />}
+          { view === 'login'  && selected && <UnlockView pubkey={selected} pass={pass} />}
       </Box>
       <Modal opened={isConfirmOpen} onClose={() => setIsConfirmOpen(false)} title="Confirm Delete">
         <Text size="sm" mb="md">

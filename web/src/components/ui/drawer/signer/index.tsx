@@ -19,9 +19,9 @@ export default function SignerView () {
 
   const handleClose = () => {
     if (isConfirmed) {
-      session.close();
-      setIsConfirmed(false);
-      setIsCloseConfirmOpen(false);
+      session.close()
+      setIsConfirmed(false)
+      setIsCloseConfirmOpen(false)
     }
   };
 
@@ -31,39 +31,41 @@ export default function SignerView () {
         <Box>
           <Group gap={0}>
             <Text
-              mt={10}
-              fw={700}
-              p  = {10}
+              fw = {700}
+              p  = {5}
               h  = {30}
+              w  = {60}
+              ta = 'right'
             >
-              Id:
+              Signer:
             </Text>
             <Text
               w  = {200}
-              p  = {15}
+              p  = {5}
               h  = {30}
-              ta = 'right'
+              ta = 'left'
             >
               {signer.pubkey.slice(0, 16)}
             </Text>
           </Group>
           <Group gap={0}>
             <Text
-               mt={10}
               fw={700}
-              p  = {10}
+              p  = {5}
               h  = {30}
-            >
-              Pub:
-            </Text>
-            <Box
-              w  = {200}
-              p  = {20}
-              h  = {30}
+              w  = {60}
               ta = 'right'
             >
-              {signer.pubkey.slice(0, 16)}
-            </Box>
+              Wallet:
+            </Text>
+            <Text
+              w  = {200}
+              p  = {5}
+              h  = {30}
+              ta = 'left'
+            >
+              {signer.xpub.slice(0, 16)}
+            </Text>
           </Group>
           <Button
             mt={20}
@@ -72,7 +74,7 @@ export default function SignerView () {
             bg      = 'red'
             onClick={() => setIsCloseConfirmOpen(true)}
           >
-            Close
+            Logout
           </Button>
         </Box>
       }

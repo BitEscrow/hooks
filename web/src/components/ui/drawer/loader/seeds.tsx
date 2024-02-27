@@ -1,17 +1,17 @@
-import { useSigner } from '@/hooks/useSigner'
-import { Buff } from '@cmdcode/buff'
-import { Seed } from '@cmdcode/signer'
-import { useClipboard } from '@mantine/hooks';
+import { useState }     from 'react'
+import { Buff }         from '@cmdcode/buff'
+import { Seed }         from '@cmdcode/signer'
+// import { useClipboard } from '@mantine/hooks'
+import { useSigner }    from '@/hooks/useSigner'
 
 import { Box, Button, Center, Checkbox, Flex, Group, Text } from '@mantine/core'
 
-import { useState } from 'react'
-
 interface Props {
-  pass : string
+  pass  : string
+  xpub ?: string
 }
 
-export default function SeedView ({ pass } : Props) {
+export default function SeedView ({ pass, xpub } : Props) {
 
   const { gen_words, session } = useSigner()
 
@@ -24,7 +24,7 @@ export default function SeedView ({ pass } : Props) {
 
   const submit = () => {
     const seed = Buff.raw(Seed.import.from_words(words))
-    session.create(pass, seed.hex)
+    session.create(pass, seed.hex, xpub)
   }
 
   const copyToClipboard = () => {

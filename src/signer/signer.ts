@@ -1,21 +1,14 @@
-import { useState }    from 'react'
-import { Seed }        from '@cmdcode/signer'
-import { initStore }   from './store.js'
-import { SignerStore } from './types.js'
-
-import {
-  ClientConfig,
-  EscrowSigner
-} from '@scrow/core'
+import { useState }     from 'react'
+import { Seed }         from '@cmdcode/signer'
+import { ClientConfig, EscrowSigner } from '@scrow/core'
+import { initStore }    from './store.js'
+import { SignerStore }  from './types.js'
 
 type StoreAPI  = ReturnType<typeof initStore<SignerStore>>
 
-export function initSigner (
-  config  : ClientConfig,
-  reducer : StoreAPI
-) {
-  const { store, update, reset } = reducer
-  const [ signer, setSigner  ] = useState<EscrowSigner | null>(null)
+export function initSigner (signer_store : StoreAPI) {
+  const { store, update, reset } = signer_store
+  const [ signer, setSigner  ]   = useState<EscrowSigner | null>(null)
 
   const gen_words = Seed.generate.words
 
@@ -42,7 +35,7 @@ export function initSigner (
     xpub    ?: string
   ) => {
     // Create Escrow Signer.
-    const signer = EscrowSigner.create(config, seed, xpub)
+    const signer = EscrowSigner.create(store.config, seed, xpub)
     // Get signer pubkey.
     const pub = signer.pubkey
     // Check if a session already exists for pubkey.
@@ -69,7 +62,7 @@ export function initSigner (
     // Get session from store.
     const payload = get_session(pubkey)
     // Load signer from encrypted payload.
-    const signer = EscrowSigner.load(config, password, payload)
+    const signer = EscrowSigner.load(store.config, password, payload)
     // Set new signer as current session.
     setSigner(signer)
     // Return new signer.
@@ -89,6 +82,17 @@ export function initSigner (
 
   const close_session = () => setSigner(null)
 
+  const update_config = (config : ClientConfig) => {
+    if (signer !== null) {
+      setSigner(new EscrowSigner({
+        ...config,
+        signer : signer._signer,
+        wallet : signer._wallet
+      }))
+    }
+    update({ config })
+  }
+
   return {
     session : {
       clear  : clear_sessions,
@@ -99,6 +103,7 @@ export function initSigner (
       remove : rem_session
     },
     gen_words,
-    signer
+    signer,
+    update_config
   }
 }

@@ -258,10 +258,10 @@
   resolved "https://registry.npmjs.org/@remix-run/router/-/router-1.15.1.tgz#221fd31a65186b9bc027b74573485fb3226dff7f"
   integrity sha512-zcU0gM3z+3iqj8UX45AmWY810l3oUmXM7uH4dt5xtzvMhRtYVhKGOmgOd1877dOPPepfCjUv57w+syamWIYe7w==
 
-"@rollup/rollup-android-arm-eabi@4.9.6":
-  version "4.9.6"
-  resolved "https://registry.npmjs.org/@rollup/rollup-android-arm-eabi/-/rollup-android-arm-eabi-4.9.6.tgz#66b8d9cb2b3a474d115500f9ebaf43e2126fe496"
-  integrity sha512-MVNXSSYN6QXOulbHpLMKYi60ppyO13W9my1qogeiAqtjb2yR4LSmfU2+POvDkLzhjYLXz9Rf9+9a3zFHW1Lecg==
+"@rollup/rollup-android-arm-eabi@4.12.0":
+  version "4.12.0"
+  resolved "https://registry.yarnpkg.com/@rollup/rollup-android-arm-eabi/-/rollup-android-arm-eabi-4.12.0.tgz#38c3abd1955a3c21d492af6b1a1dca4bb1d894d6"
+  integrity sha512-+ac02NL/2TCKRrJu2wffk1kZ+RyqxVUlbjSagNgPm94frxtr+XDL12E5Ll1enWskLrtrZ2r8L3wED1orIibV/w==
 
 "@rollup/rollup-android-arm64@4.12.0":
   version "4.12.0"
@@ -323,10 +323,10 @@
   resolved "https://registry.yarnpkg.com/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.12.0.tgz#9ffdf9ed133a7464f4ae187eb9e1294413fab235"
   integrity sha512-ZYmr5mS2wd4Dew/JjT0Fqi2NPB/ZhZ2VvPp7SmvPZb4Y1CG/LRcS6tcRo2cYU7zLK5A7cdbhWnnWmUjoI4qapg==
 
-"@scrow/core@^0.7.12":
-  version "0.7.12"
-  resolved "https://registry.yarnpkg.com/@scrow/core/-/core-0.7.12.tgz#843b68aea88e186abd7a4d6d51c15a004f0ba836"
-  integrity sha512-z+DYhCNtE/RQMSuaurpjG4rsCuYS86TH4IIva578E0D/pJaNNFMdsuoEyfXkB5AJS8MrxMDS/VhlQp5/dssfuA==
+"@scrow/core@^0.7.13":
+  version "0.7.13"
+  resolved "https://registry.yarnpkg.com/@scrow/core/-/core-0.7.13.tgz#8a2d7967d0345c0efac1c79fede3cf7e87a7c227"
+  integrity sha512-3AzzSuayFYA38PtWkGcoeb9YAIxhlS18s16HRlWCfdcPeHF6i+yxGBwfB2+/nyfCueegX7ZfQGvcaMj3o6VA3Q==
   dependencies:
     "@cmdcode/buff" "2.2.5"
     "@cmdcode/crypto-tools" "2.7.6"

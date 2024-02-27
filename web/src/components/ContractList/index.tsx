@@ -24,9 +24,11 @@ interface Props {
   signer : EscrowSigner
 }
 
-export default function ContractTable({ signer } : Props) {
+export default function ({ signer } : Props) {
 
   const { data } = useContractList(signer)
+
+  console.log('data:', data)
 
   const [selectedRow, setSelectedRow] = useState<ContractData | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false);

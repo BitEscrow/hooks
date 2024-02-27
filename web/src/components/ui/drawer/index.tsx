@@ -5,12 +5,14 @@ import { Box } from '@mantine/core'
 import LoaderView from './loader'
 import SignerView from './signer'
 
-export default function SideBar () {
+export default function UserView () {
 
   const { signer } = useSigner()
 
   return (
-    <Box bg='white' h='100%'>
+    <Box 
+      bg='white' 
+      h={ signer !== null ? '200px' : '625px'}>
       { signer === null
         && <LoaderView />
         || <SignerView />

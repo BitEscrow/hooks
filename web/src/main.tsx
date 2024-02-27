@@ -8,19 +8,21 @@ import '@mantine/dates/styles.css'
 import { MantineProvider } from '@mantine/core'
 import { ClientProvider }  from '@scrow/hooks/client'
 import { SignerProvider }  from '@/hooks/useSigner'
-import { StoreProvider }   from '@/hooks/useProposal'
-import { client_config }   from '@/config'
+import { ConfigProvider }  from '@/hooks/useConfig'
+import { servers }         from './config'
+
+const default_config = servers['mutiny']
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <MantineProvider>
-      <ClientProvider config={client_config}>
-        <SignerProvider>
-          <StoreProvider>
+      <ConfigProvider>
+        <ClientProvider config={default_config}>
+          <SignerProvider config={default_config}>
             <App />
-          </StoreProvider>
-        </SignerProvider>
-      </ClientProvider>
+          </SignerProvider>
+        </ClientProvider>
+      </ConfigProvider>
     </MantineProvider>
   </React.StrictMode>
 )

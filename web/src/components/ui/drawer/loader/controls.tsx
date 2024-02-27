@@ -35,11 +35,11 @@ export default function ControlView ({ view, setView } : Props) {
           ),
         },
         {
-          value: 'unlock',
+          value: 'login',
           label: (
             <Center>
               {/* <IconExternalLink style={{ width: rem(16), height: rem(16) }} /> */}
-              <Box ml={10}>Unlock</Box>
+              <Box ml={10}>Login</Box>
             </Center>
           ),
         },

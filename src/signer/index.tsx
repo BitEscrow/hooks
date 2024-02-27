@@ -9,28 +9,33 @@ import {
   useContext
 } from 'react'
 
-type Props = { children : ReactElement }
+type Props = {
+  config   : ClientConfig
+  children : ReactElement
+}
+
 type Store = ReturnType<typeof initSigner>
 
 const STORE_NAME = 'signers'
 
 // Setup the default values for your store.
-const defaults : SignerStore = {
+const defaults = {
   sessions : [],
   signer   : null
 }
 
-export function createSignerStore (config : ClientConfig) {
+export function createSignerStore () {
   // Create our provider context.
   const context = createContext<Store | null>(null)
 
   function SignerProvider (
-    { children } : Props
+    { config, children } : Props
   ) : ReactElement {
     // Returns the Provider that wraps our app and
     // passes down the context object.
-    const store = initStore(defaults, STORE_NAME)
-    const ctx   = initSigner(config, store)
+    const conf : SignerStore = { ...defaults, config }
+    const store = initStore(conf, STORE_NAME)
+    const ctx   = initSigner(store)
 
     return (
       <context.Provider value={ctx}>

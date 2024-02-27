@@ -3,7 +3,8 @@ import { ClientConfig, EscrowClient } from '@scrow/core'
 import {
   createContext,
   ReactElement,
-  useContext
+  useContext,
+  useState
 } from 'react'
 
 type Props = {
@@ -11,23 +12,32 @@ type Props = {
   config   : ClientConfig
 }
 
-const context = createContext<EscrowClient | null>(null)
+type ClientStore = {
+  client        : EscrowClient
+  update_config : (config : ClientConfig) => void
+}
+
+const context = createContext<ClientStore | null>(null)
 
 export function ClientProvider (
   { children, config } : Props
 ) : ReactElement {
-  // Returns the Provider that wraps our app and
-  // passes down the context object.
-  const client = new EscrowClient(config)
+  const init_client = new EscrowClient(config)
+
+  const [ client, setClient ] = useState(init_client)
+
+  const update_config = (config : ClientConfig) => {
+    setClient(new EscrowClient(config))
+  }
 
   return (
-    <context.Provider value={client}>
+    <context.Provider value={{ client, update_config }}>
       {children}
     </context.Provider>
   )
 }
 
-export function useClient () : EscrowClient {
+export function useClient () : ClientStore {
   const ctx = useContext(context)
   if (ctx === null) {
     throw new Error('Context is null!')
