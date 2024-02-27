@@ -25,7 +25,6 @@ export default function DepositView() {
           || 'You must login in order to view your deposits.'
         }
       </Text>
-      <Divider mb={30} mt={20} />
       { store.signer !== null &&
         <>
           <Divider mb={30} mt={20} />
