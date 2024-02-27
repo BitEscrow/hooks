@@ -36,6 +36,7 @@ export default function AppDemo() {
   const [ side_mobi_open, { toggle : toggle_side_mobi } ] = useDisclosure()
 
   const isMobile = useMediaQuery('(max-width: 768px)')
+  const isOpen   = (side_desk_open || side_mobi_open)
   
   const [ view, setView ] = useState('drafts')
   
@@ -177,7 +178,11 @@ export default function AppDemo() {
         <FooterComponent/>
       </AppShell.Footer>
 
-      <SignerButton />
+      <SignerButton 
+        side_opened={isOpen}
+        side_toggle_desk={toggle_side_desk}
+        side_toggle_mobi={toggle_side_mobi}
+      />
 
     </AppShell>
   )

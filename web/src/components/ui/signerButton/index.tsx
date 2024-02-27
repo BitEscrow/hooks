@@ -11,9 +11,9 @@ import {
 } from '@tabler/icons-react'
 
 interface Props {
-  side_opened ?: boolean;
-  side_toggle_desk ?: () => void; 
-  side_toggle_mobi ?: () => void; 
+  side_opened      : boolean
+  side_toggle_desk : () => void
+  side_toggle_mobi : () => void
 }
 
 
