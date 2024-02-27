@@ -7,7 +7,7 @@ import {
   Divider
 }                     from "@mantine/core";
 import DepositsTable  from "./table";
-import SearchDpid from "./searchDpid";
+import SearchDpid     from "./searchDpid";
 
 export default function DepositView() {
   return (

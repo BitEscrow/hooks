@@ -17,10 +17,10 @@ import {
 
 import Plausible from 'plausible-tracker'
 
-import DraftCreate            from '@/components/DraftCreate'
-import DraftView              from '@/components/DraftView'
-import ContractView           from '@/components/ContractView'
-import DepositView            from '@/components/DepositView'
+import DraftCreate            from '@/components/drafts/DraftCreate'
+import DraftView              from '@/components/drafts/DraftView'
+import ContractView           from '@/components/contract/ContractView'
+import DepositView            from '@/components/deposits/DepositView'
 import Header                 from '@/components/ui/header'
 import SideBar                from '@/components/ui/drawer'
 import FooterComponent        from '@/components/ui/footer'
@@ -28,6 +28,7 @@ import SettingsView           from '@/components/settings'
 import SignerButton           from '@/components/ui/signerButton'
 import MobileFooterComponent  from '@/components/ui/mobileFooter'
 import SessionView            from '@/components/SessionView'
+
 
 export default function AppDemo() {
   const [ navi_desk_open, { toggle : toggle_navi_desk } ] = useDisclosure(true)
@@ -114,35 +115,30 @@ export default function AppDemo() {
          onClick={() => { 
           setView('drafts')
           if (isMobile) toggle_navi_mobi()
-          else toggle_navi_desk()
         }}
         />
         <NavLink w={'100%'} style={{ borderRadius: '25px'}} label="Contracts" active={view === 'contract'}
            onClick={() => { 
             setView('contract')
             if (isMobile) toggle_navi_mobi()
-            else toggle_navi_desk()
           }}
         />
         <NavLink w={'100%'} style={{ borderRadius: '25px'}} label="Deposits" active={view === 'deposits'}
          onClick={() => { 
           setView('deposits')
           if (isMobile) toggle_navi_mobi()
-          else toggle_navi_desk()
         }}
         />
         <NavLink w={'100%'} style={{ borderRadius: '25px'}} label="Settings" active={view === 'settings'} 
          onClick={() => { 
           setView('settings')
           if (isMobile) toggle_navi_mobi()
-          else toggle_navi_desk()
         }}
         />
         <NavLink label="New Draft" active={view === 'new_draft'} 
            onClick={() => { 
             setView('new_draft')
             if (isMobile) toggle_navi_mobi()
-            else toggle_navi_desk()
           }}
           component="a"
           style={{
