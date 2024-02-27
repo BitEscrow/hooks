@@ -33,8 +33,8 @@ export default function () {
       setTimeout(() => setCopyButtonText('Copy Seed Words'), 2000)
     }).catch(err => {
       console.error('Failed to copy seed words: ', err)
-    });
-  };
+    })
+  }
 
   return (
     <Box>
@@ -42,6 +42,7 @@ export default function () {
         c           = 'black'
         label       = 'New Password'
         placeholder = 'enter password ...'
+        required    = {true}
         p={15}
         value       = {pass}
         onChange    = {(e) => setPass(e.target.value)}

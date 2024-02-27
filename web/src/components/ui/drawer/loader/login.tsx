@@ -23,6 +23,7 @@ export default function UnlockView() {
         <>
           <PasswordInput
             c           = 'black'
+            required    = {true}
             label       = 'Password'
             placeholder = 'enter password ...'
             p           = {15}

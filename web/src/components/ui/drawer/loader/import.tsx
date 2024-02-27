@@ -53,25 +53,35 @@ export default function ImportView () {
         c           = 'black'
         label       = 'New Password'
         placeholder = 'enter password ...'
+        required    = {true}
         p={15}
         value       = {pass}
         onChange    = {(e) => setPass(e.target.value)}
       />
-      { view !== 'login' &&
-        <TextInput
-          c           = 'black'
-          label       = 'Wallet Key'
-          placeholder = 'enter xpub ...'
-          p={15}
-          value       = {xpub}
-          onChange    = {(e) => setXpub(e.target.value)}
-        />
-      }
+      <TextInput
+        c           = 'black'
+        label       = 'Wallet Key'
+        placeholder = 'enter xpub ...'
+        p={15}
+        value       = {xpub}
+        onChange    = {(e) => setXpub(e.target.value)}
+      />
       <Box p={15}>
+        {view === 'xprv' &&
+          <TextInput
+            c = 'black'
+            required    = {view === 'xprv'}
+            label       = "BIP-32 Private Key"
+            placeholder ="enter xprv ..."
+            value       = {xprv}
+            onChange    = {e => setXprv(e.target.value)}
+          />
+        }
         {view === 'bip39' &&
           <TagsInput
             clearable
             c = 'black'
+            required    = {view === 'bip39'}
             label       = "BIP-39 Word List"
             placeholder ="enter seed words ..."
             maxTags     = {24}
@@ -83,6 +93,7 @@ export default function ImportView () {
         {view === 'phrase' &&
           <TextInput
             c = 'black'
+            required    = {view === 'phrase'}
             label       = "Secret Phrase"
             placeholder = "enter a secret phrase ..."
             value       = {phrase}
@@ -92,19 +103,11 @@ export default function ImportView () {
         {view === 'seed' &&
           <TextInput
             c = 'black'
-            label       = "Hex Seed"
-            placeholder ="enter hexadecimal string ..."
+            required    = {view === 'seed'}
+            label       = "Hex-Encoded Seed"
+            placeholder ="enter hex string ..."
             value       = {seed}
             onChange    = {e => setSeed(e.target.value)}
-          />
-        }
-        {view === 'xprv' &&
-          <TextInput
-            c = 'black'
-            label       = "BIP-32 Key"
-            placeholder ="enter xprv ..."
-            value       = {xprv}
-            onChange    = {e => setXprv(e.target.value)}
           />
         }
       </Box>
@@ -114,12 +117,12 @@ export default function ImportView () {
         onChange = {setView}
         radius   = {0}
         data     = {[
-          {
-            value: 'bip39',
+           {
+            value: 'xprv',
             label: (
               <Center>
-                {/* <IconEye style={{ width: rem(16), height: rem(16) }} /> */}
-                <Box>BIP-39</Box>
+                {/* <IconExternalLink style={{ width: rem(16), height: rem(16) }} /> */}
+                <Box>BIP-32</Box>
               </Center>
             ),
           },
@@ -142,11 +145,11 @@ export default function ImportView () {
             ),
           },
           {
-            value: 'xprv',
+            value: 'bip39',
             label: (
               <Center>
-                {/* <IconExternalLink style={{ width: rem(16), height: rem(16) }} /> */}
-                <Box>BIP-32</Box>
+                {/* <IconEye style={{ width: rem(16), height: rem(16) }} /> */}
+                <Box>Words</Box>
               </Center>
             ),
           },

@@ -3,7 +3,7 @@ import { useState }  from 'react'
 import { Box } from '@mantine/core'
 
 import ImportView   from './import'
-import SeedView     from './seeds'
+import SeedView     from './create'
 import ControlView  from './controls'
 import LoginView    from './login'
 
