@@ -4,12 +4,14 @@ import {
   Box,
   Button,
   Card,
+  Divider,
   Group,
   JsonInput,
   NativeSelect,
   Text,
   TextInput,
   Title,
+  Space
 } from '@mantine/core'
 
 import presets_json from './presets.json' assert { type: 'json' }
@@ -60,22 +62,25 @@ export default function CreateDraftView () {
           </Text>
         </div>
       </Group>
-
-      <NativeSelect
-        label="Example Templates"
-        description="Pre-built JSON templates to start with."
-        value={preset}
-        onChange={(e) => setPreset(e.currentTarget.value)}
-        data={Object.keys(presets_json)}
-      />
-
-      <Button
-        variant="filled"
-        onClick={() => apply_preset()}
-      >
-        Apply
-      </Button>
-
+      <Divider mb={30} mt={20}/>
+      <Box maw = {300}>
+        <NativeSelect
+          label="Example Templates"
+          description="Pre-built JSON templates to start with."
+          value={preset}
+          onChange={(e) => setPreset(e.currentTarget.value)}
+          data={Object.keys(presets_json)}
+        />
+        <Space h="xs" />
+        <Button
+          maw = {150}
+          variant="filled"
+          onClick={() => apply_preset()}
+        >
+          Apply
+        </Button>
+      </Box>
+      <Divider mb={30} mt={20}/>
       <Box maw={700}>
         <JsonInput
           label="Draft Template"
@@ -85,24 +90,20 @@ export default function CreateDraftView () {
           formatOnBlur
           autosize
           minRows={4}
-          maxRows={20}
+          maxRows={15}
           value={json}
           onChange={(e) => setJson(e)}
           styles={{ input : { color : (isValid) ? 'black' : 'red' } }}
         />
       </Box>
-
-      <TextInput
-        label="Relay Address" 
-        description="The address of the relay that you wish to use for negotiation."
-      />
-
+      <Space h="xs" />
       <Button
+        maw = {150}
         variant="filled"
         onClick={() => create_draft()}
         disabled={!isValid}
       >
-        Publish Draft
+        Create Draft
       </Button>
   </Card>
   )

@@ -51,9 +51,10 @@ export default function DraftView () {
           Login with a signing device to view your drafts.
         </Text>
       }       
-      <DraftSearch />
+      
       { session !== null &&
         <>
+          <DraftSearch />
           <Divider mb={30} mt={20}/>
           <Title order={2} mb={15}>Existing Drafts</Title>
           <Text c="dimmed" style={{ marginBottom: '20px' }} maw='500px'>
