@@ -22,7 +22,7 @@ export function useContractList(signer) {
     const pub = signer.pubkey;
     const url = `${client.host}/api/contract/list?pk=${pub}`;
     const fetcher = async () => {
-        const token = signer.request.contracts();
+        const token = signer.request.contract_list();
         const res = await client.contract.list(pub, token);
         if (!res.ok)
             throw new Error(res.error);

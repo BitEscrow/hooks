@@ -15,6 +15,7 @@
       "@scrow/hooks/client"   : [ "src/client/index.jsx"  ],
       "@scrow/hooks/contract" : [ "src/contract/index.js" ],
       "@scrow/hooks/deposit"  : [ "src/deposit/index.js"  ],
+      "@scrow/hooks/draft"    : [ "src/draft/index.js"    ],
       "@scrow/hooks/signer"   : [ "src/signer/index.jsx"  ]
     },
 

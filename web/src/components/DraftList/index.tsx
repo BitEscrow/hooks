@@ -1,4 +1,10 @@
 import { useState }     from 'react'
+import { useDraftList } from '@scrow/hooks/draft'
+
+import {
+  DraftItem,
+  EscrowSigner
+} from '@scrow/core'
 
 import {
   Table,
@@ -11,13 +17,16 @@ import {
 } from '@mantine/core'
 
 import styles from './styles.module.sass'
-import { DraftItem } from '@scrow/core'
+import { useConfig } from '@/hooks/useConfig'
 
 interface Props {
-  sessions : DraftItem[]
+  signer : EscrowSigner
 }
 
-export default function DraftsTable({ sessions } : Props) {
+export default function DraftsTable({ signer } : Props) {
+
+  const { store } = useConfig()
+  const { data }  = useDraftList(store.relay, signer)
 
   const [selectedRow, setSelectedRow] = useState<DraftItem | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -27,7 +36,7 @@ export default function DraftsTable({ sessions } : Props) {
     setIsModalOpen(true)
   }
 
-  const rows = sessions.map((row) => (
+  const rows = data.map((row) => (
     <tr key={row.draft_id} onClick={() => handleRowClick(row)} className={styles.tableRow}>
       <td><span style={{color: '#54B251'}}>{row.draft_id}</span></td>
       <td><span style={{ color: '#0068FE' }}>{row.updated_at}</span></td>
@@ -36,7 +45,7 @@ export default function DraftsTable({ sessions } : Props) {
 
   return (
     <>
-      { sessions.length > 0 ? (
+      { data.length > 0 ? (
         <ScrollArea>
           <Paper>
             <Table style={{ minWidth: '500px', width: '100%' }}>

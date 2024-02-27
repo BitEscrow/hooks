@@ -8,8 +8,7 @@ export declare function useDeposit(dpid: string, host?: string): {
     isLoading: boolean;
 };
 export declare function useDepositList(signer: EscrowSigner): {
-    deposits: DepositData[];
-    data: DepositListResponse | undefined;
+    data: DepositData[];
     error: any;
     mutate: import("swr/_internal").KeyedMutator<DepositListResponse>;
     isValidating: boolean;

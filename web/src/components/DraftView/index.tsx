@@ -52,7 +52,7 @@ export default function DraftView () {
         </Text>
       }       
       
-      { session !== null &&
+      { session !== null && signer !== null &&
         <>
           <DraftSearch />
           <Divider mb={30} mt={20}/>
@@ -61,15 +61,15 @@ export default function DraftView () {
             Click on a draft below to view the details.
           </Text>
           <Divider mb={30} mt={20}/>
-          <DraftList sessions={ sessions }/>
-          <Divider mb={30} mt={20}/>
+          <DraftList signer={ signer }/>
+          {/* <Divider mb={30} mt={20}/>
           <Button
             maw     = {100}
             variant ="filled"
             onClick = {() => session.list(store.relay) }
           >
             Refresh
-          </Button>
+          </Button> */}
       </>
     }
     </Card>

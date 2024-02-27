@@ -26,9 +26,25 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
-    "./use-signer": {
-      "import": "./dist/use-signer/index.js",
-      "types": "./dist/use-signer/index.d.ts"
+    "./contract": {
+      "import": "./dist/contract/index.js",
+      "types": "./dist/contract/index.d.ts"
+    },
+    "./client": {
+      "import": "./dist/client/index.js",
+      "types": "./dist/client/index.d.ts"
+    },
+    "./deposit": {
+      "import": "./dist/deposit/index.js",
+      "types": "./dist/deposit/index.d.ts"
+    },
+    "./draft": {
+      "import": "./dist/draft/index.js",
+      "types": "./dist/draft/index.d.ts"
+    },
+    "./signer": {
+      "import": "./dist/signer/index.js",
+      "types": "./dist/signer/index.d.ts"
     }
   },
   "scripts": {

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Seed } from '@cmdcode/signer';
 import { EscrowSigner } from '@scrow/core';
-export function initSigner(config, reducer) {
-    const { store, update, reset } = reducer;
+export function initSigner(signer_store) {
+    const { store, update, reset } = signer_store;
     const [signer, setSigner] = useState(null);
     const gen_words = Seed.generate.words;
     function has_session(pubkey) {
@@ -17,7 +17,7 @@ export function initSigner(config, reducer) {
         return res[1];
     }
     const create_session = async (password, seed, xpub) => {
-        const signer = EscrowSigner.create(config, seed, xpub);
+        const signer = EscrowSigner.create(store.config, seed, xpub);
         const pub = signer.pubkey;
         if (has_session(pub)) {
             throw new Error('session already exists: ' + pub);
@@ -32,7 +32,7 @@ export function initSigner(config, reducer) {
             throw new Error('session does not exist: ' + pubkey);
         }
         const payload = get_session(pubkey);
-        const signer = EscrowSigner.load(config, password, payload);
+        const signer = EscrowSigner.load(store.config, password, payload);
         setSigner(signer);
         return signer;
     };
@@ -46,6 +46,16 @@ export function initSigner(config, reducer) {
         reset();
     };
     const close_session = () => setSigner(null);
+    const update_config = (config) => {
+        if (signer !== null) {
+            setSigner(new EscrowSigner({
+                ...config,
+                signer: signer._signer,
+                wallet: signer._wallet
+            }));
+        }
+        update({ config });
+    };
     return {
         session: {
             clear: clear_sessions,
@@ -56,7 +66,8 @@ export function initSigner(config, reducer) {
             remove: rem_session
         },
         gen_words,
-        signer
+        signer,
+        update_config
     };
 }
 //# sourceMappingURL=signer.js.map

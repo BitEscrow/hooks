@@ -17,17 +17,17 @@ export function useDepositList(signer) {
     const url = `${client.host}/api/deposit/list?pk=${pub}`;
     const fetcher = async () => {
         const pub = signer.pubkey;
-        const token = signer.request.deposits();
+        const token = signer.request.deposit_list();
         const res = await client.deposit.list(pub, token);
         if (!res.ok)
             throw new Error(res.error);
         return res.data;
     };
     const res = useSWR(url, fetcher);
-    let deposits = [];
+    let data = [];
     if (res.data !== undefined) {
-        deposits = res.data.deposits;
+        data = res.data.deposits;
     }
-    return { ...res, deposits };
+    return { ...res, data };
 }
 //# sourceMappingURL=index.js.map

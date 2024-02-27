@@ -9,7 +9,6 @@ import {
   JsonInput,
   NativeSelect,
   Text,
-  TextInput,
   Title,
   Space
 } from '@mantine/core'

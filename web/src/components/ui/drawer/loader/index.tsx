@@ -61,7 +61,7 @@ export default function LoaderView () {
       { view == 'login' &&
         <Center mih={100} mt={25}>
           <ul>
-            {session.list.length > 0 && <Text fw={700} mb={10}>Current Sessions:</Text>}  
+            {session.list.length > 0 && <Text fw={700} mb={10}>Previous Sessions:</Text>}  
             {session.list.map(([ pubkey ]) => (
               <div key={ pubkey }>
                 <li style={{ listStyleType: 'none' }}>

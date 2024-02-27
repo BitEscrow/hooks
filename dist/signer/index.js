@@ -7,11 +7,12 @@ const defaults = {
     sessions: [],
     signer: null
 };
-export function createSignerStore(config) {
+export function createSignerStore() {
     const context = createContext(null);
-    function SignerProvider({ children }) {
-        const store = initStore(defaults, STORE_NAME);
-        const ctx = initSigner(config, store);
+    function SignerProvider({ config, children }) {
+        const conf = { ...defaults, config };
+        const store = initStore(conf, STORE_NAME);
+        const ctx = initSigner(store);
         return (_jsx(context.Provider, { value: ctx, children: children }));
     }
     function useSigner() {

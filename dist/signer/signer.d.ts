@@ -1,8 +1,8 @@
+import { ClientConfig, EscrowSigner } from '@scrow/core';
 import { initStore } from './store.js';
 import { SignerStore } from './types.js';
-import { ClientConfig, EscrowSigner } from '@scrow/core';
 type StoreAPI = ReturnType<typeof initStore<SignerStore>>;
-export declare function initSigner(config: ClientConfig, reducer: StoreAPI): {
+export declare function initSigner(signer_store: StoreAPI): {
     session: {
         clear: () => void;
         close: () => void;
@@ -13,6 +13,7 @@ export declare function initSigner(config: ClientConfig, reducer: StoreAPI): {
     };
     gen_words: typeof import("@cmdcode/signer").gen_seed_words;
     signer: EscrowSigner | null;
+    update_config: (config: ClientConfig) => void;
 };
 export {};
 //# sourceMappingURL=signer.d.ts.map
