@@ -44,7 +44,7 @@ export default function SignerView () {
               h  = {30}
               ta = 'right'
             >
-              {'...' + signer.pubkey.slice(-16)}
+              {signer.pubkey.slice(0, 16)}
             </Text>
           </Group>
           <Group gap={0}>
@@ -62,7 +62,7 @@ export default function SignerView () {
               h  = {30}
               ta = 'right'
             >
-              {'...' + signer.pubkey.slice(-16)}
+              {signer.pubkey.slice(0, 16)}
             </Box>
           </Group>
           <Button

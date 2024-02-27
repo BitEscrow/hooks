@@ -19,19 +19,22 @@ export default function ImportView ({ pass } : Props) {
 
   const { session } = useSigner()
 
-  const [ view, setView ] = useState('seed')
-  const [ word, setWord ] = useState<string[]>([])
-  const [ seed, setSeed ] = useState('')
-  const [ xprv, setXprv ] = useState('')
+  const [ view, setView ]     = useState('bip39')
+  const [ phrase, setPhrase ] = useState('')
+  const [ word, setWord ]     = useState<string[]>([])
+  const [ seed, setSeed ]     = useState('')
+  const [ xprv, setXprv ]     = useState('')
 
   const submit = () => {
     let secret : Buff | undefined
     if (view === 'bip39') {
       secret = Buff.raw(Seed.import.from_words(word))
+    } else if (view === 'phrase') {
+      secret = Buff.str(phrase).digest
     } else if (view === 'seed') {
       secret = Buff.hex(seed)
     } else if (view === 'xprv') {
-      throw new Error('not implemented')
+      secret = Seed.import.from_char(xprv)
     }
     if (secret === undefined) throw new Error('no seed set')
     session.create(pass, secret.hex)
@@ -50,6 +53,15 @@ export default function ImportView ({ pass } : Props) {
             value       = {word}
             onChange    = {setWord}
             splitChars  = {[',', ' ']}
+          />
+        }
+        {view === 'phrase' &&
+          <TextInput
+            c = 'white'
+            label       = "Passphrase Import"
+            placeholder = "enter passphrase ..."
+            value       = {phrase}
+            onChange    = {e => setPhrase(e.target.value)}
           />
         }
         {view === 'seed' &&
@@ -87,6 +99,15 @@ export default function ImportView ({ pass } : Props) {
             ),
           },
           {
+            value: 'phrase',
+            label: (
+              <Center>
+                {/* <IconCode style={{ width: rem(16), height: rem(16) }} /> */}
+                <Box>Phrase</Box>
+              </Center>
+            ),
+          },
+          {
             value: 'seed',
             label: (
               <Center>
@@ -100,7 +121,7 @@ export default function ImportView ({ pass } : Props) {
             label: (
               <Center>
                 {/* <IconExternalLink style={{ width: rem(16), height: rem(16) }} /> */}
-                <Box>XPRV</Box>
+                <Box>XPrv</Box>
               </Center>
             ),
           },

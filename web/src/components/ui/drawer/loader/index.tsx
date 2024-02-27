@@ -8,7 +8,7 @@ import {
   Checkbox,
   Button,
   Text
-}                     from '@mantine/core'
+} from '@mantine/core'
 
 import { useState }   from 'react'
 
@@ -21,7 +21,7 @@ import {
   IconKey,
   IconCheck,
   IconTrash,
-}                      from '@tabler/icons-react'
+} from '@tabler/icons-react'
 
 
 export default function LoaderView () {
