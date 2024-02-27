@@ -52,29 +52,33 @@ export default function ({ signer } : Props) {
   return (
     <>
       { isLoading && <Center><Loader color="blue" /></Center> }
-      { !isLoading && data.length > 0 ? (
-        <ScrollArea>
-          <Paper>
-            <Table style={{ minWidth: '500px', width: '100%' }}>
-              <thead>
-                <tr>
-                  <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Title</th>
-                  <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>CID</th>
-                  <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Date</th>
-                  <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Role</th>
-                  <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Value</th>
-                  <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}></th>
-                </tr>
-              </thead>
-              <tbody>{rows}</tbody>
-            </Table>
-          </Paper>
-        </ScrollArea>
-      ) : (
-        <Center mt={50} mb={50} style={{ width: '100%', height: '100%', padding: '20px' }}>
-            <Text c="dimmed">You have no active contracts.</Text>
-        </Center>
-      )}
+        { !isLoading &&
+          <>
+            { data.length > 0 ? (
+              <ScrollArea>
+                <Paper>
+                  <Table style={{ minWidth: '500px', width: '100%' }}>
+                    <thead>
+                      <tr>
+                        <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Title</th>
+                        <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>CID</th>
+                        <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Date</th>
+                        <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Role</th>
+                        <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Value</th>
+                        <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}></th>
+                      </tr>
+                    </thead>
+                    <tbody>{rows}</tbody>
+                  </Table>
+                </Paper>
+              </ScrollArea>
+            ) : (
+              <Center mt={50} mb={50} style={{ width: '100%', height: '100%', padding: '20px' }}>
+                  <Text c="dimmed">You have no active contracts.</Text>
+              </Center>
+            )}
+          </>
+        }
       <Modal
         opened={isModalOpen}
         onClose={() => setIsModalOpen(false)}
