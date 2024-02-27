@@ -7,6 +7,7 @@ import {
   Box,
   Button,
   Center,
+  PasswordInput,
   SegmentedControl,
   TagsInput,
   TextInput
@@ -17,12 +18,7 @@ import {
 // textinput for xprv or seed (with zod validation).
 // multi-input for bip39 (with bip39 validation hook?)
 
-interface Props {
-  pass  : string
-  xpub ?: string
-}
-
-export default function ImportView ({ pass, xpub } : Props) {
+export default function ImportView () {
 
   const { session } = useSigner()
 
@@ -31,6 +27,10 @@ export default function ImportView ({ pass, xpub } : Props) {
   const [ word, setWord ]     = useState<string[]>([])
   const [ seed, setSeed ]     = useState('')
   const [ xprv, setXprv ]     = useState('')
+  const [ pass,  setPass  ]   = useState('')
+  const [ xpub,  setXpub  ]   = useState('')
+
+  const wallet_key = xpub !== '' ? xpub : undefined
 
   const submit = () => {
     let secret : Buff | undefined
@@ -44,11 +44,29 @@ export default function ImportView ({ pass, xpub } : Props) {
       secret = Seed.import.from_char(xprv)
     }
     if (secret === undefined) throw new Error('no seed set')
-    session.create(pass, secret.hex, xpub)
+    session.create(pass, secret.hex, wallet_key)
   }
 
   return (
     <Box>
+      <PasswordInput
+        c           = 'black'
+        label       = 'New Password'
+        placeholder = 'enter password ...'
+        p={15}
+        value       = {pass}
+        onChange    = {(e) => setPass(e.target.value)}
+      />
+      { view !== 'login' &&
+        <TextInput
+          c           = 'black'
+          label       = 'Wallet Key'
+          placeholder = 'enter xpub ...'
+          p={15}
+          value       = {xpub}
+          onChange    = {(e) => setXpub(e.target.value)}
+        />
+      }
       <Box p={15}>
         {view === 'bip39' &&
           <TagsInput
@@ -101,7 +119,7 @@ export default function ImportView ({ pass, xpub } : Props) {
             label: (
               <Center>
                 {/* <IconEye style={{ width: rem(16), height: rem(16) }} /> */}
-                <Box>BIP39</Box>
+                <Box>BIP-39</Box>
               </Center>
             ),
           },
@@ -128,7 +146,7 @@ export default function ImportView ({ pass, xpub } : Props) {
             label: (
               <Center>
                 {/* <IconExternalLink style={{ width: rem(16), height: rem(16) }} /> */}
-                <Box>XPrv</Box>
+                <Box>BIP-32</Box>
               </Center>
             ),
           },

@@ -4,41 +4,56 @@ import { Seed }         from '@cmdcode/signer'
 // import { useClipboard } from '@mantine/hooks'
 import { useSigner }    from '@/hooks/useSigner'
 
-import { Box, Button, Center, Checkbox, Flex, Group, Text } from '@mantine/core'
+import { Box, Button, Center, Checkbox, Flex, Group, PasswordInput, Text, TextInput } from '@mantine/core'
 
-interface Props {
-  pass  : string
-  xpub ?: string
-}
-
-export default function SeedView ({ pass, xpub } : Props) {
+export default function () {
 
   const { gen_words, session } = useSigner()
 
   const [ agree, setAgree ] = useState(false)
   const [ words, setWords ] = useState(gen_words())
+  const [ pass,  setPass  ] = useState('')
+  const [ xpub,  setXpub  ] = useState('')
 
-  const [copyButtonText, setCopyButtonText] = useState('Copy Seed Words');
+  const wallet_key = xpub !== '' ? xpub : undefined
+
+  const [copyButtonText, setCopyButtonText] = useState('Copy Seed Words')
 
   const regen  = () => setWords(gen_words())
 
   const submit = () => {
     const seed = Buff.raw(Seed.import.from_words(words))
-    session.create(pass, seed.hex, xpub)
+    session.create(pass, seed.hex, wallet_key)
   }
 
   const copyToClipboard = () => {
     const textToCopy = words.map((word, index) => `${index + 1}. ${word}`).join('\n');
     navigator.clipboard.writeText(textToCopy).then(() => {
-      setCopyButtonText('Copied!');
-      setTimeout(() => setCopyButtonText('Copy Seed Words'), 2000);
+      setCopyButtonText('Copied!')
+      setTimeout(() => setCopyButtonText('Copy Seed Words'), 2000)
     }).catch(err => {
-      console.error('Failed to copy seed words: ', err);
+      console.error('Failed to copy seed words: ', err)
     });
   };
 
   return (
     <Box>
+      <PasswordInput
+        c           = 'black'
+        label       = 'New Password'
+        placeholder = 'enter password ...'
+        p={15}
+        value       = {pass}
+        onChange    = {(e) => setPass(e.target.value)}
+      />
+      <TextInput
+        c           = 'black'
+        label       = 'Wallet Key'
+        placeholder = 'enter xpub ...'
+        p={15}
+        value       = {xpub}
+        onChange    = {(e) => setXpub(e.target.value)}
+      />
       <Flex
         justify='center'
         p={5}
@@ -66,15 +81,15 @@ export default function SeedView ({ pass, xpub } : Props) {
           })
         }
 
-      <Center m={15}>
-        <Button
-          fullWidth
-          variant="transparent"
-          onClick={copyToClipboard}
-        >
-          {copyButtonText}
-        </Button>
-      </Center>
+        <Center m={15}>
+          <Button
+            fullWidth
+            variant="transparent"
+            onClick={copyToClipboard}
+          >
+            {copyButtonText}
+          </Button>
+        </Center>
 
       </Flex>
       <Center m={15}>

@@ -13,7 +13,8 @@ import {
   Modal,
   TextInput,
   Center,
-  Text
+  Text,
+  Loader
 } from '@mantine/core'
 
 import styles from './styles.module.sass'
@@ -26,7 +27,7 @@ interface Props {
 export default function DraftsTable({ signer } : Props) {
 
   const { store } = useConfig()
-  const { data }  = useDraftList(store.relay, signer)
+  const { data, isLoading } = useDraftList(store.relay, signer)
 
   const [selectedRow, setSelectedRow] = useState<DraftItem | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -45,7 +46,8 @@ export default function DraftsTable({ signer } : Props) {
 
   return (
     <>
-      { data.length > 0 ? (
+      { isLoading && <Center><Loader color="blue" /></Center> }
+      { !isLoading && data.length > 0 ? (
         <ScrollArea>
           <Paper>
             <Table style={{ minWidth: '500px', width: '100%' }}>

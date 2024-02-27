@@ -62,14 +62,6 @@ export default function DraftView () {
           </Text>
           <Divider mb={30} mt={20}/>
           <DraftList signer={ signer }/>
-          {/* <Divider mb={30} mt={20}/>
-          <Button
-            maw     = {100}
-            variant ="filled"
-            onClick = {() => session.list(store.relay) }
-          >
-            Refresh
-          </Button> */}
       </>
     }
     </Card>
