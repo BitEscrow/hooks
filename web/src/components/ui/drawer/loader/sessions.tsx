@@ -49,21 +49,19 @@ export default function ({ setPub } : Props) {
       <Center mih={100} mt={25}>
         <ul>
           { session.list.length > 0 
-            && <Text fw={700} mb={10}>Previous Sessions:</Text>
+            && <Text fw={700} mb={10}>Previous Sessions</Text>
             || <Text fw={500} mb={10}>You don't have any saved sessions.</Text>
           }
           { session.list.map(([ pubkey ]) => (
-            <div key={ pubkey }>
-              <li style={{ listStyleType: 'none' }}>
-                <IconKey size={18} style={{ marginRight: '5px', transform: 'translateY(3px)' }} /> 
-                <span onClick={() => setPub(pubkey)} style={{ marginRight: '10px' }}>
-                  { pubkey.slice(0, 16) }
-                </span>
-                <button onClick={() => handleDeleteClick(pubkey)} style={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer', marginLeft: '8px', transform: 'translateY(2px)' }}>
-                  <IconTrash size={17} color="red" />
-                </button>
-              </li>
-            </div>
+            <li key={ pubkey } style={{ listStyleType: 'none', marginLeft: '-25px' }}>
+              <IconKey size={18} style={{ marginRight: '5px', transform: 'translateY(3px)' }} /> 
+              <span onClick={() => setPub(pubkey)} style={{ marginRight: '10px', fontFamily: 'monospace' }}>
+                { pubkey.slice(0, 16) }
+              </span>
+              <button onClick={() => handleDeleteClick(pubkey)} style={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer', marginLeft: '8px', transform: 'translateY(2px)' }}>
+                <IconTrash size={17} color="red" />
+              </button>
+            </li>
           ))}
         </ul>
       </Center>

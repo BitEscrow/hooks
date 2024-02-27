@@ -48,7 +48,7 @@ export default function DraftView () {
     <Card style={{ padding: '20px', display: 'flex', flexDirection: 'column' }}>
       { session === null &&
         <Text c="dimmed" style={{ marginBottom: '20px' }} maw='500px'>
-          Login with a signing device to view your drafts.
+          You must login in order to view your drafts.
         </Text>
       }       
       

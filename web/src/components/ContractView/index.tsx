@@ -21,8 +21,8 @@ export default function ContractView() {
       <Title order={2} mb={15}>Existing Contracts</Title>
       <Text c="dimmed" style={{ marginBottom: '20px' }} maw='500px'>
         { store.signer !== null 
-          && 'This is a list of contracts assigned to your pubkey. You can click on any one of them in the table to view the details.'
-          || 'Please login in order to view a list of contracts.'
+          && 'This is a list of contracts assigned to your pubkey. Click on any one of them in the table to view the details.'
+          || 'You must login in order to view your contracts.'
         }
       </Text>
       { store.signer !== null &&
