@@ -8,6 +8,7 @@ import ContractView   from '@/components/ContractView'
 import DepositDetail  from './components/DepositDetail'
 import DepositView    from '@/components/DepositView'
 import SettingsView   from '@/components/settings'
+import Error404View   from '@/components/404'
 
 export default function () {
   return (
@@ -21,6 +22,7 @@ export default function () {
       <Route path="/drafts/:sid"    element={<DraftDetail    />} />
       <Route path="/drafts/new"     element={<DraftCreate    />} />
       <Route path="/settings"       element={<SettingsView   />} />
+      <Route path="/404"            element={<Error404View   />} />
     </Routes>
   )
 }

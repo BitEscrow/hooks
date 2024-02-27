@@ -1,48 +1,74 @@
-import { useSigner }    from '@/hooks/useSigner'
-import { DraftSession } from '@scrow/core'
+import { useConfig }       from '@/hooks/useConfig'
+import { useSigner }       from '@/hooks/useSigner'
+import { useDraftSession } from '@scrow/hooks/draft'
+import { DraftData }       from '@scrow/core'
 
 import {
   useEffect,
   useState
 } from 'react'
 
+import {
+  useNavigate,
+  useParams
+} from 'react-router-dom'
+
+import { Card, Divider, Text, Title } from '@mantine/core'
+
 export default function () {
+  const { store }  = useConfig()
+  const { signer } = useSigner()
+  const { sid }    = useParams()
+  const navigate   = useNavigate()
 
-  const store = useSigner()
+  if (typeof sid !== 'string' || signer === null) {
+    navigate('/404')
+    return
+  }
 
-  const [ draftId, setId ]      = useState<string | null>(null)
-  const [ relay, setRelay ]     = useState<string | null>(null)
-  const [ session, setSession ] = useState<DraftSession | null>(null)
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search)
-    if (params.has('id') && params.has('relay')) {
-      setId(params.get('id'))
-      setRelay(params.get('relay'))
-    }
-  }, [ draftId, relay ])
+  const { session, update_session } = useDraftSession()
+  const [ data, setData ] = useState<DraftData | null>()
 
   useEffect(() => {
-    if (
-      store.signer !== null && 
-      relay        !== null && 
-      draftId      !== null
-    ) {
-      const sess = new DraftSession(store.signer)
-      sess.connect(relay, draftId).then(() => setSession(sess))
+    if (signer !== null) {
+      if (
+        session === null || 
+        session.pubkey !== signer.pubkey
+      ) {
+        console.log('updating session ...')
+        update_session(signer)
+      }
     }
-  }, [ store.signer ])
+  }, [ signer, session ])
+
+  useEffect(() => {
+    if (session !== null && !session.is_ready) {
+      session.once('ready', () => {
+        setData(session.data)
+      })
+      session.on('update', () => {
+        setData(session.data)
+      })
+      
+      console.log('connecting ...')
+      console.log(store.relay, sid)
+      session.connect(store.relay, sid)
+    }
+  }, [ session ])
 
   return (
-    <>
-      { store.signer === null &&
-        <p>Please login to a signing device to view this draft.</p>
-      }
-      { session !== null && 
+    <Card style={{ padding: '20px', display: 'flex', flexDirection: 'column' }}>
+      
+      <Title order={2} mb={15}>Draft Room</Title>
+      <Text c="dimmed" style={{ marginBottom: '20px' }} maw='500px'>
+        Select a deposit below to view the details.
+      </Text>
+      <Divider mb={30} mt={20} />
+      { data !== null &&
         <pre>
-          {JSON.stringify(session.data, null, 2)}
+          {JSON.stringify(data, null, 2)}
         </pre>
       }
-    </>
+    </Card>
   )
 }

@@ -12,7 +12,7 @@ import DepositSearch from '../DepositSearch'
 
 export default function DepositView() {
 
-  const store  = useSigner()
+  const store = useSigner()
 
   return (
     <Card style={{ padding: '20px', display: 'flex', flexDirection: 'column' }}>

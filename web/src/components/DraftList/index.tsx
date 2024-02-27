@@ -1,3 +1,4 @@
+import { useNavigate }  from 'react-router-dom'
 import { useDraftList } from '@scrow/hooks/draft'
 import { useConfig }    from '@/hooks/useConfig'
 import { EscrowSigner } from '@scrow/core'
@@ -20,11 +21,11 @@ interface Props {
 export default function ({ signer } : Props) {
 
   const { store } = useConfig()
+  const navigate = useNavigate()
   const { data, isLoading } = useDraftList(store.relay, signer)
 
   const load_draft = (id : string) => {
-    const href = `${window.location.href}?id=${id}`
-    window.location.assign(href)
+    navigate(`/drafts/${id}`)
   }
 
   const rows = data.map((row) => (
