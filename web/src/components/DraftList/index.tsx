@@ -1,44 +1,34 @@
-import { useState }     from 'react'
 import { useDraftList } from '@scrow/hooks/draft'
-
-import {
-  DraftItem,
-  EscrowSigner
-} from '@scrow/core'
+import { useConfig }    from '@/hooks/useConfig'
+import { EscrowSigner } from '@scrow/core'
 
 import {
   Table,
   ScrollArea,
   Paper,
-  Modal,
-  TextInput,
   Center,
   Text,
   Loader
 } from '@mantine/core'
 
 import styles from './styles.module.sass'
-import { useConfig } from '@/hooks/useConfig'
 
 interface Props {
   signer : EscrowSigner
 }
 
-export default function DraftsTable({ signer } : Props) {
+export default function ({ signer } : Props) {
 
   const { store } = useConfig()
   const { data, isLoading } = useDraftList(store.relay, signer)
 
-  const [selectedRow, setSelectedRow] = useState<DraftItem | null>(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
-
-  const handleRowClick = (row : DraftItem) => {
-    setSelectedRow(row)
-    setIsModalOpen(true)
+  const load_draft = (id : string) => {
+    const href = `${window.location.href}?id=${id}`
+    window.location.assign(href)
   }
 
   const rows = data.map((row) => (
-    <tr key={row.draft_id} onClick={() => handleRowClick(row)} className={styles.tableRow}>
+    <tr key={row.draft_id} onClick={() => load_draft(row.draft_id)} className={styles.tableRow}>
       <td><span style={{color: '#54B251'}}>{row.draft_id}</span></td>
       <td><span style={{ color: '#0068FE' }}>{row.updated_at}</span></td>
     </tr>
@@ -70,18 +60,6 @@ export default function DraftsTable({ signer } : Props) {
           )}
         </>
       }
-      <Modal
-        opened={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="Contract Details"
-      >
-        { selectedRow && (
-          <>
-            <TextInput label="Draft Id" value={selectedRow.draft_id} readOnly />
-            <TextInput label="Updated At" value={selectedRow.updated_at} readOnly />
-          </>
-        )}
-      </Modal>
     </>
   )
 }

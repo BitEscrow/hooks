@@ -81,7 +81,7 @@ export default function DepositsTable({ signer } : Props) {
       <Modal
         opened={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title="Contract Details"
+        title="Deposit Details"
       >
         { selectedRow && (
           <>

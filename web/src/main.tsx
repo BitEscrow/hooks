@@ -5,6 +5,7 @@ import App      from './App'
 import '@mantine/core/styles.css'
 import '@mantine/dates/styles.css'
 
+import { BrowserRouter }   from 'react-router-dom'
 import { MantineProvider } from '@mantine/core'
 import { ClientProvider }  from '@scrow/hooks/client'
 import { SignerProvider }  from '@/hooks/useSigner'
@@ -19,7 +20,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <ConfigProvider>
         <ClientProvider config={default_config}>
           <SignerProvider config={default_config}>
-            <App />
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
           </SignerProvider>
         </ClientProvider>
       </ConfigProvider>

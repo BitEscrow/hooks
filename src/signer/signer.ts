@@ -1,8 +1,12 @@
 import { useState }     from 'react'
 import { Seed }         from '@cmdcode/signer'
-import { ClientConfig, EscrowSigner } from '@scrow/core'
 import { initStore }    from './store.js'
 import { SignerStore }  from './types.js'
+
+import {
+  ClientConfig,
+  EscrowSigner
+} from '@scrow/core'
 
 type StoreAPI  = ReturnType<typeof initStore<SignerStore>>
 
@@ -95,12 +99,12 @@ export function initSigner (signer_store : StoreAPI) {
 
   return {
     session : {
-      clear  : clear_sessions,
-      close  : close_session,
-      create : create_session,
-      list   : store.sessions,
-      load   : load_session,
-      remove : rem_session
+      clear   : clear_sessions,
+      close   : close_session,
+      create  : create_session,
+      list    : store.sessions,
+      load    : load_session,
+      remove  : rem_session
     },
     gen_words,
     signer,

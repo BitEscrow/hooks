@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 
 import {
   useState,
@@ -17,16 +18,11 @@ import {
 
 import Plausible from 'plausible-tracker'
 
-import DraftCreate            from '@/components/DraftCreate'
-import DraftView              from '@/components/DraftView'
-import ContractView           from '@/components/ContractView'
-import DepositView            from '@/components/DepositView'
 import Header                 from '@/components/ui/header'
 import FooterComponent        from '@/components/ui/footer'
-import SettingsView           from '@/components/settings'
+import Router                 from '@/router'
 import SignerButton           from '@/components/ui/signerButton'
 import MobileFooterComponent  from '@/components/ui/mobileFooter'
-import SessionView            from '@/components/SessionView'
 
 export default function AppDemo() {
   const [ navi_desk_open, { toggle : toggle_navi_desk } ] = useDisclosure(true)
@@ -37,6 +33,8 @@ export default function AppDemo() {
   const isMobile = useMediaQuery('(max-width: 768px)')
   
   const [ view, setView ] = useState('drafts')
+
+  const navigate = useNavigate()
   
   // To opt out, simply delete this section
   // of code. this will not break anything.
@@ -53,22 +51,15 @@ export default function AppDemo() {
     const { trackPageview } = Plausible({
       domain: 'mvp.bitescrow.app',
       trackLocalhost: true
-    });
+    })
 
-    trackPageview();
-  }, []); 
+    trackPageview()
+  }, [])
   
   
   // --------------------------------------
   // ------------End Analytics-------------
   // --------------------------------------
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search)
-    if (params.has('id') && params.has('relay')) {
-      setView('session')
-    }
-  }, [ view ])
 
   return (
     <AppShell
@@ -106,39 +97,35 @@ export default function AppDemo() {
       </AppShell.Header>
 
       <AppShell.Navbar p="md"style={{ height: '100%' }}>
-        <NavLink w={'100%'} style={{ borderRadius: '25px'}} label="Drafts" active={view === 'drafts'}
-         onClick={() => { 
-          setView('drafts')
-          if (isMobile) toggle_navi_mobi()
-          else toggle_navi_desk()
-        }}
-        />
         <NavLink w={'100%'} style={{ borderRadius: '25px'}} label="Contracts" active={view === 'contract'}
-           onClick={() => { 
-            setView('contract')
-            if (isMobile) toggle_navi_mobi()
-            else toggle_navi_desk()
+          onClick={() => { 
+            setView('contracts')
+            navigate('/contracts')
           }}
         />
         <NavLink w={'100%'} style={{ borderRadius: '25px'}} label="Deposits" active={view === 'deposits'}
-         onClick={() => { 
-          setView('deposits')
-          if (isMobile) toggle_navi_mobi()
-          else toggle_navi_desk()
-        }}
+          onClick={() => { 
+            setView('deposits')
+            navigate('/deposits')
+          }}
+        />
+        <NavLink w={'100%'} style={{ borderRadius: '25px'}} label="Drafts" active={view === 'drafts'}
+          onClick={() => {
+              setView('drafts')
+              navigate('/drafts')
+            }
+          }
         />
         <NavLink w={'100%'} style={{ borderRadius: '25px'}} label="Settings" active={view === 'settings'} 
-         onClick={() => { 
-          setView('settings')
-          if (isMobile) toggle_navi_mobi()
-          else toggle_navi_desk()
-        }}
+          onClick={() => { 
+            setView('settings')
+            navigate('/settings')
+          }}
         />
         <NavLink label="New Draft" active={view === 'new_draft'} 
-           onClick={() => { 
+          onClick={() => { 
             setView('new_draft')
-            if (isMobile) toggle_navi_mobi()
-            else toggle_navi_desk()
+            navigate('/drafts/new')
           }}
           component="a"
           style={{
@@ -160,12 +147,7 @@ export default function AppDemo() {
       </AppShell.Navbar>
 
       <AppShell.Main style={{ width: '100%', maxWidth: '100%' }}>
-        { view === 'drafts'    && <DraftView    /> }
-        { view === 'contract'  && <ContractView /> }
-        { view === 'deposits'  && <DepositView  /> }
-        { view === 'settings'  && <SettingsView /> }
-        { view === 'session'   && <SessionView  /> }
-        { view === 'new_draft' && <DraftCreate  /> }
+        <Router />
       </AppShell.Main>
 
       <AppShell.Footer>
