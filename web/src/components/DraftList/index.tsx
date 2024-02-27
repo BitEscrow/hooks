@@ -55,7 +55,7 @@ export default function DraftsTable({ signer } : Props) {
                 <Table style={{ minWidth: '500px', width: '100%' }}>
                   <thead>
                     <tr>
-                      <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Draft Id</th>
+                      <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Session ID</th>
                       <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Updated At</th>
                     </tr>
                   </thead>

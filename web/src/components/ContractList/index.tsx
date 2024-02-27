@@ -40,8 +40,8 @@ export default function ({ signer } : Props) {
   const rows = data.map((row) => (
     <tr key={row.cid} onClick={() => handleRowClick(row)} className={styles.tableRow}>
       <td>{row.terms.title}</td>
-      <td><span style={{color: '#0068FE'}}>{row.cid}</span></td>
-      <td>{row.published}</td>
+      <td>{row.status}</td>
+      <td>{row.balance} sats</td>
       <td>{row.total} sats</td>
       <td style={{ textAlign: 'center', color: 'gray' }}>
           <IconZoomScan/>
@@ -61,10 +61,9 @@ export default function ({ signer } : Props) {
                     <thead>
                       <tr>
                         <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Title</th>
-                        <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>CID</th>
-                        <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Date</th>
-                        <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Role</th>
-                        <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Value</th>
+                        <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Status</th>
+                        <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Balance</th>
+                        <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Total</th>
                         <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}></th>
                       </tr>
                     </thead>

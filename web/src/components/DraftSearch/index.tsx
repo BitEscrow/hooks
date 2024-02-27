@@ -10,27 +10,18 @@ import {
 
 import {
   IconPencil,
-  IconServer,
   IconExclamationCircle
 } from '@tabler/icons-react'
 
 export default function SearchDraft() {
-  const [nostrAddress, setNostrAddress] = useState('')
   const [draftId, setDraftId] = useState('')
-  const [errorNostrAddress, setErrorNostrAddress] = useState('')
   const [errorDraftId, setErrorDraftId] = useState('')
 
   const validateInputs = () => {
     let isValid = true
-    setErrorNostrAddress('')
     setErrorDraftId('')
 
-    if (/[^a-zA-Z0-9\s]/.test(nostrAddress) || nostrAddress === '') {
-      setErrorNostrAddress('Nostr relay address is empty or contains invalid characters.')
-      isValid = false
-    }
-
-    if (/[^a-zA-Z0-9\s]/.test(draftId) || draftId === '') {
+    if (/[^a-fA-F0-9\s]/.test(draftId) || draftId === '') {
       setErrorDraftId('Draft ID is empty or contains invalid characters.')
       isValid = false
     }
@@ -41,7 +32,6 @@ export default function SearchDraft() {
   const handleClick = () => {
     const isValid = validateInputs()
     if (isValid) {
-      console.log(nostrAddress)
       console.log(draftId)
     }
   }
@@ -50,16 +40,16 @@ export default function SearchDraft() {
     <>
       <div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <Title order={2} mb={15}>Join a Draft</Title>
+          <Title order={2} mb={15}>Join a Session</Title>
           <Text c="dimmed" style={{ marginBottom: '20px' }} maw='500px'>
-            Join an existing contract by its Draft ID.
+            Join an existing draft session via its ID.
           </Text>
         </div>
       </div>
       <Group>
         <TextInput
           style={{ width: '500px' }}
-          placeholder="Enter a Draft ID ..."
+          placeholder="Enter a session ID ..."
           leftSection={<IconPencil size={15} />}
           value={draftId}
           onChange={(event) => { setDraftId(event.target.value); setErrorDraftId(''); }}

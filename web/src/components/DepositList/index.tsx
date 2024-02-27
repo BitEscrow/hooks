@@ -39,11 +39,10 @@ export default function DepositsTable({ signer } : Props) {
 
   const rows = data.map((row) => (
     <tr key={row.dpid} onClick={() => handleRowClick(row)} className={styles.tableRow}>
-      <td><span style={{color: '#54B251'}}>{row.agent_id}</span></td>
-      <td><span style={{ color: '#0068FE' }}>{row.dpid}</span></td>
-      <td>{row.txid}</td>
-      <td>{row.created_at}</td>
+      <td><span style={{color: '#54B251'}}>{row.txid}</span></td>
+      <td>{row.vout}</td>
       <td>{row.value} sats</td>
+      <td>{row.status}</td>
       <td style={{ textAlign: 'center', color: 'gray' }}>
         <IconZoomScan/>
       </td>
@@ -61,11 +60,10 @@ export default function DepositsTable({ signer } : Props) {
               <Table style={{ minWidth: '500px', width: '100%' }}>
                 <thead>
                   <tr>
-                    <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Agent ID</th>
-                    <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>DPID</th>
                     <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>TXID</th>
-                    <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Created At</th>
+                    <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Index</th>
                     <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Value</th>
+                    <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}>Status</th>
                     <th style={{ position: 'sticky', textAlign: 'left', top: 0, backgroundColor: 'white', color: 'black' }}></th>
                   </tr>
                 </thead>
