@@ -6,10 +6,11 @@ import {
   // Box,
   Divider
 }                     from "@mantine/core";
-import DepositsTable  from "./table";
+import DepositsTable  from "./DepositTable";
 import SearchDpid     from "./searchDpid";
 
 export default function DepositView() {
+
   return (
     <Card style={{ padding: '20px', display: 'flex', flexDirection: 'column' }}>
       <Title order={2} mb={15}>Deposits</Title>

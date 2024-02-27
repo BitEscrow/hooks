@@ -4,7 +4,7 @@ import {
   Card,
   Divider
 }                     from "@mantine/core";
-import ContractTable  from "./table";
+import ContractTable  from "./ContractTable";
 import SearchCid from "./searchCid";
 
 export default function ContractView() {

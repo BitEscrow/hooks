@@ -8,7 +8,7 @@ import {
 } from '@mantine/core'
 
 import ContractSearch from '../ContractSearch'
-import ContractList   from '../ContractList'
+import ContractList   from '../ContractTable'
 
 export default function ContractView() {
 

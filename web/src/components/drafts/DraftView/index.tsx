@@ -11,7 +11,7 @@ import {
   TextInput
 } from '@mantine/core'
 
-import DraftList   from '../DraftList'
+import DraftList   from '../DraftTable'
 import DraftSearch from '../DraftSearch'
 
 export default function DraftView () {
