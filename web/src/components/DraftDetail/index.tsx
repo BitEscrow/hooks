@@ -12,6 +12,8 @@ import { useParams } from 'react-router-dom'
 
 import { Card, Center, Divider, Loader, Text, Title } from '@mantine/core'
 
+import Room from './components/room'
+
 export default function () {
   const { store }  = useConfig()
   const { signer } = useSigner()
@@ -66,10 +68,8 @@ export default function () {
       </Text>
       <Divider mb={30} mt={20} />
       { data === null && <Center><Loader color="blue" /></Center>}
-      { data !== null &&
-        <pre>
-          {JSON.stringify(data, null, 2)}
-        </pre>
+      { data !== null && session !== null && 
+        <Room data={ data } session={ session } /> 
       }
     </Card>
   )
