@@ -1,6 +1,5 @@
-// import { useState }       from 'react'
-// import { useSigner }      from '@/hooks/useSigner'
-import { useMediaQuery }  from '@mantine/hooks';
+import { useMediaQuery } from '@mantine/hooks'
+import { useNavigate }   from 'react-router-dom'
 
 import {
   ActionIcon,
@@ -19,11 +18,14 @@ interface Props {
   navi_toggle : () => void
   side_opened : boolean
   side_toggle : () => void
+  set_view    : (view : string) => void
 }
 
 export default function Header(props : Props) {
   // const { signer } = useSigner()
   const { navi_toggle } = props
+
+  const navigate = useNavigate()
 
   // const style = {
   //   borderRadius : signer !== null ? '0px 5px 5px 0px' : '5px 5px 5px 5px'
@@ -35,8 +37,15 @@ export default function Header(props : Props) {
   //   setIsDarkTheme(!isDarkTheme);
   // };
 
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery('(max-width: 768px)')
 
+  const go_home  = () => {
+    props.set_view('')
+    if (props.navi_opened) {
+      navi_toggle()
+    }
+    navigate('/') 
+  }
 
   return (
     <Group p={10} justify='space-between' style={{ alignItems: 'center' }}>
@@ -48,7 +57,12 @@ export default function Header(props : Props) {
       >
         <IconMenu2/>
       </Button>
-      <Image src={'/logo.png'} w={120} alt="BitEscrow Logo" />
+      <Image 
+        src={'/logo.png'} 
+        w={120} 
+        alt="BitEscrow Logo"
+        onClick={() => go_home() }
+      />
       {isMobile && (
         <div style={{width: '50px'}}/>
       )}

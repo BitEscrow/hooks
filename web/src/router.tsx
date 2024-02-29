@@ -5,15 +5,16 @@ import DraftDetail    from '@/components/DraftDetail'
 import DraftView      from '@/components/DraftView'
 import ContractDetail from '@/components/ContractDetail'
 import ContractView   from '@/components/ContractView'
-import DepositDetail  from './components/DepositDetail'
+import DepositDetail  from '@/components/DepositDetail'
 import DepositView    from '@/components/DepositView'
 import SettingsView   from '@/components/settings'
 import Error404View   from '@/components/404'
+import LandingView    from '@/components/Landing'
 
 export default function () {
   return (
     <Routes>
-      <Route path="/"               element={<DraftView      />} />
+      <Route path="/"               element={<LandingView    />} />
       <Route path="/contracts"      element={<ContractView   />} />
       <Route path="/contracts/:cid" element={<ContractDetail />} />
       <Route path="/deposits"       element={<DepositView    />} />

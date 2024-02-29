@@ -32,9 +32,16 @@ export default function AppDemo() {
 
   const isMobile = useMediaQuery('(max-width: 768px)')
   
-  const [ view, setView ] = useState('drafts')
+  const [ view, setView ] = useState('')
 
-  const navigate = useNavigate()
+  const navigate  = useNavigate()
+
+  const goto_page = (view : string) => {
+    if (navi_desk_open) toggle_navi_desk()
+    if (navi_mobi_open) toggle_navi_mobi()
+    setView(view)
+    navigate(`/${view}`)
+  }
   
   // To opt out, simply delete this section
   // of code. this will not break anything.
@@ -83,6 +90,7 @@ export default function AppDemo() {
             navi_toggle = { toggle_navi_desk }
             side_opened = { side_desk_open   }
             side_toggle = { toggle_side_desk }
+            set_view    = { setView }
           />
         </Box>
         <Box hiddenFrom="sm">
@@ -91,42 +99,27 @@ export default function AppDemo() {
             navi_toggle = { toggle_navi_mobi }
             side_opened = { side_mobi_open   }
             side_toggle = { toggle_side_mobi }
+            set_view    = { setView }
           />
 
         </Box>
       </AppShell.Header>
 
       <AppShell.Navbar p="md"style={{ height: '100%' }}>
-        <NavLink w={'100%'} style={{ borderRadius: '25px'}} label="Contracts" active={view === 'contract'}
-          onClick={() => { 
-            setView('contracts')
-            navigate('/contracts')
-          }}
+        <NavLink w={'100%'} style={{ borderRadius: '25px'}} label="Contracts" active={view === 'contracts'}
+          onClick={() => goto_page('contracts')}
         />
         <NavLink w={'100%'} style={{ borderRadius: '25px'}} label="Deposits" active={view === 'deposits'}
-          onClick={() => { 
-            setView('deposits')
-            navigate('/deposits')
-          }}
+          onClick={() => goto_page('deposits')}
         />
         <NavLink w={'100%'} style={{ borderRadius: '25px'}} label="Drafts" active={view === 'drafts'}
-          onClick={() => {
-              setView('drafts')
-              navigate('/drafts')
-            }
-          }
+          onClick={() => goto_page('drafts') }
         />
         <NavLink w={'100%'} style={{ borderRadius: '25px'}} label="Settings" active={view === 'settings'} 
-          onClick={() => { 
-            setView('settings')
-            navigate('/settings')
-          }}
+          onClick={() => goto_page('settings')}
         />
-        <NavLink label="New Draft" active={view === 'new_draft'} 
-          onClick={() => { 
-            setView('new_draft')
-            navigate('/drafts/new')
-          }}
+        <NavLink label="New Draft" active={view === 'drafts/new'} 
+          onClick={() => goto_page('drafts/new')}
           component="a"
           style={{
             fontWeight: 600,
