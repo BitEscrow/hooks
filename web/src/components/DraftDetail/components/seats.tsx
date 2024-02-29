@@ -12,13 +12,19 @@ export default function ({ data, session } : Props) {
     <Box h={200}>
       <Text>Seats</Text>
       <Group h={20} bg='gray'>
-        { session.roles.map(e => {
-          const curr = session.members.filter(x => x.pol === e.id).length
+        { data.roles.map(e => {
+          const curr = data.members.filter(x => x.pol === e.id).length
+
           return (
-            <Box>
+            <Box key={ e.id }>
               <Text>{e.title}</Text>
               <Text>{`${e.min_slots} / ${curr} / ${e.max_slots}`}</Text>
-              <Button>Join</Button>
+              <Button
+                disabled = {session.is_member}
+                onClick  = {() => session.join(e.id) }
+              >
+                Join
+              </Button>
             </Box>
           )
         })}

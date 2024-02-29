@@ -1,5 +1,5 @@
-import { DraftData, DraftSession } from '@scrow/core'
-import { Box, Chip, Group, Text }  from '@mantine/core'
+import { DraftData, DraftSession }  from '@scrow/core'
+import { Box, Button, Chip, Group } from '@mantine/core'
 
 interface Props {
   data    : DraftData
@@ -15,10 +15,15 @@ export default function ({ data, session } : Props) {
 
   return (
     <Box>
-      <Text>Signatures</Text>
       <Group h={20} bg='gray'>
         { aliases.map(e => <Chip>{e}</Chip>) }
       </Group>
+      <Button
+        disabled = {session.is_endorsed}
+        onClick  = {() => session.endorse()}
+      >
+        Endorse
+      </Button>
     </Box>
   )
 }

@@ -1,12 +1,20 @@
-import { JsonInput, ScrollArea, Stack } from '@mantine/core'
-import { DraftData, DraftSession } from '@scrow/core'
+import {
+  DraftData,
+  DraftSession
+} from '@scrow/core'
+
+import {
+  JsonInput,
+  ScrollArea,
+  Stack
+} from '@mantine/core'
 
 interface Props {
   data    : DraftData
   session : DraftSession
 }
 
-export default function ({ data, session } : Props) {
+export default function ({ data } : Props) {
   return (
     <ScrollArea h={250}>
       <Stack>

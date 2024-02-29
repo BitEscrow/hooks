@@ -1,7 +1,12 @@
 import { useNavigate }  from 'react-router-dom'
 import { useDraftList } from '@scrow/hooks/draft'
 import { useConfig }    from '@/hooks/useConfig'
-import { DraftSession, EscrowSigner } from '@scrow/core'
+import { IconTrash }    from '@tabler/icons-react'
+
+import {
+  DraftSession,
+  EscrowSigner
+} from '@scrow/core'
 
 import {
   Table,
@@ -13,7 +18,6 @@ import {
 } from '@mantine/core'
 
 import styles from './styles.module.sass'
-import { IconTrash } from '@tabler/icons-react'
 
 interface Props {
   signer : EscrowSigner
@@ -31,13 +35,13 @@ export default function ({ signer } : Props) {
   const navigate = useNavigate()
   const { data, isLoading } = useDraftList(store.relay, signer)
 
-  const load_draft = (id : string) => {
-    navigate(`/drafts/${id}`)
+  const load_draft = (secret : string) => {
+    navigate(`/drafts/${secret}`)
   }
 
   const rows = data.map((row) => (
-    <tr key={row.session_id} className={styles.tableRow}>
-      <td><span onClick={() => load_draft(row.session_id)} style={{color: '#54B251'}}>{row.session_id}</span></td>
+    <tr key={row.id} className={styles.tableRow}>
+      <td><span onClick={() => load_draft(row.secret)} style={{color: '#54B251'}}>{row.id}</span></td>
       <td><span style={{ color: '#0068FE' }}>{row.updated_at}</span></td>
       <td>
         <button onClick={() => session.delete(row.store_id)} style={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer', marginLeft: '8px', transform: 'translateY(2px)' }}>

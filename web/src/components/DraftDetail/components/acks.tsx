@@ -1,5 +1,15 @@
-import { Box, Chip, Group, Text }  from '@mantine/core'
-import { DraftData, DraftSession } from '@scrow/core'
+import {
+  DraftData,
+  DraftSession
+} from '@scrow/core'
+
+import {
+  Box,
+  Button,
+  Chip,
+  Group,
+  Text
+} from '@mantine/core'
 
 interface Props {
   data    : DraftData
@@ -24,6 +34,12 @@ export default function ({ data, session } : Props) {
           </Chip>
         }) }
       </Group>
+      <Button
+        disabled = {session.is_approved}
+        onClick  = {() => session.approve()}
+      >
+        Approve
+      </Button>
     </Box>
   )
 }

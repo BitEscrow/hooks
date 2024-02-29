@@ -1,4 +1,12 @@
-import { DraftData, DraftSession } from '@scrow/core'
+import {
+  DraftData,
+  DraftSession
+} from '@scrow/core'
+
+import {
+  Button,
+  Tabs
+} from '@mantine/core'
 
 import Acks       from './acks'
 import Chat       from './chat'
@@ -7,7 +15,6 @@ import Roles      from './roles'
 import Terms      from './terms'
 import Seats      from './seats'
 import Signatures from './signatures'
-import { Tabs } from '@mantine/core'
 
 interface Props {
   data    : DraftData
@@ -41,16 +48,16 @@ export default function ({ data, session } : Props) {
           <Terms data={ data } session={ session } />
         </Tabs.Panel>
       </Tabs>
-      <div>
-        
-        
-        
-      </div>
       
       <Seats data={ data } session={ session } />
       <Signatures data={ data } session={ session } />
       <Acks data={ data } session={ session } />
-      <button>Publish</button>
+      <Button
+        disabled = {!session.is_confirmed}
+        onClick  = {() => session.publish(session._signer.client) }
+      >
+        Publish
+      </Button>
     </>
   )
 }

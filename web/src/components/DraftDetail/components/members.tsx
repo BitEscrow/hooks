@@ -1,18 +1,31 @@
-import { Box } from '@mantine/core'
+import {
+  DraftData,
+  DraftSession
+} from '@scrow/core'
 
-import { DraftData, DraftSession } from '@scrow/core'
+import {
+  JsonInput,
+  ScrollArea,
+  Stack
+} from '@mantine/core'
 
 interface Props {
   data    : DraftData
   session : DraftSession
 }
 
-export default function ({ data, session } : Props) {
+export default function ({ data } : Props) {
   return (
-    <Box h={200} bg='gray'>
-      { data.members.map(e => (
-        <pre>{JSON.stringify(e, null, 2)}</pre>
-      ))}
-    </Box>
+    <ScrollArea h={250}>
+      <Stack>
+        { data.members.map((e, idx) => (
+          <JsonInput 
+            autosize
+            key={idx} 
+            value={JSON.stringify(e, null, 2)}
+          />
+        ))}
+      </Stack>
+    </ScrollArea>
   )
 }
