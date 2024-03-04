@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { useSigner } from '@/hooks/useSigner'
 import { IconKey }   from '@tabler/icons-react'
 
@@ -5,8 +6,11 @@ import {
   ColorSwatch,
   Group,
   ActionIcon,
-  Popover
+  Popover,
+  Modal
 } from '@mantine/core'
+
+import { useMediaQuery } from '@mantine/hooks'
 
 import UserView from '../drawer'
 
@@ -15,40 +19,76 @@ interface SwatchProps {
 }
 
 export default function SignerButton () {
-  
+  const isMobile = useMediaQuery('(max-width: 768px)')
   const { signer } = useSigner()
+  const [opened, setOpened] = useState(false);
+
+  const content = (
+    <>
+      {signer !== null && <IdSwatch id={signer.pubkey} />}
+      <ActionIcon
+        bg={signer !== null ? 'green' : '#0068FD'}
+        size={35}
+        variant="filled"
+        aria-label="Signer"
+        onClick={() => setOpened(true)}
+        style={{ borderRadius: '10px' }}
+      >
+        <IconKey style={{ width: '70%', height: '70%' }} size={45} />
+      </ActionIcon>
+    </>
+  );
 
   return (
-    <Popover 
-      position="top-end" 
-      offset={5} 
-      width={350}
-      closeOnClickOutside={false}
-    >
-      <Popover.Target>
+    <>
+    {isMobile ? (
+      <>
         <Group
           style={{
             position: 'fixed',
             bottom: '90px',
-            right: '10px', 
-            zIndex: 999, 
-        }}>
-        { signer !== null && <IdSwatch id={signer.pubkey} /> }
-          <ActionIcon
-            bg={ signer !== null ? 'green' : '#0068FD' }
-            size={35}
-            variant    = "filled"
-            aria-label = "Signer"
-            style={{ borderRadius: '10px' }}
-          >
-            <IconKey style={{ width  : '70%', height : '70%' }} size={45} />
-          </ActionIcon>
+            right: '10px',
+            zIndex: 999,
+          }}
+        >
+          {content}
         </Group>
-      </Popover.Target>
-      <Popover.Dropdown>
-        <UserView />
-      </Popover.Dropdown>
-    </Popover>
+        <Modal
+          fullScreen
+          opened={opened}
+          onClose={() => setOpened(false)}
+          title="User Details"
+        >
+          <UserView />
+        </Modal>
+      </>
+    ) : (
+      <Popover
+        position="top-end"
+        offset={5}
+        width={350}
+        opened={opened}
+        onClose={() => setOpened(false)}
+        closeOnClickOutside={false}
+      >
+        <Popover.Target>
+          <Group
+            style={{
+              position: 'fixed',
+              bottom: '90px',
+              right: '10px',
+              zIndex: 999,
+            }}
+          >
+            {content}
+          </Group>
+        </Popover.Target>
+        <Popover.Dropdown>
+          <UserView />
+        </Popover.Dropdown>
+      </Popover>
+    )}
+  </>
   )
 }
 
