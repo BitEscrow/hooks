@@ -8,7 +8,9 @@ import {
   Textarea,
   Card,
   Divider,
-  Title
+  Title,
+  Loader,
+  Center
 } from '@mantine/core'
 
 export default function () {
@@ -25,7 +27,7 @@ export default function () {
       </Title>
 
       <Divider mb={30} mt={30} />
-
+      { isLoading && <Center><Loader color="blue" /></Center> }
       { data && !isLoading &&
         <>
           {/* Agent */}

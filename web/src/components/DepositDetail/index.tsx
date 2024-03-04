@@ -6,7 +6,7 @@ import {
   TextInput,
   NumberInput,
   Card,
-  Divider, Title
+  Divider, Title, Center, Loader
 } from '@mantine/core'
 
 export default function () {
@@ -22,6 +22,7 @@ export default function () {
 
       <Divider mb={30} mt={30} />
 
+      { isLoading && <Center><Loader color="blue" /></Center> }
       { data && !isLoading &&
         <>
           <Title order={2} style={{ marginBottom: '40px', maxWidth: '500px' }}>
