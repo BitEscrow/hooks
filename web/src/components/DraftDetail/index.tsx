@@ -1,8 +1,11 @@
-import { DraftData, DraftSession } from '@scrow/core'
-import { useConfig }    from '@/hooks/useConfig'
-import { useSigner }    from '@/hooks/useSigner'
-import { useParams }    from 'react-router-dom'
+import { useConfig } from '@/hooks/useConfig'
+import { useSigner } from '@/hooks/useSigner'
+import { useParams } from 'react-router-dom'
 
+import {
+  DraftData,
+  DraftSession
+} from '@scrow/core'
 
 import {
   useEffect,
@@ -31,6 +34,8 @@ export default function () {
   useEffect(() => {
     if (signer !== null && sid !== undefined) {
       const new_session = new DraftSession(sid, signer)
+
+      console.log('session:', new_session)
 
       if (session === null) {
         new_session.once('ready', () => {

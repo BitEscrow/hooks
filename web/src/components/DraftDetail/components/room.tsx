@@ -63,7 +63,7 @@ export default function ({ data, session } : Props) {
       </Button>
         <Button
           disabled = {!session.is_ready}
-          onClick  = {() => session.fetch() }
+          onClick  = {() => session.refresh() }
         >
           Refresh
         </Button>

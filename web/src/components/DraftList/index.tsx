@@ -30,8 +30,6 @@ export default function ({ signer } : Props) {
 
   const { data, isLoading } = useDraftList(store.relay, signer)
 
-  console.log('data:', data)
-
   const load_draft = (secret : string) => {
     navigate(`/drafts/${secret}`)
   }
@@ -42,8 +40,8 @@ export default function ({ signer } : Props) {
   }
 
   const rows = data.map((row) => (
-    <tr key={row.id} className={styles.tableRow}>
-      <td><span onClick={() => load_draft(row.secret)} style={{color: '#54B251'}}>{row.id}</span></td>
+    <tr key={row.topic_id} className={styles.tableRow}>
+      <td><span onClick={() => load_draft(row.secret)} style={{color: '#54B251'}}>{row.topic_id}</span></td>
       <td><span style={{ color: '#0068FE' }}>{row.updated_at}</span></td>
       <td>
         <button onClick={() => delete_draft(row.secret)} style={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer', marginLeft: '8px', transform: 'translateY(2px)' }}>

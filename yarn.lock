@@ -35,10 +35,10 @@
     "@cmdcode/buff" "^2.2.5"
     "@cmdcode/crypto-tools" "^2.7.6"
 
-"@cmdcode/nostr-sdk@^0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@cmdcode/nostr-sdk/-/nostr-sdk-0.0.7.tgz#daf568b331d2027149182a4f917f1e70615b205c"
-  integrity sha512-4iUSVqQCVfHwH7H8BdBhh574SzPMlw5kYXeAoP95ZgIbCXgebei9k1BXxd7et/BiYAnreQUAmQyeRx33DXHT8g==
+"@cmdcode/nostr-sdk@^0.0.11":
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/@cmdcode/nostr-sdk/-/nostr-sdk-0.0.11.tgz#ef9fa2321ca55c933c02a05315ef5cf49638e21e"
+  integrity sha512-foimrnYq4+P5qw8M32ujja9INkNAlwnQqvH+NdPlFuMwhn5DfSNIW7lSIS6fSVkGOCvGUhwCgE+XATuJ6GqxVA==
   dependencies:
     "@cmdcode/buff" "2.2.5"
     "@cmdcode/crypto-tools" "2.7.6"
@@ -335,15 +335,15 @@
   resolved "https://registry.yarnpkg.com/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.12.0.tgz#9ffdf9ed133a7464f4ae187eb9e1294413fab235"
   integrity sha512-ZYmr5mS2wd4Dew/JjT0Fqi2NPB/ZhZ2VvPp7SmvPZb4Y1CG/LRcS6tcRo2cYU7zLK5A7cdbhWnnWmUjoI4qapg==
 
-"@scrow/core@^0.7.25":
-  version "0.7.25"
-  resolved "https://registry.yarnpkg.com/@scrow/core/-/core-0.7.25.tgz#9abcf74062c056a38322af4437328fa193319ab4"
-  integrity sha512-D3s34MvZHaUf8rGI5qFWUGhmmeFaaZyfrGhCoac8TFX3OyNgVKIonswHR4SNraJz1jEX0EIj5/E44YaM2l1Pzw==
+"@scrow/core@^0.7.26":
+  version "0.7.26"
+  resolved "https://registry.yarnpkg.com/@scrow/core/-/core-0.7.26.tgz#8c81b3a1c618302b0cacf761cbf2183bfdcfcc23"
+  integrity sha512-m1k2ML4bVSMNEVOM3qIzAmx3ju5PuW+7uPBHh7gEecAQz/ag6zlZk9mwrIUt+/5gQrYvkG8bHl8hEL3nJJ+27w==
   dependencies:
     "@cmdcode/buff" "2.2.5"
     "@cmdcode/crypto-tools" "2.7.6"
     "@cmdcode/musig2" "2.4.3"
-    "@cmdcode/nostr-sdk" "^0.0.7"
+    "@cmdcode/nostr-sdk" "^0.0.11"
     "@cmdcode/signer" "1.4.2"
     "@scrow/tapscript" "2.2.2"
     zod "^3.22.4"
