@@ -23,6 +23,9 @@ export default function SignerButton () {
   const { signer } = useSigner()
   const [opened, setOpened] = useState(false);
 
+  const toggleOpen = () => setOpened((o) => !o);
+
+
   const content = (
     <>
       {signer !== null && <IdSwatch id={signer.pubkey} />}
@@ -31,7 +34,7 @@ export default function SignerButton () {
         size={35}
         variant="filled"
         aria-label="Signer"
-        onClick={() => setOpened(true)}
+        onClick={toggleOpen}
         style={{ borderRadius: '10px' }}
       >
         <IconKey style={{ width: '70%', height: '70%' }} size={45} />
