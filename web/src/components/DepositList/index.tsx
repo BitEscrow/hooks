@@ -1,19 +1,12 @@
-import { useState }       from 'react'
+import { useNavigate }    from 'react-router-dom'
+import { EscrowSigner }   from '@scrow/core'
 import { IconZoomScan }   from '@tabler/icons-react'
 import { useDepositList } from '@scrow/hooks/deposit'
-
-import {
-  DepositData,
-  EscrowSigner
-} from '@scrow/core'
 
 import {
   Table,
   ScrollArea,
   Paper,
-  Modal,
-  TextInput,
-  NumberInput,
   Center,
   Text,
   Loader
@@ -29,16 +22,14 @@ export default function DepositsTable({ signer } : Props) {
 
   const { data, isLoading } = useDepositList(signer)
 
-  const [selectedRow, setSelectedRow] = useState<DepositData | null>(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const navigate = useNavigate()
 
-  const handleRowClick = (row : DepositData) => {
-    setSelectedRow(row)
-    setIsModalOpen(true)
+  const load = (dpid : string) => {
+    navigate(`/deposits/${dpid}`)
   }
 
   const rows = data.map((row) => (
-    <tr key={row.dpid} onClick={() => handleRowClick(row)} className={styles.tableRow}>
+    <tr key={row.dpid} onClick={() => load(row.dpid)} className={styles.tableRow}>
       <td><span style={{color: '#54B251'}}>{row.txid}</span></td>
       <td>{row.vout}</td>
       <td>{row.value} sats</td>
@@ -78,39 +69,6 @@ export default function DepositsTable({ signer } : Props) {
           )}
         </>
       }
-      <Modal
-        opened={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="Deposit Details"
-      >
-        { selectedRow && (
-          <>
-            <TextInput label="Agent ID" value={selectedRow.agent_id} readOnly />
-            <TextInput label="Agent PK" value={selectedRow.agent_pk} readOnly />
-            <TextInput label="Agent PN" value={selectedRow.agent_pn} readOnly />
-            <TextInput label="Block Hash" value={selectedRow.block_hash || "N/A"} readOnly />
-            <TextInput label="Block Height" value={selectedRow.block_height?.toString() || "N/A"} readOnly />
-            <TextInput label="Block Time" value={selectedRow.block_time?.toString() || "N/A"} readOnly />
-            <TextInput label="Confirmed" value={selectedRow.confirmed ? "Yes" : "No"} readOnly />
-            <TextInput label="Created At" value={selectedRow.created_at.toString()} readOnly />
-            <TextInput label="Deposit PK" value={selectedRow.deposit_pk} readOnly />
-            <TextInput label="DPID" value={selectedRow.dpid} readOnly />
-            <TextInput label="Return PSIG" value={selectedRow.return_psig || "N/A"} readOnly />
-            <TextInput label="Script Key" value={selectedRow.scriptkey} readOnly />
-            <TextInput label="Sequence" value={selectedRow.sequence.toString()} readOnly />
-            <TextInput label="Settled" value={selectedRow.settled ? "Yes" : "No"} readOnly />
-            <TextInput label="Settled At" value={selectedRow.settled_at?.toString() || "N/A"} readOnly />
-            <TextInput label="Spend XPUB" value={selectedRow.spend_xpub} readOnly />
-            <TextInput label="Spent" value={selectedRow.spent ? "Yes" : "No"} readOnly />
-            <TextInput label="Spent At" value={selectedRow.spent_at?.toString() || "N/A"} readOnly />
-            <TextInput label="Spent TXID" value={selectedRow.spent_txid || "N/A"} readOnly />
-            <TextInput label="TXID" value={selectedRow.txid} readOnly />
-            <TextInput label="Updated At" value={selectedRow.updated_at.toString()} readOnly />
-            <NumberInput label="Value" value={selectedRow.value} readOnly rightSection="sats"/>
-            <TextInput label="Vout" value={selectedRow.vout.toString()} readOnly />
-          </>
-        )}
-      </Modal>
     </>
   )
 }

@@ -1,19 +1,12 @@
+import { useNavigate }     from 'react-router-dom'
+import { EscrowSigner }    from '@scrow/core'
 import { useContractList } from '@scrow/hooks/contract'
 import { IconZoomScan }    from '@tabler/icons-react'
-import { useState }        from 'react'
-
-import {
-  ContractData,
-  EscrowSigner
-} from '@scrow/core'
 
 import {
     Table,
     ScrollArea,
     Paper,
-    Modal,
-    TextInput,
-    NumberInput,
     Center,
     Text,
     Loader
@@ -26,19 +19,16 @@ interface Props {
 }
 
 export default function ({ signer } : Props) {
-
   const { data, isLoading } = useContractList(signer)
 
-  const [selectedRow, setSelectedRow] = useState<ContractData | null>(null)
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate()
 
-  const handleRowClick = (row : ContractData) => {
-    setSelectedRow(row)
-    setIsModalOpen(true)
+  const load = (cid : string) => {
+    navigate(`/contracts/${cid}`)
   }
 
   const rows = data.map((row) => (
-    <tr key={row.cid} onClick={() => handleRowClick(row)} className={styles.tableRow}>
+    <tr key={row.cid} onClick={() => load(row.cid)} className={styles.tableRow}>
       <td>{row.terms.title}</td>
       <td>{row.status}</td>
       <td>{row.balance} sats</td>
@@ -78,38 +68,6 @@ export default function ({ signer } : Props) {
             )}
           </>
         }
-      <Modal
-        opened={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="Contract Details"
-      >
-      { selectedRow && (
-            <>
-            <TextInput
-              label="Title"
-              value={selectedRow.terms.title}
-              readOnly
-            />
-            <TextInput
-              label="CID"
-              value={selectedRow.cid}
-              readOnly
-            />
-            <TextInput
-              label="Date"
-              value={selectedRow.published}
-              readOnly
-            />
-            <NumberInput
-              label="Value"
-              value={selectedRow.total}
-              readOnly
-              rightSection="sats"
-              rightSectionWidth={50}
-            />
-        </>
-      )}
-      </Modal>
     </>
   )
 }

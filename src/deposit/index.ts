@@ -3,29 +3,35 @@ import {
   DepositData,
   DepositDataResponse,
   DepositListResponse,
+  EscrowClient,
   EscrowSigner
 } from '@scrow/core'
 
 import useSWR from 'swr'
 
-const DEFAULT_HOST = 'http://localhost:3000'
-
 export function useDeposit (
-  dpid : string,
-  host : string = DEFAULT_HOST
+  client : EscrowClient,
+  dpid   : string
 ) {
-  assert.is_hash(dpid)
+  const host = client.host
+  const url  = `${host}/api/deposit/${dpid}`
 
-  const url = `${host}/api/deposit/${dpid}`
-  const res = useSWR<DepositDataResponse>(url)
-
-  let deposit : DepositData | undefined
-
-  if (res.data !== undefined) {
-    deposit = res.data.deposit
+  const fetcher = async () => {
+    assert.is_hash(dpid)
+    const res = await client.deposit.read(dpid)
+    if (!res.ok) throw new Error(res.error)
+    return res.data
   }
 
-  return { ...res, deposit }
+  const res = useSWR<DepositDataResponse>(url, fetcher)
+
+  let data : DepositData | undefined
+
+  if (res.data !== undefined) {
+    data = res.data.deposit
+  }
+
+  return { ...res, data }
 }
 
 export function useDepositList (
