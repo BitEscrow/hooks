@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 
 import {
   DraftData,
-  DraftItem,
   DraftSession,
   EscrowSigner
 } from '@scrow/core'
@@ -10,20 +9,18 @@ import {
 import useSWR from 'swr'
 
 export function useDraftList (
-  relay  : string,
-  signer : EscrowSigner
+  address : string,
+  signer  : EscrowSigner
 ) {
   const client = signer.client
   const pub    = signer.pubkey
   const url    = `${client.host}/drafts/list?pk=${pub}`
 
   const fetcher = async () => {
-    const session = new DraftSession(signer)
-    const data    = await session.list(relay)
-    return data
+    return DraftSession.list(address, signer._signer, { verbose: true })
   }
 
-  const res  = useSWR<DraftItem[]>(url, fetcher)
+  const res  = useSWR<any[]>(url, fetcher)
   const data = res.data ?? []
 
   return { ...res, data }

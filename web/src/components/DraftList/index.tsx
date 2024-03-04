@@ -25,18 +25,20 @@ interface Props {
 
 export default function ({ signer } : Props) {
 
-  const session = new DraftSession(signer, {
-    socket_config : { verbose : true, debug : true },
-    store_config  : { verbose : true, debug : true },
-    verbose : true
-  })
-
   const { store } = useConfig()
   const navigate = useNavigate()
+
   const { data, isLoading } = useDraftList(store.relay, signer)
+
+  console.log('data:', data)
 
   const load_draft = (secret : string) => {
     navigate(`/drafts/${secret}`)
+  }
+
+  const delete_draft = (secret : string) => {
+    const session = new DraftSession(secret, signer)
+    session.delete()
   }
 
   const rows = data.map((row) => (
@@ -44,7 +46,7 @@ export default function ({ signer } : Props) {
       <td><span onClick={() => load_draft(row.secret)} style={{color: '#54B251'}}>{row.id}</span></td>
       <td><span style={{ color: '#0068FE' }}>{row.updated_at}</span></td>
       <td>
-        <button onClick={() => session.delete(row.store_id)} style={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer', marginLeft: '8px', transform: 'translateY(2px)' }}>
+        <button onClick={() => delete_draft(row.secret)} style={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer', marginLeft: '8px', transform: 'translateY(2px)' }}>
           <IconTrash size={17} color="red" />
         </button>
       </td>

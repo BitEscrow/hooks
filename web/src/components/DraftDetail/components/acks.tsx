@@ -29,13 +29,13 @@ export default function ({ data, session } : Props) {
       <Text>Approvals</Text>
       <Group h={20} bg='gray'>
         { data.members.map(e => {
-          return <Chip checked={approvals.includes(e.pub)}>
+          return <Chip key={e.id} checked={approvals.includes(e.pub)}>
             { aliases.get(e.pub) ?? 'undefined' }
           </Chip>
         }) }
       </Group>
       <Button
-        disabled = {session.is_approved}
+        disabled = {!session.is_full || session.is_approved}
         onClick  = {() => session.approve()}
       >
         Approve

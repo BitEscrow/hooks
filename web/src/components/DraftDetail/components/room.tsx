@@ -5,6 +5,7 @@ import {
 
 import {
   Button,
+  Group,
   Tabs
 } from '@mantine/core'
 
@@ -52,12 +53,22 @@ export default function ({ data, session } : Props) {
       <Seats data={ data } session={ session } />
       <Signatures data={ data } session={ session } />
       <Acks data={ data } session={ session } />
-      <Button
-        disabled = {!session.is_confirmed}
-        onClick  = {() => session.publish(session._signer.client) }
-      >
-        Publish
+
+      <Group>
+          <Button
+          disabled = {!session.is_confirmed}
+          onClick  = {() => session.publish(session._signer.client) }
+        >
+          Publish
       </Button>
+        <Button
+          disabled = {!session.is_ready}
+          onClick  = {() => session.fetch() }
+        >
+          Refresh
+        </Button>
+      </Group>
+      
     </>
   )
 }

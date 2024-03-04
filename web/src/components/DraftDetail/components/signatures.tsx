@@ -19,7 +19,7 @@ export default function ({ data, session } : Props) {
         { aliases.map(e => <Chip>{e}</Chip>) }
       </Group>
       <Button
-        disabled = {session.is_endorsed}
+        disabled = {!session.is_full || session.is_endorsed}
         onClick  = {() => session.endorse()}
       >
         Endorse

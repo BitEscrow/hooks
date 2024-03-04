@@ -30,14 +30,13 @@ export default function () {
 
   useEffect(() => {
     if (signer !== null && sid !== undefined) {
-      const new_session = new DraftSession(signer, {
-        socket_config : { verbose : true, debug : true },
-        store_config  : { verbose : true, debug : true },
-        verbose : true
-      })
+      const new_session = new DraftSession(sid, signer)
 
       if (session === null) {
         new_session.once('ready', () => {
+          setData(new_session.data)
+        })
+        new_session.on('fetch', () => {
           setData(new_session.data)
         })
         new_session.on('update', () => {
@@ -46,9 +45,9 @@ export default function () {
         setSession(new_session)
       }
 
-      new_session.connect(store.relay, sid)
+      new_session.connect(store.relay)
     }
-  }, [ signer, session, data ])
+  }, [ signer, sid ])
 
   return (
     <Card style={{ padding: '20px', display: 'flex', flexDirection: 'column' }}>

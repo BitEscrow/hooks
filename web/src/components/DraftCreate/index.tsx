@@ -53,12 +53,12 @@ export default function CreateDraftView () {
       if (signer === null) throw new Error('Signer not loaded')
       const data    = JSON.parse(json)
       const draft   = create_draft(data)
-      const session = new DraftSession(signer)
-      const sid     = Buff.random(32).hex
+      const secret  = Buff.random(32).hex
+      const session = new DraftSession(secret, signer)
       validate_draft(draft)
       verify_draft(draft)
-      session.init(store.relay, sid, draft).then(() => {
-        navigate(`/drafts/${sid}`)
+      session.init(store.relay, draft).then(() => {
+        navigate(`/drafts/${secret}`)
       })
     } catch {
       return
