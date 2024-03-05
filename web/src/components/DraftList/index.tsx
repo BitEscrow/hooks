@@ -2,11 +2,7 @@ import { useNavigate }  from 'react-router-dom'
 import { useDraftList } from '@scrow/hooks/draft'
 import { useConfig }    from '@/hooks/useConfig'
 import { IconTrash }    from '@tabler/icons-react'
-
-import {
-  DraftSession,
-  EscrowSigner
-} from '@scrow/core'
+import { EscrowSigner } from '@scrow/core'
 
 import {
   Table,
@@ -14,7 +10,8 @@ import {
   Paper,
   Center,
   Text,
-  Loader
+  Loader,
+  Button
 } from '@mantine/core'
 
 import styles from './styles.module.sass'
@@ -28,15 +25,10 @@ export default function ({ signer } : Props) {
   const { store } = useConfig()
   const navigate = useNavigate()
 
-  const { data, isLoading } = useDraftList(store.relay, signer)
+  const { data, isLoading, refresh, remove } = useDraftList(store.relay, signer)
 
   const load_draft = (secret : string) => {
     navigate(`/drafts/${secret}`)
-  }
-
-  const delete_draft = (secret : string) => {
-    const session = new DraftSession(secret, signer)
-    session.delete()
   }
 
   const rows = data.map((row) => (
@@ -44,7 +36,7 @@ export default function ({ signer } : Props) {
       <td><span onClick={() => load_draft(row.secret)} style={{color: '#54B251'}}>{row.topic_id}</span></td>
       <td><span style={{ color: '#0068FE' }}>{row.updated_at}</span></td>
       <td>
-        <button onClick={() => delete_draft(row.secret)} style={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer', marginLeft: '8px', transform: 'translateY(2px)' }}>
+        <button onClick={() => remove(row.secret)} style={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer', marginLeft: '8px', transform: 'translateY(2px)' }}>
           <IconTrash size={17} color="red" />
         </button>
       </td>
@@ -75,6 +67,7 @@ export default function ({ signer } : Props) {
               <Text c="dimmed">You have no active drafts.</Text>
             </Center>
           )}
+          <Button onClick={refresh}>Refresh</Button>
         </>
       }
     </>

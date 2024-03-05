@@ -1,18 +1,39 @@
 import { useParams }   from 'react-router-dom'
 import { useClient }   from 'src/client'
 import { useDeposit }  from '@scrow/hooks/deposit'
+import { useSigner }   from '@/hooks/useSigner'
 
 import {
   TextInput,
   NumberInput,
   Card,
-  Divider, Title, Center, Loader
+  Divider, Title, Center, Loader, Button
 } from '@mantine/core'
 
 export default function () {
   const { dpid }   = useParams()
   const { client } = useClient()
+  const { signer } = useSigner()
+
   const { data, isLoading } = useDeposit(client, dpid || '')
+
+  const can_close = (
+    signer !== null      &&
+    dpid   !== undefined &&
+    data   !== undefined &&
+    signer.pubkey === data.deposit_pk &&
+    (
+      data.status === 'open' ||
+      data.status === 'expired'
+    )
+  )
+
+  const close_acct = (txfee : number = 150) => {
+    if (can_close) {
+      const req = signer.account.close(data, txfee)
+      client.deposit.close(dpid, req)
+    }
+  }
 
   return (
     <Card>
@@ -25,6 +46,12 @@ export default function () {
       { isLoading && <Center><Loader color="blue" /></Center> }
       { data && !isLoading &&
         <>
+          <Button
+            disabled={!can_close}
+            onClick={() => close_acct() }
+          >
+            Close Deposit
+          </Button>
           <Title order={2} style={{ marginBottom: '40px', maxWidth: '500px' }}>
             Primary Data
           </Title>

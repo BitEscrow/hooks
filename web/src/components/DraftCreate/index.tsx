@@ -54,10 +54,10 @@ export default function CreateDraftView () {
       const data    = JSON.parse(json)
       const draft   = create_draft(data)
       const secret  = Buff.random(32).hex
-      const session = new DraftSession(secret, signer)
+      const session = new DraftSession(signer)
       validate_draft(draft)
       verify_draft(draft)
-      session.init(store.relay, draft).then(() => {
+      session.init(store.relay, secret, draft).then(() => {
         navigate(`/drafts/${secret}`)
       })
     } catch {

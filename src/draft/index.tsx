@@ -1,4 +1,8 @@
-import { useEffect, useState } from 'react'
+import {
+  useEffect,
+  useRef,
+  useState
+} from 'react'
 
 import {
   DraftData,
@@ -7,58 +11,71 @@ import {
   EscrowSigner
 } from '@scrow/core'
 
-import useSWR from 'swr'
-
 export function useDraftList (
   address : string,
   signer  : EscrowSigner
 ) {
-  const client = signer.client
-  const pub    = signer.pubkey
-  const url    = `${client.host}/drafts/list?pk=${pub}`
 
-  const fetcher = async () => {
-    return DraftSession.list(address, signer)
-  }
-
-  const res  = useSWR<DraftItem[]>(url, fetcher)
-  const data = res.data ?? []
-
-  return { ...res, data }
-}
-
-export function useDraftSession (session : DraftSession) {
-  const [ data, setData ] = useState<DraftData | undefined>()
-
-  // const fetcher = async () => {
-  //   // await session.refresh()
-  //   return session.data
-  // }
+  const [ init, setInit ]         = useState(false)
+  const [ isLoading, setLoading ] = useState(false)
+  const [ data, setDrafts ]       = useState<DraftItem[]>([])
 
   useEffect(() => {
-    if (!session.is_ready) {
-      session.once('ready', () => {
-        setData(session.data)
-      })
-
-      session.on('update', () => {
-        setData(session.data)
-      })
+    if (!init) {
+      refresh()
+      setInit(true)
     }
-  })
+  }, [ init ])
 
-  
+  const refresh = async () => {
+    setLoading(true)
+    const list = await DraftSession.list(address, signer)
+    setDrafts(list)
+    setLoading(false)
+  }
 
-  // const pub = session.pubkey
+  const remove = (secret : string) => {
+    const idx = data.findIndex(e => e.secret === secret)
+    if (idx !== -1) {
+      const session = new DraftSession(signer)
+      session.once('ready', () => {
+        session.delete()
+        session.close()
+      })
+      session.connect(address, secret)
+      data.splice(idx, 1)
+      setDrafts([ ...data ])
+    }
+  }
 
-  // const res = useSWR<DraftData>(`/draft/${pub}/${session.id}`, fetcher)
+  return { data, isLoading, refresh, remove }
+}
 
-  // useEffect(() => {
-  //   if (!res.error && res.data !== undefined) {
-  //     setData(res.data)
-  //   }
+export function useDraftSession (
+  address : string,
+  secret  : string,
+  signer  : EscrowSigner
+) {
 
-  // }, [ res.data ])
+  const session = useRef(new DraftSession(signer, { debug : true, verbose : true }))
 
-  return { data }
+  const [ data, setData ] = useState<DraftData | undefined>(undefined)
+
+  const initialize = () => {
+    const s = session.current
+    s.once('ready', () => setData(s.data))
+    s.on('fetch',   () => setData(s.data))
+    s.on('update',  () => setData(s.data))
+    s.on('reject', console.log)
+    s.on('error', console.error)
+    s.connect(address, secret)
+  }
+
+  useEffect(() => {
+    if (!session.current.is_ready) {
+      initialize()
+    }
+  }, [ session ])
+
+  return { data, session: session.current }
 }

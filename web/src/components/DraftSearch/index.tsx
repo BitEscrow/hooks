@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState }    from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import {
     TextInput,
@@ -17,23 +18,11 @@ export default function SearchDraft() {
   const [draftId, setDraftId] = useState('')
   const [errorDraftId, setErrorDraftId] = useState('')
 
-  const validateInputs = () => {
-    let isValid = true
-    setErrorDraftId('')
+  const navigate = useNavigate()
 
-    if (/[^a-fA-F0-9\s]/.test(draftId) || draftId === '') {
-      setErrorDraftId('Draft ID is empty or contains invalid characters.')
-      isValid = false
-    }
 
-    return isValid
-  }
-
-  const handleClick = () => {
-    const isValid = validateInputs()
-    if (isValid) {
-      console.log(draftId)
-    }
+  const join_session = () => {
+    navigate(`/drafts/${draftId}`)
   }
 
   return (
@@ -42,14 +31,14 @@ export default function SearchDraft() {
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <Title order={2} mb={15}>Join a Session</Title>
           <Text c="dimmed" style={{ marginBottom: '20px' }} maw='500px'>
-            Join an existing draft session via its ID.
+            Join an existing draft session via its secret ID.
           </Text>
         </div>
       </div>
       <Group>
         <TextInput
           style={{ width: '500px' }}
-          placeholder="Enter a session ID ..."
+          placeholder="Enter a secret ID ..."
           leftSection={<IconPencil size={15} />}
           value={draftId}
           onChange={(event) => { setDraftId(event.target.value); setErrorDraftId(''); }}
@@ -61,7 +50,7 @@ export default function SearchDraft() {
             backgroundColor: '#0068FD',
             borderRadius: '15px',
           }}
-          onClick={handleClick}
+          onClick={() => join_session() }
         >
           Join
         </Button>
