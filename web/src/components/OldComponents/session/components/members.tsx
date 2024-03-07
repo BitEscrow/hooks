@@ -17,7 +17,7 @@ interface Props {
   form : UseFormReturnType<ProposalData>
 }
 
-export default function ProposalMemberList({ form } : Props) {
+export default function ({ form } : Props) {
 
   const { signer } = useSigner()
 

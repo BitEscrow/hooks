@@ -1,4 +1,6 @@
-import { EscrowSigner } from '@scrow/core'
+import { EscrowSigner }    from '@scrow/core'
+import { useConfig }       from '@/hooks/useConfig'
+import { useDraftSession } from '@scrow/hooks/draft'
 
 import {
   Button,
@@ -15,8 +17,6 @@ import Roles      from './roles'
 import Terms      from './terms'
 import Seats      from './seats'
 import Signatures from './signatures'
-import { useConfig } from '@/hooks/useConfig'
-import { useDraftSession } from '@scrow/hooks/draft'
 
 interface Props {
   secret : string
@@ -29,12 +29,14 @@ export default function ({ secret, signer } : Props) {
 
   const { data, session } = useDraftSession(store.relay, secret, signer)
 
+
+
   return (
     <>
       { !data && <Center><Loader color="blue" /></Center> }
       { data !== undefined &&
         <>
-          <Tabs defaultValue="details">
+          <Tabs defaultValue="terms">
             <Tabs.List grow>
               <Tabs.Tab value="chat">Chat</Tabs.Tab>
               <Tabs.Tab value="members">Members</Tabs.Tab>

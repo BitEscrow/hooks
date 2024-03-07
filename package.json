@@ -57,7 +57,7 @@
     "@cmdcode/buff": "^2.2.5",
     "@cmdcode/signer": "^1.4.2",
     "@cmdcode/use-store": "^1.0.7",
-    "@scrow/core": "^0.7.28",
+    "@scrow/core": "^0.7.30",
     "dayjs": "^1.11.10",
     "plausible-tracker": "^0.3.8",
     "react-router-dom": "^6.22.1",

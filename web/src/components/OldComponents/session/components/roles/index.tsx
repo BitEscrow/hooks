@@ -2,9 +2,9 @@ import { UseFormReturnType } from '@mantine/form'
 import { ProposalData }      from '@scrow/core'
 import { Box }               from '@mantine/core'
 
-import ProposalPaymentList from './payments'
+import ProposalPaymentList from '../../../../PropForm/components/payments'
 import ProposalPathList from './paths'
-import ProposalProgramList from './programs'
+import ProposalProgramList from '../../../../PropForm/components/programs'
 import ProposalRolesList from './roles'
 
 interface Props {

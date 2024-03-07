@@ -57,7 +57,7 @@ export function useDraftSession (
   signer  : EscrowSigner
 ) {
 
-  const session = useRef(new DraftSession(signer, { debug : true, verbose : true }))
+  const session = useRef(new DraftSession(signer))
 
   const [ data, setData ] = useState<DraftData | undefined>(undefined)
 

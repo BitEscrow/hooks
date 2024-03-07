@@ -1,11 +1,21 @@
 import { Buff } from '@cmdcode/buff'
-import { Box, Button, Code, Group, Text, TextInput } from '@mantine/core'
+
+import { useEffect, useState } from 'react'
+
+import {
+  Box,
+  Button,
+  Code,
+  Group,
+  Stack,
+  TextInput
+} from '@mantine/core'
 
 import {
   DraftData,
   DraftSession
 } from '@scrow/core'
-import { useState } from 'react'
+import { now } from '@scrow/core/util'
 
 interface Props {
   data    : DraftData
@@ -17,35 +27,61 @@ interface Props {
 // Take the first two bytes as a suffix.
 // Take 4 more bytes, two for each word (reduced to 11 bits each).
 
-export default function ({ data, session } : Props) {
+export default function ({ session } : Props) {
 
-  const [ msgs, setMsgs ] = useState<string[]>([])
+  const [ init, setInit ]   = useState(false)
+  const [ input, setInput ] = useState('')
+  const [ msgs, setMsgs ]   = useState<string[]>([])
 
   const alias = get_alias(session.pubkey)
 
+  const send = () => {
+    const msg = `[${alias}]: ${input}`
+    session.send('chat', msg)
+    setMsgs((e) => [ ...e, msg ])
+    setInput('')
+  }
+
+  useEffect(() => {
+    if (!init) {
+      session.on_topic('chat', (msg) => {
+        setMsgs((e) => [ ...e, msg.body as string ])
+      })
+      setInit(true)
+    }
+  }, [ init ])
+
   return (
     <Box h={200} bg='gray'>
-      <Code>{msgs.join('\n')}</Code>
+      <Stack>
+        { msgs.map(msg => (
+          <Code key={now()}>{msg}</Code>
+        ))}
+      </Stack>
       <Group>
-        <TextInput />
-        <Button>Send</Button>
+        <TextInput
+          onChange={(e) => setInput(e.target.value)}
+          value={input}
+        />
+        <Button onClick={send}>Send</Button>
       </Group>
     </Box>
   )
 }
 
-function ChatBox () {
-  return <pre>messages go here</pre>
-}
+// function ChatBox () {
+//   return <pre>messages go here</pre>
+// }
 
-function MessageBar () {
-  return (
-    <>
-      <input type="text" />
-      <button>Send</button>
-    </>
-  )
-}
+// function MessageBar () {
+//   return (
+//     <>
+//       <TextInput onChange={(e) => }
+//       />
+//       <Button onClick={}>Send</Button>
+//     </>
+//   )
+// }
 
 function get_alias (pubkey : string) {
   const tag   = pubkey.slice(0, 4)
