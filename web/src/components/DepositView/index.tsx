@@ -7,7 +7,7 @@ import {
   Divider
 } from '@mantine/core'
 
-import DepositList   from '../DepositList'
+import DepositList   from '../DepositList/index2'
 import DepositSearch from '../DepositSearch'
 
 export default function DepositView() {
