@@ -33,6 +33,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "src/components/ContractDetail/components/fields/.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

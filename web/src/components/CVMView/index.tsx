@@ -1,3 +1,4 @@
+import { useState }    from 'react'
 import { useParams }   from 'react-router-dom'
 import { useContract } from '@scrow/hooks/contract'
 import { useClient }   from '@scrow/hooks/client'
@@ -9,9 +10,8 @@ import {
   Center
 } from '@mantine/core'
 
-import ContractPanel  from './components/panel'
-import ContractHeader from './components/header'
-import { useState } from 'react'
+import CVMPanel  from './components/panel'
+import CVMHeader from './components/header'
 
 export default function () {
   const { cid }    = useParams()
@@ -23,10 +23,10 @@ export default function () {
 
   return (
     <Card>
-      <ContractHeader data={ data } setView={setView} />
+      <CVMHeader data={ data } setView={setView} />
       {/* <Divider mb={20} mt={20} /> */}
       { isLoading && <Center><Loader color="blue" /></Center> }
-      { data && !isLoading && <ContractPanel data={data} view={view} /> }
+      { data && !isLoading && <CVMPanel data={data} view={view} /> }
     </Card>
   )
 }

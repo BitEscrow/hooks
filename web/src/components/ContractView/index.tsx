@@ -25,12 +25,7 @@ export default function ContractView() {
           || 'You must login in order to view your contracts.'
         }
       </Text>
-      { store.signer !== null &&
-        <>
-          <Divider mb={30} mt={20} />
-          <ContractList signer={ store.signer } /> 
-        </>
-      }
+      { store.signer !== null && <ContractList signer={ store.signer } />}
     </Card>
   )
 }

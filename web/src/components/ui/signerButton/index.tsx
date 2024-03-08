@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSigner } from '@/hooks/useSigner'
 import { IconKey }   from '@tabler/icons-react'
 
@@ -13,6 +13,7 @@ import {
 import { useMediaQuery } from '@mantine/hooks'
 
 import UserView from '../drawer'
+import { sleep } from '@scrow/core/util';
 
 interface SwatchProps {
   id : string
@@ -21,14 +22,22 @@ interface SwatchProps {
 export default function SignerButton () {
   const isMobile = useMediaQuery('(max-width: 768px)')
   const { signer } = useSigner()
-  const [opened, setOpened] = useState(false);
+  const [ opened, setOpened ] = useState(false)
 
-  const toggleOpen = () => setOpened((o) => !o);
+  const toggleOpen = () => setOpened((o) => !o)
 
+  useEffect(() => {
+    if (opened && signer !== null) {
+      (async () => { 
+        await sleep(2000)
+        setOpened(false)
+      })()
+    }
+  }, [ signer ])
 
   const content = (
     <>
-      {signer !== null && <IdSwatch id={signer.pubkey} />}
+      { signer !== null && <IdSwatch id={signer.pubkey} />}
       <ActionIcon
         bg={signer !== null ? 'green' : '#0068FD'}
         size={35}

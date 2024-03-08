@@ -15,7 +15,6 @@ import {
   DraftData,
   DraftSession
 } from '@scrow/core'
-import { now } from '@scrow/core/util'
 
 interface Props {
   data    : DraftData
@@ -45,7 +44,9 @@ export default function ({ session } : Props) {
   useEffect(() => {
     if (!init) {
       session.on_topic('chat', (msg) => {
-        setMsgs((e) => [ ...e, msg.body as string ])
+        if (msg.envelope.pubkey !== session.mship.pub) {
+          setMsgs((e) => [ ...e, msg.body as string ])
+        }
       })
       setInit(true)
     }
@@ -55,7 +56,7 @@ export default function ({ session } : Props) {
     <Box h={200} bg='gray'>
       <Stack>
         { msgs.map(msg => (
-          <Code key={now()}>{msg}</Code>
+          <Code key={Buff.random(16).hex}>{msg}</Code>
         ))}
       </Stack>
       <Group>

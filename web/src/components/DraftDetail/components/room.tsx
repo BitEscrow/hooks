@@ -36,12 +36,12 @@ export default function ({ secret, signer } : Props) {
       { !data && <Center><Loader color="blue" /></Center> }
       { data !== undefined &&
         <>
-          <Tabs defaultValue="terms">
+          <Terms data={ data } session={ session } />
+          <Tabs defaultValue="chat">
             <Tabs.List grow>
               <Tabs.Tab value="chat">Chat</Tabs.Tab>
               <Tabs.Tab value="members">Members</Tabs.Tab>
               <Tabs.Tab value="roles">Roles</Tabs.Tab>
-              <Tabs.Tab value="terms">Terms</Tabs.Tab>
             </Tabs.List>
 
             <Tabs.Panel value="chat" pt="xs">
@@ -54,9 +54,6 @@ export default function ({ secret, signer } : Props) {
 
             <Tabs.Panel value="roles" pt="xs">
               <Roles data={ data } session={ session } />
-            </Tabs.Panel>
-            <Tabs.Panel value="terms" pt="xs">
-              <Terms data={ data } session={ session } />
             </Tabs.Panel>
           </Tabs>
           

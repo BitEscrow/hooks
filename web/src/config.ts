@@ -1,3 +1,8 @@
+export const default_config = {
+  network : 'mutiny',
+  relay   : 'wss://nos.lol'
+}
+
 export const servers = {
   mutiny : {
     hostname : 'https://bitescrow-mutiny.vercel.app',

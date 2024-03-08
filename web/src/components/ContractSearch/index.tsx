@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState }    from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import {
   TextInput,
@@ -17,6 +18,8 @@ export default function () {
   const [inputValue, setInputValue] = useState('')
   const [isValid, setIsValid] = useState(true)
 
+  const navigate = useNavigate()
+
   const handleChange = (event: { target: { value: any } }) => {
     const value = event.target.value;
     const hasSpecialChars = /[^a-zA-Z0-9\s]/.test(value)
@@ -30,7 +33,7 @@ export default function () {
   }
 
   const handleClick = () => {
-    console.log(inputValue)
+    navigate(`/contracts/${inputValue}`)
   }
 
   return (
