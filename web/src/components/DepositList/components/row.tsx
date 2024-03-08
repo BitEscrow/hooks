@@ -26,7 +26,7 @@ export default function ({ data } : Props) {
     <Paper 
       withBorder
       m={5}
-      style={{}}
+      maw={500}
     >
       <Text p={5} truncate="end">{data.txid}</Text>
       <Text p={5}>{`Expires at ${expires_at}` ?? 'Unconfirmed'}</Text>

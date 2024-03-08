@@ -25,6 +25,7 @@ export default function ({ data } : Props) {
       withBorder
       m={5}
       style={{}}
+      maw={500}
     >
       <Text p={5}>{data.terms.title}</Text>
       <Text p={5}>Updated at {updated_at}</Text>
