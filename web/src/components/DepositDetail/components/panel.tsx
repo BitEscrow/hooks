@@ -1,13 +1,7 @@
-import { useNavigate } from 'react-router-dom'
-import { useClient }   from '@scrow/hooks'
-import { useSigner }   from '@/hooks/useSigner'
+import { useDisclosure } from '@mantine/hooks'
+import { DepositData } from '@scrow/core'
 
-import {
-  assert,
-  DepositData
-} from '@scrow/core'
-
-import { Accordion, Box, Button, Group, Tabs } from '@mantine/core'
+import { Accordion, Box, Button, Tabs } from '@mantine/core'
 
 import ConfirmPanel    from './panels/confirm'
 import CovenantPanel   from './panels/covenant'
@@ -16,6 +10,7 @@ import DetailsPanel    from './panels/details'
 import SessionPanel    from './panels/session'
 import TxPanel         from './panels/tx'
 import JsonView        from './json'
+import CloseForm       from './close'
 
 interface Props {
   data : DepositData
@@ -24,19 +19,9 @@ interface Props {
 
 export default function ({ data, view } : Props) {
 
-  const navigate = useNavigate()
-
-  const { client } = useClient()
-  const { signer } = useSigner()
+  const [ opened, { toggle } ] = useDisclosure(false)
 
   const can_close = data.status === 'open'
-
-  const close = async () => {
-    assert.exists(signer)
-    const req = signer.account.close(data, 1)
-    const res = await client.deposit.close(data.dpid, req)
-    if (!res.ok) throw new Error(res.error)
-  }
 
   return (
     <Box mt={20} maw={700}>
@@ -56,15 +41,17 @@ export default function ({ data, view } : Props) {
           <JsonView data={data} />
         </Tabs.Panel>
       </Tabs>
-      <Group mt={10}>
-        <Button
-          disabled={!can_close}
-          onClick={close}
-          style={{ flex : 1 }}
-        >
-          Close Deposit
-        </Button>
-      </Group>
+
+      <Button
+        w='100%'
+        mt={10}
+        disabled={!can_close}
+        onClick={toggle}
+        style={{ flex : 1 }}
+      >
+        { opened ? 'Dismiss' : 'Close Deposit' }
+      </Button>
+      <CloseForm data={data} opened={opened} />
     </Box>
   )
 }
