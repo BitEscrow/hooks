@@ -1,6 +1,6 @@
 {
   "name": "@scrow/hooks",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "React hooks library for @scrow/core.",
   "main": "index.js",
   "author": "Christopher Scott",
