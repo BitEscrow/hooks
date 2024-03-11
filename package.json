@@ -1,6 +1,6 @@
 {
   "name": "@scrow/hooks",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "React hooks library for @scrow/core.",
   "main": "index.js",
   "author": "Christopher Scott",
@@ -57,7 +57,7 @@
     "@cmdcode/buff": "^2.2.5",
     "@cmdcode/signer": "^1.4.2",
     "@cmdcode/use-store": "^1.0.7",
-    "@scrow/core": "^0.7.30",
+    "@scrow/core": "^0.7.31",
     "dayjs": "^1.11.10",
     "plausible-tracker": "^0.3.8",
     "react-router-dom": "^6.22.1",
