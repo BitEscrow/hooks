@@ -1,4 +1,5 @@
 import {
+  AccountDataResponse,
   assert,
   DepositData,
   DepositDataResponse,
@@ -8,6 +9,26 @@ import {
 } from '@scrow/core'
 
 import useSWR from 'swr'
+
+export function useAccount (
+  client   : EscrowClient,
+  locktime : number,
+  signer   : EscrowSigner,
+  idx     ?: number
+) {
+  const host = client.host
+  const pub  = signer.pubkey
+  const url  = `${host}/api/account/${pub}/${locktime}/${idx}`
+
+  const fetcher = async () => {
+    const req = signer.account.create(locktime, idx)
+    const res = await client.deposit.request(req)
+    if (!res.ok) throw new Error(res.error)
+    return res.data
+  }
+
+  return useSWR<AccountDataResponse>(url, fetcher)
+}
 
 export function useDeposit (
   client : EscrowClient,

@@ -1,3 +1,5 @@
+import { useEffect, useState }       from 'react'
+import { useNavigate }     from 'react-router-dom'
 import { EscrowSigner }    from '@scrow/core'
 import { useConfig }       from '@/hooks/useConfig'
 import { useDraftSession } from '@scrow/hooks/draft'
@@ -17,6 +19,7 @@ import Roles      from './roles'
 import Terms      from './terms'
 import Seats      from './seats'
 import Signatures from './signatures'
+import { useClient } from 'src/client'
 
 interface Props {
   secret : string
@@ -25,11 +28,28 @@ interface Props {
 
 export default function ({ secret, signer } : Props) {
 
-  const { store } = useConfig()
+  const navigate = useNavigate()
+
+  const { client } = useClient()
+  const { store }  = useConfig()
+
+  const [ init, setInit ] = useState(false)
 
   const { data, session } = useDraftSession(store.relay, secret, signer)
 
+  const publish = async () => {
+    const ct = await session.publish(client)
+    navigate(`/contracts/${ct.cid}`)
+  }
 
+  useEffect(() => {
+    if (!init) {
+      session.once('published', (cid) => {
+        navigate(`/contracts/${cid}`)
+      })
+      setInit(true)
+    }
+  }, [ init ])
 
   return (
     <>
@@ -64,7 +84,7 @@ export default function ({ secret, signer } : Props) {
           <Group>
               <Button
               disabled = {!session.is_confirmed}
-              onClick  = {() => session.publish(session._signer.client) }
+              onClick  = {() => publish() }
             >
               Publish
           </Button>

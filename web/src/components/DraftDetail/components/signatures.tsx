@@ -16,7 +16,7 @@ export default function ({ data, session } : Props) {
   return (
     <Box>
       <Group h={20} bg='gray'>
-        { aliases.map(e => <Chip>{e}</Chip>) }
+        { aliases.map(e => <Chip key={e}>{e}</Chip>) }
       </Group>
       <Button
         disabled = {!session.is_full || session.is_endorsed}

@@ -1,5 +1,5 @@
-export * from './client/index.jsx'
-export * from './signer/index.jsx'
+export * from './client/index.js'
+export * from './signer/index.js'
 export * from './contract/index.js'
 export * from './deposit/index.js'
 export * from './draft/index.js'
