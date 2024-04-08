@@ -1,4 +1,4 @@
-import { ClientConfig } from '@scrow/core'
+import { ClientConfig } from '@scrow/sdk/client'
 import { initSigner }   from './signer.js'
 import { initStore }    from './store.js'
 import { SignerStore }  from './types.js'

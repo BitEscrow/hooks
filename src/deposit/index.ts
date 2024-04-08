@@ -1,27 +1,32 @@
+import { get_account_hash } from '@scrow/sdk/account'
+import { assert }           from '@scrow/sdk/util'
+
 import {
   AccountDataResponse,
-  assert,
   DepositData,
   DepositDataResponse,
   DepositListResponse,
+} from '@scrow/sdk/core'
+
+import {
   EscrowClient,
   EscrowSigner
-} from '@scrow/core'
+} from '@scrow/sdk/client'
 
 import useSWR from 'swr'
 
 export function useAccount (
-  client   : EscrowClient,
-  locktime : number,
-  signer   : EscrowSigner,
-  idx     ?: number
+  client      : EscrowClient,
+  locktime    : number,
+  return_addr : string,
+  signer      : EscrowSigner
 ) {
-  const host = client.host
-  const pub  = signer.pubkey
-  const url  = `${host}/api/account/${pub}/${locktime}/${idx}`
+  const req  = signer.account.create(return_addr, locktime)
+  const host = client.server_url
+  const hash = get_account_hash(req)
+  const url  = `${host}/api/account/${hash}`
 
   const fetcher = async () => {
-    const req = signer.account.create(locktime, idx)
     const res = await client.deposit.request(req)
     if (!res.ok) throw new Error(res.error)
     return res.data
@@ -34,11 +39,12 @@ export function useDeposit (
   client : EscrowClient,
   dpid   : string
 ) {
-  const host = client.host
+  assert.is_hash(dpid)
+
+  const host = client.server_url
   const url  = `${host}/api/deposit/${dpid}`
 
   const fetcher = async () => {
-    assert.is_hash(dpid)
     const res = await client.deposit.read(dpid)
     if (!res.ok) throw new Error(res.error)
     return res.data
@@ -56,16 +62,16 @@ export function useDeposit (
 }
 
 export function useDepositList (
+  client : EscrowClient,
   signer : EscrowSigner
 ) {
-  const client = signer.client
-  const pub    = signer.pubkey
-  const url    = `${client.host}/api/deposit/list?pk=${pub}`
+  const host  = client.server_url
+  const pub   = signer.pubkey
+  const url   = `${host}/api/deposit/list?pk=${pub}`
+  const token = signer.deposit.list()
 
   const fetcher = async () => {
-    const pub   = signer.pubkey
-    const token = signer.request.deposit_list()
-    const res   = await client.deposit.list(pub, token)
+    const res = await client.deposit.list(pub, token)
     if (!res.ok) throw new Error(res.error)
     return res.data
   }

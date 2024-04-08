@@ -1,4 +1,4 @@
-import { ClientConfig, EscrowSigner } from '@scrow/core'
+import { ClientConfig, EscrowSigner } from '@scrow/sdk/client'
 
 export interface SignerStore {
   config   : ClientConfig

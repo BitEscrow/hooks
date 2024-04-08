@@ -1,4 +1,4 @@
-import { ClientConfig, EscrowClient } from '@scrow/core'
+import { ClientConfig, EscrowClient } from '@scrow/sdk/client'
 
 import {
   createContext,

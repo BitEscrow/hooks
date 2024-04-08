@@ -6,7 +6,7 @@ import { SignerStore }  from './types.js'
 import {
   ClientConfig,
   EscrowSigner
-} from '@scrow/core'
+} from '@scrow/sdk/client'
 
 type StoreAPI  = ReturnType<typeof initStore<SignerStore>>
 
@@ -39,7 +39,8 @@ export function initSigner (signer_store : StoreAPI) {
     xpub    ?: string
   ) => {
     // Create Escrow Signer.
-    const signer = EscrowSigner.create(store.config, seed, xpub)
+    const config = { ...store.config, xpub }
+    const signer = EscrowSigner.create(seed, config)
     // Get signer pubkey.
     const pub = signer.pubkey
     // Check if a session already exists for pubkey.
@@ -47,7 +48,7 @@ export function initSigner (signer_store : StoreAPI) {
       throw new Error('session already exists: ' + pub)
     }
     // Get an encrypted backup of session seed.
-    const encrypted = signer.save(password)
+    const encrypted = signer.backup(password)
     // Set new signer as current session.
     setSigner(signer)
     // Update session store.
@@ -66,7 +67,7 @@ export function initSigner (signer_store : StoreAPI) {
     // Get session from store.
     const payload = get_session(pubkey)
     // Load signer from encrypted payload.
-    const signer = EscrowSigner.load(store.config, password, payload)
+    const signer = EscrowSigner.restore(password, payload, store.config)
     // Set new signer as current session.
     setSigner(signer)
     // Return new signer.
@@ -88,11 +89,10 @@ export function initSigner (signer_store : StoreAPI) {
 
   const update_config = (config : ClientConfig) => {
     if (signer !== null) {
-      setSigner(new EscrowSigner({
-        ...config,
-        signer : signer._signer,
-        wallet : signer._wallet
-      }))
+      const xpub = signer.xpub
+      const conf = { ...config, xpub }
+      const es   = new EscrowSigner(signer._signer, conf)
+      setSigner(es)
     }
     update({ config })
   }

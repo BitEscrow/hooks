@@ -1,9 +1,10 @@
+import { EscrowClient } from '@scrow/sdk/client'
+
 import {
-  EscrowClient,
   OracleFeeEstimate,
-  OracleSpendData,
+  OracleTxSpendData,
   OracleTxData
-} from '@scrow/core'
+} from '@scrow/sdk/core'
 
 import useSWR from 'swr'
 
@@ -50,7 +51,7 @@ export function usePayAddress (
     return client.oracle.get_address_utxos(address)
   }
 
-  return useSWR<OracleSpendData[]>(url, fetcher)
+  return useSWR<OracleTxSpendData[]>(url, fetcher)
 }
 
 export function useTransaction (

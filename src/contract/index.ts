@@ -1,11 +1,15 @@
+import { assert } from '@scrow/sdk/util'
+
 import {
-  assert,
   ContractData,
   ContractDataResponse,
   ContractListResponse,
+} from '@scrow/sdk/core'
+
+import {
   EscrowClient,
   EscrowSigner
-} from '@scrow/core'
+} from '@scrow/sdk/client'
 
 import useSWR from 'swr'
 
@@ -13,7 +17,7 @@ export function useContract (
   client : EscrowClient,
   cid    : string
 ) {
-  const host = client.host
+  const host = client.server_url
   const url  = `${host}/api/contract/${cid}`
 
   const fetcher = async () => {
@@ -35,14 +39,14 @@ export function useContract (
 }
 
 export function useContractList (
+  client : EscrowClient,
   signer : EscrowSigner
 ) {
-  const client = signer.client
-  const pub    = signer.pubkey
-  const url    = `${client.host}/api/contract/list?pk=${pub}`
+  const pub = signer.pubkey
+  const url = `${client.server_url}/api/contract/list?pk=${pub}`
 
   const fetcher = async () => {
-    const token = signer.request.contract_list()
+    const token = signer.contract.list()
     const res   = await client.contract.list(pub, token)
     if (!res.ok) throw new Error(res.error)
     return res.data
