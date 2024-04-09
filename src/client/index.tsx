@@ -1,4 +1,4 @@
-import { ClientConfig, EscrowClient } from '@scrow/sdk/client'
+import { ClientOptions, EscrowClient } from '@scrow/sdk/client'
 
 import {
   createContext,
@@ -9,12 +9,12 @@ import {
 
 type Props = {
   children : ReactElement,
-  config   : ClientConfig
+  config   : ClientOptions
 }
 
 type ClientStore = {
   client        : EscrowClient
-  update_config : (config : ClientConfig) => void
+  update_config : (config : ClientOptions) => void
 }
 
 const context = createContext<ClientStore | null>(null)
@@ -26,7 +26,7 @@ export function ClientProvider (
 
   const [ client, setClient ] = useState(init_client)
 
-  const update_config = (config : ClientConfig) => {
+  const update_config = (config : ClientOptions) => {
     setClient(new EscrowClient(config))
   }
 

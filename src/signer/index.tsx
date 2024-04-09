@@ -1,7 +1,7 @@
-import { ClientConfig } from '@scrow/sdk/client'
-import { initSigner }   from './signer.js'
-import { initStore }    from './store.js'
-import { SignerStore }  from './types.js'
+import { SignerOptions } from '@scrow/sdk/client'
+import { initSigner }    from './signer.js'
+import { initStore }     from './store.js'
+import { SignerStore }   from './types.js'
 
 import {
   createContext,
@@ -10,7 +10,7 @@ import {
 } from 'react'
 
 type Props = {
-  config   : ClientConfig
+  config   : SignerOptions
   children : ReactElement
 }
 

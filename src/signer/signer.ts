@@ -4,7 +4,7 @@ import { initStore }    from './store.js'
 import { SignerStore }  from './types.js'
 
 import {
-  ClientConfig,
+  SignerOptions,
   EscrowSigner
 } from '@scrow/sdk/client'
 
@@ -87,7 +87,7 @@ export function initSigner (signer_store : StoreAPI) {
 
   const close_session = () => setSigner(null)
 
-  const update_config = (config : ClientConfig) => {
+  const update_config = (config : SignerOptions) => {
     if (signer !== null) {
       const xpub = signer.xpub
       const conf = { ...config, xpub }

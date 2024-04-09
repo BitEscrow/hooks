@@ -1,7 +1,7 @@
-import { ClientConfig, EscrowSigner } from '@scrow/sdk/client'
+import { SignerOptions, EscrowSigner } from '@scrow/sdk/client'
 
 export interface SignerStore {
-  config   : ClientConfig
+  config   : SignerOptions
   sessions : [ string, string ][],
   signer   : EscrowSigner | null
 }
