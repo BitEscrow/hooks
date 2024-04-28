@@ -59,6 +59,7 @@
     "build": "tsc",
     "dev": "vite --cors web",
     "load": "tsx --tsconfig test/tsconfig.json",
+    "release": "yarn build",
     "scratch": "yarn load test/scratch.ts"
   },
   "dependencies": {
