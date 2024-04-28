@@ -1,55 +1,87 @@
+import { assert } from '@scrow/sdk/util'
+
+import useSWR, { SWRConfiguration, useSWRConfig } from 'swr'
+
 import {
-  assert,
   DepositData,
   DepositDataResponse,
   DepositListResponse,
+} from '@scrow/sdk/core'
+
+import {
+  EscrowClient,
   EscrowSigner
-} from '@scrow/core'
-
-import useSWR from 'swr'
-
-const DEFAULT_HOST = 'http://localhost:3000'
+} from '@scrow/sdk/client'
 
 export function useDeposit (
-  dpid : string,
-  host : string = DEFAULT_HOST
+  client   : EscrowClient,
+  dpid     : string | null,
+  options ?: SWRConfiguration
 ) {
-  assert.is_hash(dpid)
-
-  const url = `${host}/api/deposit/${dpid}`
-  const res = useSWR<DepositDataResponse>(url)
-
-  let deposit : DepositData | undefined
-
-  if (res.data !== undefined) {
-    deposit = res.data.deposit
-  }
-
-  return { ...res, deposit }
-}
-
-export function useDepositList (
-  signer : EscrowSigner
-) {
-  const client = signer.client
-  const pub    = signer.pubkey
-  const url    = `${client.host}/api/deposit/list?pk=${pub}`
+  const host = client.server_url
+  const url  = (dpid !== null) 
+    ? `${host}/deposit/${dpid}`
+    : null 
 
   const fetcher = async () => {
-    const pub   = signer.pubkey
-    const token = signer.request.deposits()
-    const res   = await client.deposit.list(pub, token)
+    assert.is_hash(dpid)
+    const res = await client.deposit.read(dpid)
     if (!res.ok) throw new Error(res.error)
     return res.data
   }
 
-  const res = useSWR<DepositListResponse>(url, fetcher)
+  const res = useSWR<DepositDataResponse>(url, fetcher, options)
 
-  let deposits : DepositData[] = []
-
-  if (res.data !== undefined) {
-    deposits = res.data.deposits
+  const update = (deposit : DepositData) => {
+    res.mutate({ ...res.data, deposit })
   }
 
-  return { ...res, deposits }
+  let data : DepositData | undefined
+
+  if (res.data !== undefined) {
+    data = res.data.deposit
+  }
+
+  return { ...res, data, update }
+}
+
+export function useDepositUpdate (
+  client : EscrowClient
+) {
+  const host       = client.server_url
+  const { mutate } = useSWRConfig()
+
+  return (
+    dpid     : string,
+    deposit ?: DepositData
+  ) => {
+    mutate(`${host}/deposit/${dpid}`, deposit)
+  }
+}
+
+export function useDepositList (
+  client   : EscrowClient,
+  signer   : EscrowSigner,
+  options ?: SWRConfiguration
+) {
+  const host  = client.server_url
+  const pub   = signer.pubkey
+  const url   = `${host}/deposit/list?pk=${pub}`
+  const token = signer.deposit.list()
+
+  const fetcher = async () => {
+    const res = await client.deposit.list(pub, token)
+    if (!res.ok) throw new Error(res.error)
+    return res.data
+  }
+
+  const res = useSWR<DepositListResponse>(url, fetcher, options)
+
+  let data : DepositData[] = []
+
+  if (res.data !== undefined) {
+    data = res.data.deposits
+  }
+
+  return { ...res, data }
 }

@@ -1,7 +1,7 @@
-import { ClientConfig } from '@scrow/core'
-import { initSigner }   from './signer.js'
-import { initStore }    from './store.js'
-import { SignerStore }  from './types.js'
+import { SignerOptions } from '@scrow/sdk/client'
+
+import { create_signer_store } from './signer.js'
+import { SignerStoreAPI }      from './types.js'
 
 import {
   createContext,
@@ -9,28 +9,24 @@ import {
   useContext
 } from 'react'
 
-type Props = { children : ReactElement }
-type Store = ReturnType<typeof initSigner>
-
-const STORE_NAME = 'signers'
-
-// Setup the default values for your store.
-const defaults : SignerStore = {
-  sessions : [],
-  signer   : null
+type Props = {
+  children : ReactElement
 }
 
-export function createSignerStore (config : ClientConfig) {
+export function createSignerStore (config : SignerOptions) {
   // Create our provider context.
-  const context = createContext<Store | null>(null)
+  const context = createContext<SignerStoreAPI | null>(null)
 
   function SignerProvider (
     { children } : Props
   ) : ReactElement {
     // Returns the Provider that wraps our app and
     // passes down the context object.
-    const store = initStore(defaults, STORE_NAME)
-    const ctx   = initSigner(config, store)
+    const ctx = create_signer_store({
+      config,
+      sessions : [],
+      signer   : null
+    }, 'signers')
 
     return (
       <context.Provider value={ctx}>
@@ -39,7 +35,7 @@ export function createSignerStore (config : ClientConfig) {
     )
   }
 
-  function useSigner () : Store {
+  function useSigner () : SignerStoreAPI {
     const ctx = useContext(context)
     if (ctx === null) {
       throw new Error('Context is null!')

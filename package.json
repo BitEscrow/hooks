@@ -1,7 +1,7 @@
 {
-  "name": "@scrow/hooks",
-  "version": "0.0.1",
-  "description": "React hooks library for @scrow/core.",
+  "name": "@bitescrow/hooks",
+  "version": "0.3.12",
+  "description": "React hooks library for BitEscrow SDK.",
   "main": "index.js",
   "author": "Christopher Scott",
   "license": "MIT",
@@ -26,9 +26,33 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
-    "./use-signer": {
-      "import": "./dist/use-signer/index.js",
-      "types": "./dist/use-signer/index.d.ts"
+    "./contract": {
+      "import": "./dist/contract/index.js",
+      "types": "./dist/contract/index.d.ts"
+    },
+    "./client": {
+      "import": "./dist/client/index.js",
+      "types": "./dist/client/index.d.ts"
+    },
+    "./deposit": {
+      "import": "./dist/deposit/index.js",
+      "types": "./dist/deposit/index.d.ts"
+    },
+    "./draft": {
+      "import": "./dist/draft/index.js",
+      "types": "./dist/draft/index.d.ts"
+    },
+    "./signer": {
+      "import": "./dist/signer/index.js",
+      "types": "./dist/signer/index.d.ts"
+    },
+    "./vm": {
+      "import": "./dist/vm/index.js",
+      "types": "./dist/vm/index.d.ts"
+    },
+    "./witness": {
+      "import": "./dist/witness/index.js",
+      "types": "./dist/witness/index.d.ts"
     }
   },
   "scripts": {
@@ -38,30 +62,20 @@
     "scratch": "yarn load test/scratch.ts"
   },
   "dependencies": {
-    "@cmdcode/buff": "^2.2.4",
-    "@cmdcode/signer": "^1.4.0",
-    "@cmdcode/use-store": "^1.0.7",
-    "@scrow/core": "^0.6.10",
-    "dayjs": "^1.11.10",
-    "swr": "^2.2.4"
+    "@cmdcode/buff": "^2.2.5",
+    "@cmdcode/signer": "^1.4.7",
+    "@cmdcode/use-store": "^1.1.2",
+    "@scrow/sdk": "^0.10.9",
+    "swr": "^2.2.5"
   },
   "peerDependencies": {
     "react": "^18.2.0"
   },
   "devDependencies": {
-    "@mantine/core": "^7.5.0",
-    "@mantine/dates": "^7.5.0",
-    "@mantine/form": "^7.5.0",
-    "@mantine/hooks": "^7.5.0",
-    "@tabler/icons-react": "^2.46.0",
-    "@types/node": "^20.11.10",
-    "@types/react": "^18.2.48",
-    "@types/react-dom": "^18.2.15",
-    "@vitejs/plugin-react-swc": "^3.3.2",
+    "@types/node": "^20.12.7",
+    "@types/react": "^18.2.79",
+    "@types/react-dom": "^18.2.25",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "typescript": "^5.2.2",
-    "vite": "^5.0.12",
-    "vite-tsconfig-paths": "^4.2.1"
+    "typescript": "^5.4.5"
   }
 }

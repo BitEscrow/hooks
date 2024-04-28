@@ -1,21 +1,19 @@
-import { useState }    from 'react'
-import { Seed }        from '@cmdcode/signer'
-import { initStore }   from './store.js'
-import { SignerStore } from './types.js'
+import { useState }     from 'react'
+import { create_store } from '@cmdcode/use-store'
+import { Seed }         from '@cmdcode/signer'
+import { SignerStore }  from './types.js'
 
 import {
-  ClientConfig,
+  SignerOptions,
   EscrowSigner
-} from '@scrow/core'
+} from '@scrow/sdk/client'
 
-type StoreAPI  = ReturnType<typeof initStore<SignerStore>>
-
-export function initSigner (
-  config  : ClientConfig,
-  reducer : StoreAPI
+export function create_signer_store (
+  defaults  : SignerStore,
+  store_key = 'signer_store'
 ) {
-  const { store, update, reset } = reducer
-  const [ signer, setSigner  ] = useState<EscrowSigner | null>(null)
+  const { store, update, reset } = create_store(defaults, store_key, 'local')
+  const [ signer, setSigner  ]   = useState<EscrowSigner | null>(null)
 
   const gen_words = Seed.generate.words
 
@@ -42,7 +40,8 @@ export function initSigner (
     xpub    ?: string
   ) => {
     // Create Escrow Signer.
-    const signer = EscrowSigner.create(config, seed, xpub)
+    const config = { ...store.config, xpub }
+    const signer = EscrowSigner.create(seed, config)
     // Get signer pubkey.
     const pub = signer.pubkey
     // Check if a session already exists for pubkey.
@@ -50,7 +49,7 @@ export function initSigner (
       throw new Error('session already exists: ' + pub)
     }
     // Get an encrypted backup of session seed.
-    const encrypted = signer.save(password)
+    const encrypted = signer.backup(password)
     // Set new signer as current session.
     setSigner(signer)
     // Update session store.
@@ -69,7 +68,7 @@ export function initSigner (
     // Get session from store.
     const payload = get_session(pubkey)
     // Load signer from encrypted payload.
-    const signer = EscrowSigner.load(config, password, payload)
+    const signer = EscrowSigner.restore(password, payload, store.config)
     // Set new signer as current session.
     setSigner(signer)
     // Return new signer.
@@ -89,16 +88,27 @@ export function initSigner (
 
   const close_session = () => setSigner(null)
 
+  const update_config = (config : SignerOptions) => {
+    if (signer !== null) {
+      const xpub = signer.xpub
+      const conf = { ...config, xpub }
+      const es   = new EscrowSigner(signer._signer, conf)
+      setSigner(es)
+    }
+    update({ config })
+  }
+
   return {
     session : {
-      clear  : clear_sessions,
-      close  : close_session,
-      create : create_session,
-      list   : store.sessions,
-      load   : load_session,
-      remove : rem_session
+      clear   : clear_sessions,
+      close   : close_session,
+      create  : create_session,
+      list    : store.sessions,
+      load    : load_session,
+      remove  : rem_session
     },
     gen_words,
-    signer
+    signer,
+    update : update_config
   }
 }
