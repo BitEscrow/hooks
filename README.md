@@ -1,5 +1,5 @@
 # hooks
 
-React hooks library for `@scrow-core`.
+React hooks library for BitEscrow SDK.
 
 Work in progress. More documentation coming soon.
