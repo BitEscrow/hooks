@@ -1,6 +1,6 @@
 {
   "name": "@scrow/hooks",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "React hooks library for BitEscrow SDK.",
   "main": "index.js",
   "author": "Christopher Scott",
@@ -66,7 +66,7 @@
     "@cmdcode/buff": "^2.2.5",
     "@cmdcode/signer": "^1.4.7",
     "@cmdcode/use-store": "^1.1.2",
-    "@scrow/sdk": "^0.12.3",
+    "@scrow/sdk": "^0.12.4",
     "swr": "^2.2.5"
   },
   "peerDependencies": {
