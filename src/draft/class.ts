@@ -146,6 +146,16 @@ export class ProposalStore {
     this._draft = draft
   }
 
+  get addresses () {
+    const paths = this.data.paths
+      .filter(e => e.at(2) !== undefined)
+      .map(e => e[2])
+      const payments = this.data.payments
+      .filter(e => e.at(1) !== undefined)
+      .map(e => e[1])
+    return [ ...paths, ...payments ]
+  }
+
   get data () {
     return this._draft.data.proposal
   }
