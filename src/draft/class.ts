@@ -67,10 +67,6 @@ export class DraftStore {
     return this.data.roles.map(e => new PolicyStore(e.id, this))
   }
 
-  get terms () {
-    return this.data.terms
-  }
-
   member = {
     endorse : (signer : EscrowSigner) => {
       const draft = signer.draft.endorse(this.data)
@@ -185,6 +181,17 @@ export class ProposalStore {
     },
     rem : (idx : number) => {
       const programs = this.data.programs.filter((_, i) => i !== idx)
+      this.update({ programs })
+    },
+    update : (idx : number, program : ProgramEntry) => {
+      const parser   = CoreSchema.proposal.program
+      const parsed   = parser.parse(program)
+      const current  = this.data.programs
+      const programs = [
+        ...current.slice(0, idx), 
+        parsed, 
+        ...current.slice(idx + 1)
+      ]
       this.update({ programs })
     }
   }
