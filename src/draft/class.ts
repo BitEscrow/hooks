@@ -124,6 +124,10 @@ export class DraftStore {
     this._store.reset(ndata)
   }
 
+  tabulate () {
+    return DraftUtil.tabulate(this.data)
+  }
+
   update (data : Partial<DraftSession>) {
     const ndata = DraftUtil.reset({ ...this.data, ...data })
     this._store.update(ndata)
