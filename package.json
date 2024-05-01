@@ -1,6 +1,6 @@
 {
   "name": "@scrow/hooks",
-  "version": "0.4.16",
+  "version": "0.4.17",
   "description": "React hooks library for BitEscrow SDK.",
   "main": "index.js",
   "author": "Christopher Scott",
