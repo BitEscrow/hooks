@@ -1,15 +1,13 @@
 import { StoreAPI } from '@cmdcode/use-store'
 
 import {
+  ClientLib,
   DraftSession,
   DraftUtil,
   EscrowSigner,
   MemberData,
   RolePolicy,
-  RoleTemplate,
-  create_role_policy,
-  has_full_roles,
-  update_membership
+  RoleTemplate
 } from '@scrow/sdk/client'
 
 import {
@@ -38,12 +36,13 @@ export class DraftStore {
   }
 
   get is_endorsed () {
-    return this.members.every(e => e.sig !== undefined)
+    const pubs = this.sigs.map(e => e.slice(0, 64))
+    return this.members.every(e => pubs.includes(e.pub))
   }
 
   get is_filled () {
     const { members, roles } = this.data
-    return has_full_roles(members, roles)
+    return ClientLib.roles.has_full_roles(members, roles)
   }
 
   get members () {
@@ -67,10 +66,14 @@ export class DraftStore {
     return this.data.roles.map(e => new PolicyStore(e.id, this))
   }
 
+  get sigs () {
+    return this.data.sigs
+  }
+
   member = {
     endorse : (signer : EscrowSigner) => {
       const draft = signer.draft.endorse(this.data)
-      this._store.reset(draft)
+      this.restore(draft)
     },
     join  : (pol_id : string, signer : EscrowSigner) => {
       const draft = signer.draft.join(pol_id, this.data)
@@ -81,8 +84,8 @@ export class DraftStore {
       this.set(draft)
     },
     update : (member : Partial<MemberData>) => {
-      const members = update_membership(this.data.members, member)
-      this._store.update({ members })
+      const members = ClientLib.members.update_membership(this.data.members, member)
+      this.update({ members })
     }
   }
 
@@ -91,7 +94,7 @@ export class DraftStore {
       return new PolicyStore(id, this)
     },
     add : (role : RoleTemplate) => {
-      const policy = create_role_policy(role)
+      const policy = ClientLib.roles.create_role_policy(role)
       const roles  = this.data.roles.filter(e => e.id !== policy.id)
       this.update({ roles : [ ...roles, policy ]})
     },
@@ -112,16 +115,19 @@ export class DraftStore {
 
   decode (encoded : string) {
     const data = DraftUtil.decode(encoded)
-    this._store.reset(data)
+    this.restore(data)
   }
 
   publish () {
     return DraftUtil.publish(this.data)
   }
 
+  restore (data : DraftSession) {
+    this._store.reset(data)
+  }
+
   set (data : DraftSession) {
-    const ndata = DraftUtil.reset(data)
-    this._store.reset(ndata)
+    this._store.reset({ ...data, sigs : [] })
   }
 
   tabulate () {
@@ -129,8 +135,7 @@ export class DraftStore {
   }
 
   update (data : Partial<DraftSession>) {
-    const ndata = DraftUtil.reset({ ...this.data, ...data })
-    this._store.update(ndata)
+    this._store.update({ ...this.data, ...data, sigs : [] })
   }
 
   verify () {
@@ -224,8 +229,7 @@ export class ProposalStore {
   }
 
   update (data : Partial<ProposalData>) {
-    const api = this._draft._store
-    api.update({ proposal : { ...this.data, ...data }})
+    this._draft.update({ proposal : { ...this.data, ...data }})
   }
 }
 
@@ -274,13 +278,12 @@ export class PolicyStore {
   }
 
   update (data : Partial<RolePolicy>) {
-    const api   = this._draft._store
-    const roles = api.store.roles
+    const roles = this._draft.data.roles
     const idx   = roles.findIndex(e => e.id === this._id)
     if (idx === -1) {
       throw new Error('policy no longer exists in draft')
     }
     roles[idx] = { ...roles[idx], ...data }
-    api.update({ roles : [ ...roles ]})
+    this._draft.update({ roles : [ ...roles ]})
   }
 }

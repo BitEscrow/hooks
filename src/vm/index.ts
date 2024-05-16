@@ -67,7 +67,7 @@ export function useVMList (
   const host  = client.server_url
   const pub   = signer.pubkey
   const url   = `${host}/vm/list?pk=${pub}`
-  const token = signer.vm.list()
+  const token = signer.witness.list()
 
   const fetcher = async () => {
     const res = await client.vm.list(pub, token)
