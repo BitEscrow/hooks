@@ -3,9 +3,9 @@ import { assert }       from '@scrow/sdk/util'
 
 import {
   OracleFeeEstimate,
-  OracleTxSpendData,
+  OracleUtxoData,
   OracleTxData
-} from '@scrow/sdk/core'
+} from '@scrow/sdk'
 
 import useSWR, { SWRConfiguration } from 'swr'
 
@@ -46,14 +46,16 @@ export function usePayAddress (
   options ?: SWRConfiguration
 ) {
   const host = client.oracle
-  const url  = (address !== null) ? `${host}/addr/${address}` : null
+  const url  = (address !== null)
+    ? `${host}/addr/${address}`
+    : null
 
   const fetcher = async () => {
     assert.exists(address)
     return client.oracle.get_address_utxos(address)
   }
 
-  return useSWR<OracleTxSpendData[]>(url, fetcher, options)
+  return useSWR<OracleUtxoData[]>(url, fetcher, options)
 }
 
 export function useTransaction (
@@ -66,7 +68,7 @@ export function useTransaction (
 
   const fetcher = async () => {
     assert.is_hash(txid)
-    return client.oracle.get_txdata(txid)
+    return client.oracle.get_tx(txid)
   }
 
   return useSWR<OracleTxData | null>(url, fetcher, options)
@@ -84,7 +86,7 @@ export function useFeeRates (
       // This is Ben's fault.
       return STUB_RATES
     }
-    return client.oracle.fee_estimates()
+    return client.oracle.get_fee_estimates()
   }
 
   return useSWR<OracleFeeEstimate>(url, fetcher, options)
@@ -99,7 +101,7 @@ export function useFeeTarget (
   const url  = `${host}/fee/${target}`
 
   const fetcher = async () => {
-    return client.oracle.fee_target(target)
+    return client.oracle.get_fee_target(target)
   }
 
   return useSWR<number>(url, fetcher, options)

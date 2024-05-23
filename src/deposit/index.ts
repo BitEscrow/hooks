@@ -6,7 +6,7 @@ import {
   DepositData,
   DepositDataResponse,
   DepositListResponse,
-} from '@scrow/sdk/core'
+} from '@scrow/sdk'
 
 import {
   EscrowClient,
@@ -66,11 +66,11 @@ export function useDepositList (
 ) {
   const host  = client.server_url
   const pub   = signer.pubkey
-  const url   = `${host}/deposit/list?pk=${pub}`
+  const url   = `${host}/deposit/list/${pub}`
   const token = signer.deposit.list()
 
   const fetcher = async () => {
-    const res = await client.deposit.list(pub, token)
+    const res = await client.deposit.list(token)
     if (!res.ok) throw new Error(res.error)
     return res.data
   }

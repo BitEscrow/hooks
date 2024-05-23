@@ -63,10 +63,10 @@
   resolved "https://registry.yarnpkg.com/@noble/hashes/-/hashes-1.4.0.tgz#45814aa329f30e4fe0ba49426f49dfccdd066426"
   integrity sha512-V1JJ1WTRUqHHrOSh597hURcMqVKVGL/ea3kv0gSnEdsEZ0/+VyPghM1lMNGc00z7CIQorSvbKpuJkxvuHbvdbg==
 
-"@scrow/sdk@^0.12.27-dev":
-  version "0.12.27-dev"
-  resolved "https://registry.yarnpkg.com/@scrow/sdk/-/sdk-0.12.27-dev.tgz#ba01572a97a00804b202ce140ae7eea9eb8b8b01"
-  integrity sha512-5EUiN4zUDoxBgV3NCuq1SKmZMDDswYogj/f1JiaTntY+FdQGOpW8lfxCRkluu+JoMn9aius8V3ol4MAF8fUNpQ==
+"@scrow/sdk@^0.15.0":
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/@scrow/sdk/-/sdk-0.15.0.tgz#3c1b5bbcfbac5901218c53031a4257dd12c451b2"
+  integrity sha512-gHgjMSp0/52gJ35/fwmz4z4/d8F7Hk+7ZvTlw0fgHsKoW2b4p5DDKYEUzlsCkdqDg0+PkWBg3LcdN0xfXdshJA==
   dependencies:
     "@cmdcode/buff" "2.2.5"
     "@cmdcode/crypto-tools" "2.7.6"

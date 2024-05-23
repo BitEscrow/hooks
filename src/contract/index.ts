@@ -8,7 +8,7 @@ import {
   ContractListResponse,
   FundListResponse,
   FundingData
-} from '@scrow/sdk/core'
+} from '@scrow/sdk'
 
 import {
   EscrowClient,
@@ -68,11 +68,11 @@ export function useContractList (
 ) {
   const host = client.server_url
   const pub  = signer.pubkey
-  const url  = `${host}/contract/list?pk=${pub}`
+  const url  = `${host}/contract/list/${pub}`
 
   const fetcher = async () => {
     const token = signer.contract.list()
-    const res   = await client.contract.list(pub, token)
+    const res   = await client.contract.list(token)
     if (!res.ok) throw new Error(res.error)
     return res.data
   }

@@ -8,35 +8,37 @@ import {
 } from '@scrow/sdk/client'
 
 import {
-  VMData,
+  MachineData,
   VMDataResponse,
-  VMListResponse
-} from '@scrow/sdk/core'
+  VMListResponse,
+  WitnessListResponse,
+  WitnessReceipt
+} from '@scrow/sdk'
 
-export function useVMData (
+export function useMachineData (
   client   : EscrowClient,
   vmid     : string | null,
   options ?: SWRConfiguration
 ) {
   const host = client.server_url
   const url  = (vmid !== null)
-    ? `${host}/vm/${vmid}`
+    ? `${host}/machine/${vmid}`
     : null
 
   const fetcher = async () => {
     assert.is_hash(vmid)
-    const res = await client.vm.read(vmid)
+    const res = await client.machine.read(vmid)
     if (!res.ok) throw new Error(res.error)
     return res.data
   }
 
   const res = useSWR<VMDataResponse>(url, fetcher, options)
 
-  const update = (vmdata : VMData) => {
+  const update = (vmdata : MachineData) => {
     res.mutate({ ...res.data, vmdata })
   }
 
-  let data : VMData | undefined
+  let data : MachineData | undefined
 
   if (res.data !== undefined) {
     data = res.data.vmdata
@@ -45,7 +47,7 @@ export function useVMData (
   return { ...res, data, update }
 }
 
-export function useVMUpdate (
+export function useMachineUpdate (
   client : EscrowClient
 ) {
   const host       = client.server_url
@@ -53,35 +55,69 @@ export function useVMUpdate (
 
   return (
     vmid    : string,
-    vmdata ?: VMData
+    vmdata ?: MachineData
   ) => {
-    mutate(`${host}/vm/${vmid}`, vmdata)
+    mutate(`${host}/machine/${vmid}`, vmdata)
   }
 }
 
-export function useVMList (
+export function useMachineList (
   client   : EscrowClient,
   signer   : EscrowSigner,
   options ?: SWRConfiguration
 ) {
   const host  = client.server_url
   const pub   = signer.pubkey
-  const url   = `${host}/vm/list?pk=${pub}`
-  const token = signer.witness.list()
+  const url   = `${host}/machine/list/${pub}`
+  const token = signer.machine.list()
 
   const fetcher = async () => {
-    const res = await client.vm.list(pub, token)
+    const res = await client.machine.list(token)
     if (!res.ok) throw new Error(res.error)
     return res.data
   }
 
   const res = useSWR<VMListResponse>(url, fetcher, options)
 
-  let data : VMData[] = []
+  let data : MachineData[] = []
 
   if (res.data !== undefined) {
     data = res.data.machines
   }
 
   return { ...res, data }
+}
+
+export function useReceiptList (
+  client   : EscrowClient,
+  vmid     : string | null,
+  options ?: SWRConfiguration
+) {
+  const host = client.server_url
+  const url  = (vmid !== null)
+    ? `${host}/machine/${vmid}/receipts`
+    : null
+
+  const fetcher = async () => {
+    assert.is_hash(vmid)
+    const res   = await client.machine.receipts(vmid)
+    if (!res.ok) throw new Error(res.error)
+    return res.data
+  }
+
+  const res = useSWR<WitnessListResponse>(url, fetcher, options)
+
+  let data : WitnessReceipt[] = []
+
+  if (res.data !== undefined) {
+    data = res.data.receipts
+  }
+
+  const update = (new_receipts : WitnessReceipt[]) => {
+    const receipts = [ ...data, ...new_receipts ]
+      .sort((a, b) => b.stamp - a.stamp)
+    res.mutate({ ...res.data, receipts })
+  }
+
+  return { ...res, data, update }
 }
